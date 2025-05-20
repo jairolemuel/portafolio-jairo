@@ -1,88 +1,46 @@
-e="viewport" content="width=device-width, initial-scale=1.0" />
-<title>NovaTech Solutions</title>
-
-<!-- Orbitron Font -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
-
-<!-- Tailwind CSS CDN -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Font Awesome Icons -->
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-<!-- AOS Animate On Scroll -->
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link rel="stylesheet" href="css/style.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NovaTech | Modern Tech Solutions</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-900 text-white font-[Orbitron]">
+<body class="bg-gray-900 text-white font-sans">
+<header class="bg-gray-800 p-6 shadow-md">
+<div class="container mx-auto flex justify-between items-center">
+<h1 class="text-2xl font-bold text-teal-400">NovaTech</h1>
+<nav>
+<a href="index.html" class="text-white hover:text-teal-300">Back to Portfolio</a>
+</nav>
+</div>
+</header>
 
-<!-- Hero -->
-<section class="h-screen flex flex-col justify-center items-center text-center px-4" data-aos="fade-up">
-<h1 class="text-5xl mb-4 text-blue-400">NovaTech Solutions</h1>
-<p class="text-lg max-w-xl text-gray-300">
-Empowering businesses through custom technology. We build modern websites, intuitive interfaces, and scalable cloud solutions.
-</p>
-<a href="#services" class="mt-6 px-6 py-3 bg-blue-500 hover:bg-blue-600 transition rounded-full text-white">Explore Services</a>
+<main class="container mx-auto p-8">
+<section class="mb-10 text-center">
+<h2 class="text-4xl font-bold mb-4 text-teal-400">Innovative Solutions for a Digital World</h2>
+<p class="text-gray-300">We build fast, secure, and modern web applications tailored to your business.</p>
 </section>
 
-<!-- Services -->
-<section id="services" class="py-20 px-8 bg-gray-800" data-aos="fade-up">
-<h2 class="text-3xl mb-10 text-center text-blue-300">Our Services</h2>
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-<div class="bg-gray-700 p-6 rounded-lg hover:shadow-lg transition">
-<i class="fas fa-laptop-code text-4xl text-blue-400 mb-4"></i>
-<h3 class="text-xl mb-2">Web Development</h3>
-<p>Responsive websites built with modern technologies tailored to your brand.</p>
+<section class="grid md:grid-cols-2 gap-8">
+<div>
+<h3 class="text-2xl font-semibold text-teal-300 mb-2">🚀 Services</h3>
+<ul class="list-disc list-inside text-gray-300">
+<li>Custom Landing Pages</li>
+<li>Web App Development</li>
+<li>E-commerce Integration</li>
+<li>SEO & Performance Optimization</li>
+</ul>
 </div>
-<div class="bg-gray-700 p-6 rounded-lg hover:shadow-lg transition">
-<i class="fas fa-paint-brush text-4xl text-blue-400 mb-4"></i>
-<h3 class="text-xl mb-2">UI/UX Design</h3>
-<p>Beautiful and intuitive user experiences focused on conversion and clarity.</p>
-</div>
-<div class="bg-gray-700 p-6 rounded-lg hover:shadow-lg transition">
-<i class="fas fa-cloud text-4xl text-blue-400 mb-4"></i>
-<h3 class="text-xl mb-2">Cloud Solutions</h3>
-<p>Scalable, secure cloud infrastructure to support your growing business.</p>
-</div>
-<div class="bg-gray-700 p-6 rounded-lg hover:shadow-lg transition">
-<i class="fas fa-lightbulb text-4xl text-blue-400 mb-4"></i>
-<h3 class="text-xl mb-2">Tech Consulting</h3>
-<p>Expert advice and strategies to accelerate digital transformation.</p>
-</div>
+<div>
+<h3 class="text-2xl font-semibold text-teal-300 mb-2">📱 Tech Stack</h3>
+<p class="text-gray-300">HTML, CSS, Tailwind, JavaScript, React (coming soon!)</p>
 </div>
 </section>
+</main>
 
-<!-- Projects -->
-<section id="projects" class="py-20 px-8" data-aos="fade-up">
-<h2 class="text-3xl mb-10 text-center">Our Projects</h2>
-<div class="grid md:grid-cols-3 gap-8">
-<div class="bg-gray-800 p-6 rounded-lg hover:shadow-lg transition">
-<h3 class="text-xl mb-2">Landing Page: NovaTech</h3>
-<p>Modern and responsive company website.</p>
-</div>
-<div class="bg-gray-800 p-6 rounded-lg hover:shadow-lg transition">
-<h3 class="text-xl mb-2">Finance Calculator</h3>
-<p>Interactive JS-based savings calculator.</p>
-</div>
-<div class="bg-gray-800 p-6 rounded-lg hover:shadow-lg transition">
-<h3 class="text-xl mb-2">Animated Portfolio</h3>
-<p>Personal site with animated sections and smooth transitions.</p>
-</div>
-</div>
-</section>
-
-<!-- Footer -->
-<footer class="text-center py-6 bg-gray-800">
-<p>© 2025 NovaTech Solutions. All rights reserved.</p>
+<footer class="bg-gray-800 p-4 text-center text-gray-400">
+&copy; 2025 NovaTech. All rights reserved.
 </footer>
-
-<!-- Scripts -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-AOS.init(); // Iniciar animaciones
-</script>
-<script src="js/main.js"></script>
 </body>
 </html>
