@@ -1,43 +1,46 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Portafolio de Jairo Lemuel Barrientos</title>
-
-<!-- Fuente Orbitron -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-
-<!-- Estilo CSS -->
-<link rel="stylesheet" href="style.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NovaTech | Modern Tech Solutions</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<header>
-<h1>Hola, soy Jairo Lemuel Barrientos</h1>
-<p>Desarrollador Web</p>
+<body class="bg-gray-900 text-white font-sans">
+<header class="bg-gray-800 p-6 shadow-md">
+<div class="container mx-auto flex justify-between items-center">
+<h1 class="text-2xl font-bold text-teal-400">NovaTech</h1>
+<nav>
+<a href="index.html" class="text-white hover:text-teal-300">Back to Portfolio</a>
+</nav>
+</div>
 </header>
 
-<section id="proyectos">
-<h2>Mis proyectos</h2>
-
-<a href="proyecto1.html" class="proyecto">
-🚀 Proyecto 1: Página Web
-</a>
-
-<a href="proyecto2.html" class="proyecto">
-💡 Proyecto 2: Calculadora Interactiva
-</a>
-
-<a href="proyecto3.html" class="proyecto">
-🛰️ Proyecto 3: Portafolio con movimiento
-</a>
+<main class="container mx-auto p-8">
+<section class="mb-10 text-center">
+<h2 class="text-4xl font-bold mb-4 text-teal-400">Innovative Solutions for a Digital World</h2>
+<p class="text-gray-300">We build fast, secure, and modern web applications tailored to your business.</p>
 </section>
 
+<section class="grid md:grid-cols-2 gap-8">
+<div>
+<h3 class="text-2xl font-semibold text-teal-300 mb-2">🚀 Services</h3>
+<ul class="list-disc list-inside text-gray-300">
+<li>Custom Landing Pages</li>
+<li>Web App Development</li>
+<li>E-commerce Integration</li>
+<li>SEO & Performance Optimization</li>
+</ul>
+</div>
+<div>
+<h3 class="text-2xl font-semibold text-teal-300 mb-2">📱 Tech Stack</h3>
+<p class="text-gray-300">HTML, CSS, Tailwind, JavaScript, React (coming soon!)</p>
+</div>
+</section>
+</main>
 
-<footer>
-<p>Contacto: jairolemuelbarrientos@email.com</p>
+<footer class="bg-gray-800 p-4 text-center text-gray-400">
+&copy; 2025 NovaTech. All rights reserved.
 </footer>
-
-<script src="script.js"></script>
 </body>
 </html>
