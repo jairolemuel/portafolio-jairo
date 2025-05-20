@@ -1,0 +1,62 @@
+/* Estilo general con fondo oscuro y fuente tech */
+body {
+font-family: 'Orbitron', sans-serif;
+margin: 0;
+padding: 0;
+background-color: #0f0f0f;
+color: #00ffcc;
+}
+
+/* HEADER con efecto de sombra y neón */
+header {
+background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+color: #00ffcc;
+padding: 50px 20px;
+text-align: center;
+text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
+box-shadow: 0 4px 8px rgba(0, 255, 204, 0.2);
+transition: all 0.4s ease-in-out;
+}
+
+/* Animación al hacer hover en el header */
+header:hover {
+background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+}
+
+/* Secciones con animación y fondo oscuro intermedio */
+section {
+padding: 30px 20px;
+background-color: #1a1a1a;
+transition: background-color 0.3s ease-in-out;
+}
+
+section:hover {
+background-color: #222;
+}
+
+/* Caja de cada proyecto */
+.proyecto {
+background-color: #121212;
+margin: 15px 0;
+padding: 20px;
+border-radius: 10px;
+border: 1px solid #00ffcc;
+box-shadow: 0 0 10px rgba(0,255,204,0.3);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto hover en proyectos */
+.proyecto:hover {
+transform: scale(1.03);
+box-shadow: 0 0 15px rgba(0,255,204,0.6);
+}
+
+/* Footer con fondo sólido y texto brillante */
+footer {
+background-color: #000000;
+color: #00ffcc;
+text-align: center;
+padding: 20px;
+border-top: 2px solid #00ffcc;
+text-shadow: 0 0 5px #00ffcc;
+}
