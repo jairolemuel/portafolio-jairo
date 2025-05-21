@@ -135,24 +135,8 @@
     <p>&copy; 2025 Jairo Lemuel Barrientos. All rights reserved.</p>
   </footer>
 
-  <!-- Welcome Animation Script -->
-  <script>
-    setTimeout(() => {
-      const welcome = document.getElementById('welcome-screen');
-      if (welcome) {
-        welcome.style.opacity = '0';
-        setTimeout(() => welcome.remove(), 1000);
-      }
-    }, 2500);
-  </script>
-
-  <!-- AOS Animation Library JS -->
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>
