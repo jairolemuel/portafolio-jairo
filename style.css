@@ -10,8 +10,8 @@
 
 body {
   font-family: 'Orbitron', sans-serif;
-  background-color: #0b0b0b;
-  color: #f0f0f0;
+  background-color: #1a1208; /* negro profundo con tintes marrones */
+  color: #ff7f50; /* naranja coral suave */
   line-height: 1.6;
   scroll-behavior: smooth;
 }
@@ -21,15 +21,20 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #111;
+  background-color: #2e1a0f; /* negro-marrón oscuro */
   padding: 20px 40px;
-  box-shadow: 0 0 10px #ff6b00;
+  box-shadow: 0 0 15px #ff7f50cc; /* glow naranja */
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .logo {
   font-size: 1.8rem;
-  font-weight: bold;
-  color: #ff6b00;
+  font-weight: 700;
+  color: #ff9a4d; /* naranja más claro */
+  text-shadow: 0 0 8px #ff9a4daa;
+  cursor: default;
 }
 
 .nav-links {
@@ -39,60 +44,179 @@ body {
 }
 
 .nav-links a {
-  color: #ffffff;
+  color: #ff7f50;
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s, text-shadow 0.3s;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background: #ff9a4d;
+  transition: width 0.3s ease;
+  border-radius: 2px;
 }
 
 .nav-links a:hover {
-  color: #ff6b00;
-  text-shadow: 0 0 10px #ff6b00;
+  color: #ff9a4d;
+  text-shadow: 0 0 12px #ff9a4d;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
 }
 
 /* HERO / Encabezado principal */
 .hero {
-  background: linear-gradient(to bottom, #0b0b0b, #1c1c1c);
+  background: linear-gradient(135deg, #1a1208 0%, #4b2600 100%);
   text-align: center;
-  padding: 100px 20px;
+  padding: 120px 20px 100px 20px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .hero h1 {
-  font-size: 3rem;
-  color: #ff6b00;
+  font-size: 3.8rem;
+  color: #ff9a4d;
   margin-bottom: 20px;
-  text-shadow: 0 0 10px #ff6b00;
-  animation: fadeInZoom 1.2s ease-in-out;
+  text-shadow: 0 0 20px #ff9a4dbb;
+  animation: zoomRotate 1.8s ease forwards;
+  cursor: default;
 }
 
 .hero p {
-  font-size: 1.2rem;
-  color: #c4c4c4;
-  animation: fadeIn 1.6s ease-in-out;
+  font-size: 1.3rem;
+  color: #ffc39e;
+  text-shadow: 0 0 8px #ff9a4d88;
+  max-width: 600px;
+  margin: 0 auto;
+  font-weight: 500;
 }
 
-@keyframes fadeInZoom {
+/* Animación para el título */
+@keyframes zoomRotate {
   0% {
     opacity: 0;
-    transform: scale(0.5) rotate(-5deg);
+    transform: scale(0.7) rotate(-10deg);
+    filter: drop-shadow(0 0 0 #ff9a4d);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.05) rotate(5deg);
+    filter: drop-shadow(0 0 15px #ff9a4d);
   }
   100% {
-    opacity: 1;
     transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 12px #ff7f50);
   }
 }
 
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* SECCIONES */
+section {
+  padding: 60px 20px;
+  max-width: 1000px;
+  margin: auto;
 }
 
-/* SECCIONES
+/* TITULOS DE SECCIÓN */
+.about h2,
+.projects h2,
+.contact h2 {
+  font-size: 2.4rem;
+  margin-bottom: 24px;
+  color: #ff7f50;
+  text-shadow: 0 0 15px #ff7f50cc;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: default;
+}
+
+/* PROYECTOS */
+.project {
+  background-color: #331f0c;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 20px rgba(255, 127, 80, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.project:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 30px #ff9a4d;
+}
+
+.project h3 {
+  color: #ff9a4d;
+  margin-bottom: 10px;
+  transition: text-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.project h3:hover {
+  text-shadow: 0 0 15px #ff9a4dcc;
+}
+
+.project p,
+.project ul {
+  color: #e1c7b3;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.project ul {
+  padding-left: 20px;
+  list-style-type: square;
+}
+
+/* CONTACTO */
+.contact a {
+  color: #ff9a4d;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s, text-shadow 0.3s;
+  cursor: pointer;
+}
+
+.contact a:hover {
+  color: #ffddb3;
+  text-shadow: 0 0 12px #ff9a4d;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  background-color: #2e1a0f;
+  padding: 20px;
+  color: #b88a65;
+  border-top: 1px solid #462e15;
+  font-weight: 500;
+}
+
+/* EFECTO GENERAL */
+a, .project, .nav-links a, .project h3, .contact a {
+  transition: all 0.3s ease-in-out;
+}
+
+/* ILUMINACIÓN SUAVE AL PASAR EL MOUSE EN TODOS LOS ELEMENTOS DE TEXTO RELEVANTES */
+.hover-glow:hover,
+.nav-links a:hover,
+.project:hover,
+.project h3:hover,
+.contact a:hover {
+  color: #ff9a4d;
+  text-shadow:
+    0 0 8px #ff9a4dcc,
+    0 0 20px #ff7f50bb,
+    0 0 30px #ff9a4dcc;
+  cursor: pointer;
+}
