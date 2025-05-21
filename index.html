@@ -11,8 +11,8 @@
   <style>
     body {
       font-family: 'Audiowide', sans-serif;
-      background-color: #1f0a00; /* fondo marrón oscuro */
-      color: #ffddb3; /* texto naranja pálido */
+      background-color: #0f172a;
+      color: #cbd5e1;
       min-height: 100vh;
       margin: 0;
       display: flex;
@@ -22,48 +22,51 @@
       transition: color 0.3s ease;
     }
     a:hover {
-      color: #ff944d; /* naranja claro al pasar el mouse */
+      color: #22d3ee;
     }
     .project-card:hover {
-      box-shadow: 0 0 15px #ff944d;
+      box-shadow: 0 0 15px #22d3ee;
     }
-    .text-orange {
-      color: #ff944d;
+    .text-primary {
+      color: #38bdf8;
     }
-    .bg-orange-dark {
-      background-color: #331500;
+    .text-secondary {
+      color: #818cf8;
     }
-    .bg-orange-darker {
-      background-color: #1f0a00;
+    .bg-deep {
+      background-color: #1e293b;
     }
-    .text-orange-soft {
-      color: #ffddb3;
+    .bg-base {
+      background-color: #0f172a;
+    }
+    .text-soft {
+      color: #cbd5e1;
     }
   </style>
 </head>
 <body>
   <!-- Welcome Animation -->
-  <div id="welcome-screen" class="fixed inset-0 bg-orange-darker flex items-center justify-center z-50 transition-opacity duration-1000">
-    <h1 class="text-5xl text-orange animate-pulse">Welcome to My Portfolio</h1>
+  <div id="welcome-screen" class="fixed inset-0 bg-base flex items-center justify-center z-50 transition-opacity duration-1000">
+    <h1 class="text-5xl text-primary animate-pulse">Welcome to My Portfolio</h1>
   </div>
 
-  <header class="bg-orange-dark p-6 shadow-md">
+  <header class="bg-deep p-6 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-3xl text-orange">Hello, I'm Jairo Lemuel Barrientos</h1>
+      <h1 class="text-3xl text-primary">Hello, I'm Jairo Lemuel Barrientos</h1>
     </div>
   </header>
 
   <main class="container mx-auto flex-grow p-8">
     <!-- About Me -->
     <section class="mb-12 text-center">
-      <h2 class="text-4xl font-bold mb-6 text-orange">My Skills & Languages</h2>
-      <p class="mb-8 max-w-xl mx-auto text-orange-soft">
+      <h2 class="text-4xl font-bold mb-6 text-primary">My Skills & Languages</h2>
+      <p class="mb-8 max-w-xl mx-auto text-soft">
         I specialize in full-stack web development, combining design, frontend, and backend technologies to create dynamic and modern websites.
       </p>
       <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
         <div>
-          <h3 class="text-xl font-semibold text-orange mb-2">Frontend</h3>
-          <ul class="list-disc list-inside text-orange-soft">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Frontend</h3>
+          <ul class="list-disc list-inside text-soft">
             <li>HTML5 & Semantic Markup</li>
             <li>CSS3 / Tailwind CSS</li>
             <li>JavaScript (ES6+)</li>
@@ -71,16 +74,16 @@
           </ul>
         </div>
         <div>
-          <h3 class="text-xl font-semibold text-orange mb-2">Backend & Databases</h3>
-          <ul class="list-disc list-inside text-orange-soft">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Backend & Databases</h3>
+          <ul class="list-disc list-inside text-soft">
             <li>Node.js & Express.js</li>
             <li>RESTful API Development</li>
             <li>MongoDB & SQL Databases</li>
           </ul>
         </div>
         <div>
-          <h3 class="text-xl font-semibold text-orange mb-2">Other Skills</h3>
-          <ul class="list-disc list-inside text-orange-soft">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Other Skills</h3>
+          <ul class="list-disc list-inside text-soft">
             <li>Cross-browser Compatibility</li>
             <li>UI/UX Principles</li>
             <li>Single Page Applications (SPA)</li>
@@ -92,37 +95,37 @@
 
     <!-- Projects -->
     <section class="mb-12">
-      <h2 class="text-4xl font-bold mb-4 text-orange text-center">Projects</h2>
-      <p class="text-orange-soft text-center mb-8">Explore some of my highlighted projects below.</p>
+      <h2 class="text-4xl font-bold mb-4 text-primary text-center">Projects</h2>
+      <p class="text-soft text-center mb-8">Explore some of my highlighted projects below.</p>
       <ul class="grid md:grid-cols-3 gap-8 text-lg">
-        <li class="project-card bg-orange-dark p-6 rounded-lg shadow-md hover:shadow-orange transition duration-300">
-          <a href="projects/project1.html" class="block text-orange text-xl font-semibold mb-2">Smart Home Dashboard</a>
-          <p class="text-orange-soft">A dashboard app for IoT smart home devices.</p>
+        <li class="project-card bg-deep p-6 rounded-lg shadow-md hover:shadow-primary transition duration-300">
+          <a href="projects/project1.html" class="block text-primary text-xl font-semibold mb-2">Smart Home Dashboard</a>
+          <p class="text-soft">A dashboard app for IoT smart home devices.</p>
         </li>
-        <li class="project-card bg-orange-dark p-6 rounded-lg shadow-md hover:shadow-orange transition duration-300">
-          <a href="projects/project2.html" class="block text-orange text-xl font-semibold mb-2">E-Commerce Website</a>
-          <p class="text-orange-soft">A modern e-commerce platform with payment integration.</p>
+        <li class="project-card bg-deep p-6 rounded-lg shadow-md hover:shadow-primary transition duration-300">
+          <a href="projects/project2.html" class="block text-primary text-xl font-semibold mb-2">E-Commerce Website</a>
+          <p class="text-soft">A modern e-commerce platform with payment integration.</p>
         </li>
-        <li class="project-card bg-orange-dark p-6 rounded-lg shadow-md hover:shadow-orange transition duration-300">
-          <a href="projects/project3.html" class="block text-orange text-xl font-semibold mb-2">Portfolio Website</a>
-          <p class="text-orange-soft">My personal portfolio website built with React.</p>
+        <li class="project-card bg-deep p-6 rounded-lg shadow-md hover:shadow-primary transition duration-300">
+          <a href="projects/project3.html" class="block text-primary text-xl font-semibold mb-2">Portfolio Website</a>
+          <p class="text-soft">My personal portfolio website built with React.</p>
         </li>
       </ul>
     </section>
 
     <!-- Contact -->
     <section id="contact" class="text-center">
-      <h2 class="text-4xl font-bold mb-4 text-orange">Contact</h2>
+      <h2 class="text-4xl font-bold mb-4 text-primary">Contact</h2>
       <p class="mb-2">
-        Email: <a href="mailto:barrientosjairolemuel@gmail.com" class="text-orange">barrientosjairolemuel@gmail.com</a>
+        Email: <a href="mailto:barrientosjairolemuel@gmail.com" class="text-primary">barrientosjairolemuel@gmail.com</a>
       </p>
       <p>
-        Phone: <a href="tel:+543437457636" class="text-orange">+54 34 37 45 76 36</a>
+        Phone: <a href="tel:+543437457636" class="text-primary">+54 34 37 45 76 36</a>
       </p>
     </section>
   </main>
 
-  <footer class="bg-orange-dark p-6 text-center text-orange-soft">
+  <footer class="bg-deep p-6 text-center text-soft">
     <p>&copy; 2025 Jairo Lemuel Barrientos. All rights reserved.</p>
   </footer>
 
