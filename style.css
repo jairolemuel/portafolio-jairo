@@ -1,4 +1,4 @@
-/* Importar la tipografía Orbitron desde Google Fonts */
+/* Importar tipografía Orbitron */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 /* Reset básico */
@@ -10,10 +10,26 @@
 
 body {
   font-family: 'Orbitron', sans-serif;
-  background-color: #1E1E1E; /* fondo negro oscuro */
-  color: #FFB870; /* texto naranja pastel */
+  /* Fondo negro con un degradado naranja vivo animado */
+  background: linear-gradient(135deg, #000000 0%, #FF5500 40%, #FF7700 60%, #000000 100%);
+  background-size: 200% 200%;
+  animation: backgroundShift 15s ease infinite;
+  color: #FF7700; /* naranja vibrante */
   line-height: 1.6;
   scroll-behavior: smooth;
+}
+
+/* Animación del fondo */
+@keyframes backgroundShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* NAVBAR */
@@ -21,19 +37,19 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2B2B2B; /* fondo gris muy oscuro */
+  background-color: #1a0000; /* negro rojizo */
   padding: 20px 40px;
-  box-shadow: 0 0 15px #FF6D00cc; /* glow naranja */
+  box-shadow: 0 0 20px #FF6600;
   position: sticky;
   top: 0;
   z-index: 100;
 }
 
 .logo {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #FF6D00; /* naranja fuerte */
-  text-shadow: 0 0 8px #FF6D00cc;
+  color: #FF7700;
+  text-shadow: 0 0 12px #FF7700cc;
   cursor: default;
 }
 
@@ -44,7 +60,7 @@ body {
 }
 
 .nav-links a {
-  color: #FFB870;
+  color: #FFAA66;
   text-decoration: none;
   font-weight: 600;
   position: relative;
@@ -56,17 +72,17 @@ body {
   content: '';
   position: absolute;
   width: 0%;
-  height: 2px;
-  bottom: -4px;
+  height: 3px;
+  bottom: -6px;
   left: 0;
-  background: #FF9E3D; /* naranja claro */
+  background: #FF7700;
   transition: width 0.3s ease;
   border-radius: 2px;
 }
 
 .nav-links a:hover {
-  color: #FF9E3D;
-  text-shadow: 0 0 12px #FF9E3D;
+  color: #FF7700;
+  text-shadow: 0 0 15px #FF7700cc;
 }
 
 .nav-links a:hover::after {
@@ -75,7 +91,7 @@ body {
 
 /* HERO / Encabezado principal */
 .hero {
-  background: linear-gradient(135deg, #1E1E1E 0%, #3C2F10 100%);
+  background: transparent;
   text-align: center;
   padding: 120px 20px 100px 20px;
   position: relative;
@@ -83,45 +99,48 @@ body {
 }
 
 .hero h1 {
-  font-size: 3.8rem;
-  color: #FF6D00;
+  font-size: 4rem;
+  color: #FF7700;
   margin-bottom: 20px;
-  text-shadow: 0 0 20px #FF6D00cc;
-  animation: zoomRotate 1.8s ease forwards;
+  text-shadow:
+    0 0 15px #FF6600cc,
+    0 0 30px #FF7700cc,
+    0 0 50px #FF7700cc;
+  animation: zoomRotate 2s ease forwards;
   cursor: default;
 }
 
 .hero p {
   font-size: 1.3rem;
-  color: #FFB870;
-  text-shadow: 0 0 8px #FF9E3D88;
+  color: #FFAA66;
+  text-shadow: 0 0 8px #FF770088;
   max-width: 600px;
   margin: 0 auto;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* Animación para el título */
 @keyframes zoomRotate {
   0% {
     opacity: 0;
-    transform: scale(0.7) rotate(-10deg);
-    filter: drop-shadow(0 0 0 #FF9E3D);
+    transform: scale(0.6) rotate(-15deg);
+    filter: drop-shadow(0 0 0 #FF7700);
   }
   70% {
     opacity: 1;
-    transform: scale(1.05) rotate(5deg);
-    filter: drop-shadow(0 0 15px #FF9E3D);
+    transform: scale(1.1) rotate(10deg);
+    filter: drop-shadow(0 0 25px #FF7700);
   }
   100% {
     transform: scale(1) rotate(0deg);
-    filter: drop-shadow(0 0 12px #FF6D00);
+    filter: drop-shadow(0 0 18px #FF7700);
   }
 }
 
 /* SECCIONES */
 section {
   padding: 60px 20px;
-  max-width: 1000px;
+  max-width: 900px;
   margin: auto;
 }
 
@@ -129,48 +148,49 @@ section {
 .about h2,
 .projects h2,
 .contact h2 {
-  font-size: 2.4rem;
-  margin-bottom: 24px;
-  color: #FF6D00;
-  text-shadow: 0 0 15px #FF6D00cc;
+  font-size: 2.8rem;
+  margin-bottom: 25px;
+  color: #FF7700;
+  text-shadow: 0 0 20px #FF7700cc;
   text-align: center;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
   cursor: default;
 }
 
 /* PROYECTOS */
 .project {
-  background-color: #3A2E10;
+  background-color: #330a00; /* rojo muy oscuro */
   padding: 30px;
-  border-radius: 12px;
-  margin-bottom: 30px;
-  box-shadow: 0 0 20px rgba(255, 109, 0, 0.15);
+  border-radius: 15px;
+  margin-bottom: 35px;
+  box-shadow: 0 0 30px rgba(255, 119, 0, 0.25);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
 .project:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 30px #FF9E3D;
+  transform: translateY(-10px);
+  box-shadow: 0 0 45px #FF7700;
 }
 
 .project h3 {
-  color: #FF9E3D;
-  margin-bottom: 10px;
-  transition: text-shadow 0.3s ease;
+  color: #FFAA66;
+  margin-bottom: 15px;
+  transition: text-shadow 0.4s ease;
   cursor: pointer;
 }
 
 .project h3:hover {
-  text-shadow: 0 0 15px #FF9E3Dcc;
+  text-shadow: 0 0 25px #FF7700cc;
+  color: #FF7700;
 }
 
 .project p,
 .project ul {
-  color: #FFC999;
-  line-height: 1.5;
-  font-weight: 500;
+  color: #FFB380;
+  line-height: 1.6;
+  font-weight: 600;
 }
 
 .project ul {
@@ -180,43 +200,12 @@ section {
 
 /* CONTACTO */
 .contact a {
-  color: #FF9E3D;
+  color: #FF7700;
   text-decoration: none;
   font-weight: 700;
-  transition: color 0.3s, text-shadow 0.3s;
+  transition: color 0.4s ease, text-shadow 0.4s ease;
   cursor: pointer;
 }
 
 .contact a:hover {
-  color: #FFD7A3;
-  text-shadow: 0 0 12px #FF9E3D;
-}
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  background-color: #2B2B2B;
-  padding: 20px;
-  color: #B8860B;
-  border-top: 1px solid #462E15;
-  font-weight: 500;
-}
-
-/* EFECTO GENERAL */
-a, .project, .nav-links a, .project h3, .contact a {
-  transition: all 0.3s ease-in-out;
-}
-
-/* ILUMINACIÓN SUAVE AL PASAR EL MOUSE EN TODOS LOS ELEMENTOS DE TEXTO RELEVANTES */
-.hover-glow:hover,
-.nav-links a:hover,
-.project:hover,
-.project h3:hover,
-.contact a:hover {
-  color: #FF9E3D;
-  text-shadow:
-    0 0 8px #FF9E3Dcc,
-    0 0 20px #FF6D00bb,
-    0 0 30px #FF9E3Dcc;
-  cursor: pointer;
-}
+  color: #FFAA66
