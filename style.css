@@ -1,217 +1,65 @@
-/* Importar tipografía Orbitron */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HolaSoyJairo | Personal Portfolio</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
-/* Definir variables de colores */
-:root {
-  --naranja-vivo: #FF7700;
-  --naranja-claro: #FFAA66;
-  --durazno-suave: #FFB380;
-  --rojo-profundo: #330a00;
-  --negro-rojizo: #1a0000;
-  --naranja-intenso: #FF5500;
-  --negro: #000000;
-}
+  <!-- Google Font Orbitron -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
 
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <style>
+    :root {
+      --primary-color: #FF6B00;    /* naranja intenso */
+      --secondary-color: #FFB347;  /* naranja claro */
+      --accent-color: #FFD580;     /* durazno suave */
+      --bg-color: #121212;         /* fondo oscuro */
+      --text-color: #f4f4f4;       /* texto claro */
+    }
 
-body {
-  font-family: 'Orbitron', sans-serif;
-  background: linear-gradient(135deg, var(--negro) 0%, var(--naranja-intenso) 40%, var(--naranja-vivo) 60%, var(--negro) 100%);
-  background-size: 200% 200%;
-  animation: backgroundShift 15s ease infinite;
-  color: var(--naranja-vivo);
-  line-height: 1.6;
-  scroll-behavior: smooth;
-}
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
 
-/* Animación del fondo */
-@keyframes backgroundShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+    a {
+      color: var(--secondary-color);
+      transition: color 0.3s ease;
+    }
 
-/* NAVBAR */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--negro-rojizo);
-  padding: 20px 40px;
-  box-shadow: 0 0 20px var(--naranja-intenso);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
+    a:hover {
+      color: var(--primary-color);
+    }
 
-.logo {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--naranja-vivo);
-  text-shadow: 0 0 12px var(--naranja-vivo);
-  cursor: default;
-}
+    .project-card:hover {
+      box-shadow: 0 0 15px var(--accent-color);
+    }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 30px;
-}
+    .text-primary {
+      color: var(--primary-color);
+    }
 
-.nav-links a {
-  color: var(--naranja-claro);
-  text-decoration: none;
-  font-weight: 600;
-  position: relative;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-  cursor: pointer;
-}
+    .bg-primary {
+      background-color: var(--primary-color);
+    }
 
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 3px;
-  bottom: -6px;
-  left: 0;
-  background: var(--naranja-vivo);
-  transition: width 0.3s ease;
-  border-radius: 2px;
-}
+    .bg-secondary {
+      background-color: var(--secondary-color);
+    }
 
-.nav-links a:hover {
-  color: var(--naranja-vivo);
-  text-shadow: 0 0 15px var(--naranja-vivo);
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-/* HERO / Encabezado principal */
-.hero {
-  background: transparent;
-  text-align: center;
-  padding: 120px 20px 100px 20px;
-  position: relative;
-  overflow: visible;
-}
-
-.hero h1 {
-  font-size: 4rem;
-  color: var(--naranja-vivo);
-  margin-bottom: 20px;
-  text-shadow:
-    0 0 15px var(--naranja-intenso),
-    0 0 30px var(--naranja-vivo),
-    0 0 50px var(--naranja-vivo);
-  animation: zoomRotate 2s ease forwards;
-  cursor: default;
-}
-
-.hero p {
-  font-size: 1.3rem;
-  color: var(--naranja-claro);
-  text-shadow: 0 0 8px var(--naranja-vivo);
-  max-width: 600px;
-  margin: 0 auto;
-  font-weight: 600;
-}
-
-/* Animación para el título */
-@keyframes zoomRotate {
-  0% {
-    opacity: 0;
-    transform: scale(0.6) rotate(-15deg);
-    filter: drop-shadow(0 0 0 var(--naranja-vivo));
-  }
-  70% {
-    opacity: 1;
-    transform: scale(1.1) rotate(10deg);
-    filter: drop-shadow(0 0 25px var(--naranja-vivo));
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    filter: drop-shadow(0 0 18px var(--naranja-vivo));
-  }
-}
-
-/* SECCIONES */
-section {
-  padding: 60px 20px;
-  max-width: 900px;
-  margin: auto;
-}
-
-/* TITULOS DE SECCIÓN */
-.about h2,
-.projects h2,
-.contact h2 {
-  font-size: 2.8rem;
-  margin-bottom: 25px;
-  color: var(--naranja-vivo);
-  text-shadow: 0 0 20px var(--naranja-vivo);
-  text-align: center;
-  font-weight: 800;
-  letter-spacing: 1.8px;
-  cursor: default;
-}
-
-/* PROYECTOS */
-.project {
-  background-color: var(--rojo-profundo);
-  padding: 30px;
-  border-radius: 15px;
-  margin-bottom: 35px;
-  box-shadow: 0 0 30px rgba(255, 119, 0, 0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-}
-
-.project:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0 45px var(--naranja-vivo);
-}
-
-.project h3 {
-  color: var(--naranja-claro);
-  margin-bottom: 15px;
-  transition: text-shadow 0.4s ease;
-  cursor: pointer;
-}
-
-.project h3:hover {
-  text-shadow: 0 0 25px var(--naranja-vivo);
-  color: var(--naranja-vivo);
-}
-
-.project p,
-.project ul {
-  color: var(--durazno-suave);
-  line-height: 1.6;
-  font-weight: 600;
-}
-
-.project ul {
-  padding-left: 20px;
-  list-style-type: square;
-}
-
-/* CONTACTO */
-.contact a {
-  color: var(--naranja-vivo);
-  text-decoration: none;
-  font-weight: 700;
-  transition: color 0.4s ease, text-shadow 0.4s ease;
-  cursor: pointer;
-}
-
-.contact a:hover {
-  color: var(--naranja-claro);
-  text-shadow: 0 0 12px var(--naranja-claro);
-}
+    .bg-accent {
+      background-color: var(--accent-color);
+    }
+  </style>
+</head>
+<body>
+  <!-- Welcome Animation -->
+  <div id="welcome-screen" class="fixed inset-0 bg-black flex items-center justify-center z-50
