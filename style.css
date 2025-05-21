@@ -10,8 +10,8 @@
 
 body {
   font-family: 'Orbitron', sans-serif;
-  background-color: #1a1208; /* negro profundo con tintes marrones */
-  color: #ff7f50; /* naranja coral suave */
+  background-color: #1E1E1E; /* fondo negro oscuro */
+  color: #FFB870; /* texto naranja pastel */
   line-height: 1.6;
   scroll-behavior: smooth;
 }
@@ -21,9 +21,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2e1a0f; /* negro-marrón oscuro */
+  background-color: #2B2B2B; /* fondo gris muy oscuro */
   padding: 20px 40px;
-  box-shadow: 0 0 15px #ff7f50cc; /* glow naranja */
+  box-shadow: 0 0 15px #FF6D00cc; /* glow naranja */
   position: sticky;
   top: 0;
   z-index: 100;
@@ -32,8 +32,8 @@ body {
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #ff9a4d; /* naranja más claro */
-  text-shadow: 0 0 8px #ff9a4daa;
+  color: #FF6D00; /* naranja fuerte */
+  text-shadow: 0 0 8px #FF6D00cc;
   cursor: default;
 }
 
@@ -44,7 +44,7 @@ body {
 }
 
 .nav-links a {
-  color: #ff7f50;
+  color: #FFB870;
   text-decoration: none;
   font-weight: 600;
   position: relative;
@@ -59,14 +59,14 @@ body {
   height: 2px;
   bottom: -4px;
   left: 0;
-  background: #ff9a4d;
+  background: #FF9E3D; /* naranja claro */
   transition: width 0.3s ease;
   border-radius: 2px;
 }
 
 .nav-links a:hover {
-  color: #ff9a4d;
-  text-shadow: 0 0 12px #ff9a4d;
+  color: #FF9E3D;
+  text-shadow: 0 0 12px #FF9E3D;
 }
 
 .nav-links a:hover::after {
@@ -75,7 +75,7 @@ body {
 
 /* HERO / Encabezado principal */
 .hero {
-  background: linear-gradient(135deg, #1a1208 0%, #4b2600 100%);
+  background: linear-gradient(135deg, #1E1E1E 0%, #3C2F10 100%);
   text-align: center;
   padding: 120px 20px 100px 20px;
   position: relative;
@@ -84,17 +84,17 @@ body {
 
 .hero h1 {
   font-size: 3.8rem;
-  color: #ff9a4d;
+  color: #FF6D00;
   margin-bottom: 20px;
-  text-shadow: 0 0 20px #ff9a4dbb;
+  text-shadow: 0 0 20px #FF6D00cc;
   animation: zoomRotate 1.8s ease forwards;
   cursor: default;
 }
 
 .hero p {
   font-size: 1.3rem;
-  color: #ffc39e;
-  text-shadow: 0 0 8px #ff9a4d88;
+  color: #FFB870;
+  text-shadow: 0 0 8px #FF9E3D88;
   max-width: 600px;
   margin: 0 auto;
   font-weight: 500;
@@ -105,16 +105,16 @@ body {
   0% {
     opacity: 0;
     transform: scale(0.7) rotate(-10deg);
-    filter: drop-shadow(0 0 0 #ff9a4d);
+    filter: drop-shadow(0 0 0 #FF9E3D);
   }
   70% {
     opacity: 1;
     transform: scale(1.05) rotate(5deg);
-    filter: drop-shadow(0 0 15px #ff9a4d);
+    filter: drop-shadow(0 0 15px #FF9E3D);
   }
   100% {
     transform: scale(1) rotate(0deg);
-    filter: drop-shadow(0 0 12px #ff7f50);
+    filter: drop-shadow(0 0 12px #FF6D00);
   }
 }
 
@@ -131,8 +131,8 @@ section {
 .contact h2 {
   font-size: 2.4rem;
   margin-bottom: 24px;
-  color: #ff7f50;
-  text-shadow: 0 0 15px #ff7f50cc;
+  color: #FF6D00;
+  text-shadow: 0 0 15px #FF6D00cc;
   text-align: center;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -141,34 +141,34 @@ section {
 
 /* PROYECTOS */
 .project {
-  background-color: #331f0c;
+  background-color: #3A2E10;
   padding: 30px;
   border-radius: 12px;
   margin-bottom: 30px;
-  box-shadow: 0 0 20px rgba(255, 127, 80, 0.15);
+  box-shadow: 0 0 20px rgba(255, 109, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
 
 .project:hover {
   transform: translateY(-8px);
-  box-shadow: 0 0 30px #ff9a4d;
+  box-shadow: 0 0 30px #FF9E3D;
 }
 
 .project h3 {
-  color: #ff9a4d;
+  color: #FF9E3D;
   margin-bottom: 10px;
   transition: text-shadow 0.3s ease;
   cursor: pointer;
 }
 
 .project h3:hover {
-  text-shadow: 0 0 15px #ff9a4dcc;
+  text-shadow: 0 0 15px #FF9E3Dcc;
 }
 
 .project p,
 .project ul {
-  color: #e1c7b3;
+  color: #FFC999;
   line-height: 1.5;
   font-weight: 500;
 }
@@ -180,7 +180,7 @@ section {
 
 /* CONTACTO */
 .contact a {
-  color: #ff9a4d;
+  color: #FF9E3D;
   text-decoration: none;
   font-weight: 700;
   transition: color 0.3s, text-shadow 0.3s;
@@ -188,17 +188,17 @@ section {
 }
 
 .contact a:hover {
-  color: #ffddb3;
-  text-shadow: 0 0 12px #ff9a4d;
+  color: #FFD7A3;
+  text-shadow: 0 0 12px #FF9E3D;
 }
 
 /* FOOTER */
 .footer {
   text-align: center;
-  background-color: #2e1a0f;
+  background-color: #2B2B2B;
   padding: 20px;
-  color: #b88a65;
-  border-top: 1px solid #462e15;
+  color: #B8860B;
+  border-top: 1px solid #462E15;
   font-weight: 500;
 }
 
@@ -213,10 +213,10 @@ a, .project, .nav-links a, .project h3, .contact a {
 .project:hover,
 .project h3:hover,
 .contact a:hover {
-  color: #ff9a4d;
+  color: #FF9E3D;
   text-shadow:
-    0 0 8px #ff9a4dcc,
-    0 0 20px #ff7f50bb,
-    0 0 30px #ff9a4dcc;
+    0 0 8px #FF9E3Dcc,
+    0 0 20px #FF6D00bb,
+    0 0 30px #FF9E3Dcc;
   cursor: pointer;
 }
