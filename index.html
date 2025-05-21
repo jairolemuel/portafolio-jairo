@@ -1,331 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HolaSoyJairo | Personal Portfolio</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jairo Lemuel Barrientos - Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- AOS Animation Library -->
+    <link
+      href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+      rel="stylesheet"
+    />
+    <!-- Font (Example: Inter) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-50 text-gray-900 font-sans leading-relaxed">
 
-  <!-- Tailwind CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">Jairo Lemuel Barrientos</h1>
+        <nav class="space-x-4">
+          <a href="#projects" class="hover:text-blue-500">Projects</a>
+          <a href="#about" class="hover:text-blue-500">About Me</a>
+          <a href="#contact" class="hover:text-blue-500">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-  <!-- Google Font Audiowide -->
-  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
+    <!-- Hero Section -->
+    <section class="py-20 bg-blue-100 text-center" id="hero">
+      <div class="max-w-3xl mx-auto px-4" data-aos="fade-up">
+        <h2 class="text-4xl font-bold mb-4">Hi! I'm Jairo Lemuel Barrientos</h2>
+        <p class="text-lg text-gray-700">
+          I'm a passionate web developer focused on creating clean, responsive and interactive web applications.
+        </p>
+      </div>
+    </section>
 
-  <!-- AOS Animation Library CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <!-- Projects Section -->
+    <section class="py-20 bg-white" id="projects">
+      <div class="max-w-6xl mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">Projects</h2>
 
-  <style>
-    body {
-      font-family: 'Audiowide', sans-serif;
-      background-color: #0f172a;
-      color: #cbd5e1;
-      min-height: 100vh;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    a {
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: #22d3ee;
-    }
-    .project-card:hover {
-      box-shadow: 0 0 15px #22d3ee;
-    }
-    .text-primary {
-      color: #38bdf8;
-    }
-    .text-secondary {
-      color: #818cf8;
-    }
-    .bg-deep {
-      background-color: #1e293b;
-    }
-    .bg-base {
-      background-color: #0f172a;
-    }
-    .text-soft {
-      color: #cbd5e1;
-    }
-  </style>
-</head>
-<body>
-  <!-- Welcome Animation -->
-  <div id="welcome-screen" class="fixed inset-0 bg-base flex items-center justify-center z-50 transition-opacity duration-1000">
-    <h1 class="text-5xl text-primary animate-pulse">Welcome to My Portfolio</h1>
-  </div>
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Example project card -->
+          <div class="bg-gray-100 p-6 rounded-lg shadow-md" data-aos="fade-up">
+            <h3 class="text-xl font-semibold mb-2">Financial Calculator</h3>
+            <p class="text-gray-700 mb-4">A modern financial calculator built with HTML, CSS, and JavaScript.</p>
+            <a href="https://github.com/jairobarrientos/financial-calculator" class="text-blue-600 hover:underline">View Project</a>
+          </div>
 
-  <header class="bg-deep p-6 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-3xl text-primary">Hello, I'm Jairo Lemuel Barrientos</h1>
-    </div>
-  </header>
-
-  <main class="container mx-auto flex-grow p-8">
-    <!-- About Me -->
-    <section class="mb-12 text-center" data-aos="fade-up">
-      <h2 class="text-4xl font-bold mb-6 text-primary">My Skills & Languages</h2>
-      <p class="mb-8 max-w-xl mx-auto text-soft">
-        I specialize in full-stack web development, combining design, frontend, and backend technologies to create dynamic and modern websites.
-      </p>
-      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
-        <div data-aos="zoom-in">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Frontend</h3>
-          <ul class="list-disc list-inside text-soft">
-            <li>HTML5 & Semantic Markup</li>
-            <li>CSS3 / Tailwind CSS</li>
-            <li>JavaScript (ES6+)</li>
-            <li>React.js & Component-Based Design</li>
-          </ul>
-        </div>
-        <div data-aos="zoom-in" data-aos-delay="100">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Backend & Databases</h3>
-          <ul class="list-disc list-inside text-soft">
-            <li>Node.js & Express.js</li>
-            <li>RESTful API Development</li>
-            <li>MongoDB & SQL Databases</li>
-          </ul>
-        </div>
-        <div data-aos="zoom-in" data-aos-delay="200">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Other Skills</h3>
-          <ul class="list-disc list-inside text-soft">
-            <li>Cross-browser Compatibility</li>
-            <li>UI/UX Principles</li>
-            <li>Single Page Applications (SPA)</li>
-            <li>Basic Testing with Jest</li>
-          </ul>
+          <!-- Add more projects dynamically here -->
         </div>
       </div>
     </section>
 
-    <!-- Projects -->
-   <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HolaSoyJairo | Portafolio Personal</title>
-
-  <!-- Tailwind CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-
-  <!-- Google Font Audiowide -->
-  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
-
-  <!-- AOS Animation Library CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-
-  <style>
-    body {
-      font-family: 'Audiowide', sans-serif;
-      background-color: #0f172a;
-      color: #cbd5e1;
-      min-height: 100vh;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-    }
-    a {
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: #22d3ee;
-    }
-    .project-card:hover {
-      box-shadow: 0 0 15px #22d3ee;
-    }
-    .text-primary {
-      color: #38bdf8;
-    }
-    .text-secondary {
-      color: #818cf8;
-    }
-    .bg-deep {
-      background-color: #1e293b;
-    }
-    .bg-base {
-      background-color: #0f172a;
-    }
-    .text-soft {
-      color: #cbd5e1;
-    }
-  </style>
-</head>
-<body>
-  <!-- Welcome Animation -->
-  <div id="welcome-screen" class="fixed inset-0 bg-base flex items-center justify-center z-50 transition-opacity duration-1000">
-    <h1 class="text-5xl text-primary animate-pulse">Welcome to My Portfolio</h1>
-  </div>
-
-  <header class="bg-deep p-6 shadow-md">
-    <div class="container mx-auto flex justify-between items-center">
-      <h1 class="text-3xl text-primary">Hola, soy Jairo Lemuel Barrientos</h1>
-    </div>
-  </header>
-
-  <main class="container mx-auto flex-grow p-8">
-    <!-- About Me -->
-    <section class="mb-12 text-center" data-aos="fade-up">
-      <h2 class="text-4xl font-bold mb-6 text-primary">Mis Habilidades y Lenguajes</h2>
-      <p class="mb-8 max-w-xl mx-auto text-soft">
-        Me especializo en desarrollo web full-stack, combinando diseño, tecnologías frontend y backend para crear sitios web dinámicos y modernos.
-      </p>
-      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
-        <div data-aos="zoom-in">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Frontend</h3>
-          <ul class="list-disc list-inside text-soft">
-            <li>HTML5 & Marcado Semántico</li>
-            <li>CSS3 / Tailwind CSS</li>
-            <li>JavaScript (ES6+)</li>
-            <li>React.js & Diseño Basado en Componentes</li>
-          </ul>
-        </div>
-        <div data-aos="zoom-in" data-aos-delay="100">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Backend & Bases de Datos</h3>
-          <ul class="list-disc list-inside text-soft">
-            <li>Node.js & Express.js</li>
-            <li>Desarrollo de API RESTful</li>
-            <li>MongoDB & Bases de Datos SQL</li>
-          </ul>
-        </div>
-        <div data-aos="zoom-in" data-aos-delay="200">
-          <h3 class="text-xl font-semibold text-secondary mb-2">Otras Habilidades</h3>
-          <ul class="list-disc list-inside text-soft">
-            <li>Compatibilidad entre Navegadores</li>
-            <li>Principios de UI/UX</li>
-            <li>Aplicaciones de Página Única (SPA)</li>
-            <li>Pruebas Básicas con Jest</li>
-          </ul>
-        </div>
+    <!-- About Section -->
+    <section class="py-20 bg-blue-50" id="about">
+      <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
+        <h2 class="text-3xl font-bold mb-6 text-center">About Me</h2>
+        <p class="text-lg text-gray-700 text-center">
+          I'm a university student in Argentina, passionate about development, design and technology. I also enjoy learning about finance and building projects that solve real problems.
+        </p>
       </div>
     </section>
 
-    <!-- Projects -->
-    <section class="mb-12" data-aos="fade-up">
-      <h2 class="text-4xl font-bold mb-4 text-primary text-center">Proyectos</h2>
-      <p class="text-soft text-center mb-8">Explora algunos de mis proyectos destacados a continuación.</p>
-      
-      <ul class="grid md:grid-cols-3 gap-8 text-lg">
-        <!-- Calculadora Financiera -->
-        <li class="project-card p-6 rounded-lg bg-[#0e1a2b] shadow-lg hover:shadow-cyan-400 transition-shadow duration-300 border-l-4 border-cyan-400">
-          <a href="calculadora.html" class="block no-underline hover:text-cyan-300">
-            <h3 class="text-2xl font-semibold mb-2 text-cyan-300">Calculadora Financiera</h3>
-            <p class="mb-4 text-gray-300">Calcula montos acumulados con tasas de interés. Visualizaciones y gráficos de crecimiento financiero.</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs bg-cyan-600 text-white rounded-full px-3 py-1">Finanzas</span>
-              <span class="text-xs bg-cyan-600 text-white rounded-full px-3 py-1">JavaScript</span>
-              <span class="text-xs bg-cyan-600 text-white rounded-full px-3 py-1">Cálculo</span>
-            </div>
-          </a>
-        </li>
-
-        <!-- Belleza y Cuidado de la Piel -->
-        <li class="project-card p-6 rounded-lg bg-pink-100 shadow-lg hover:shadow-pink-400 transition-shadow duration-300 border-l-4 border-pink-400">
-          <a href="#" class="block no-underline hover:text-pink-700">
-            <h3 class="text-2xl font-semibold mb-2 text-pink-700">Belleza y Cuidado de la Piel</h3>
-            <p class="mb-4 text-pink-800">Landing page suave y femenina para campañas de productos de skincare con diseño delicado y moderno.</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs bg-pink-400 text-white rounded-full px-3 py-1">Diseño</span>
-              <span class="text-xs bg-pink-400 text-white rounded-full px-3 py-1">Marketing</span>
-              <span class="text-xs bg-pink-400 text-white rounded-full px-3 py-1">Estética</span>
-            </div>
-          </a>
-        </li>
-
-        <!-- Turismo y Viajes -->
-        <li class="project-card p-6 rounded-lg bg-gradient-to-br from-blue-200 to-teal-100 shadow-lg hover:shadow-blue-400 transition-shadow duration-300 border-l-4 border-blue-400">
-          <a href="#" class="block no-underline hover:text-blue-700">
-            <h3 class="text-2xl font-semibold mb-2 text-blue-700">Turismo y Viajes</h3>
-            <p class="mb-4 text-blue-800">Sitio web atractivo para agencia de viajes. Muestra destinos, itinerarios y fomenta la exploración.</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs bg-blue-400 text-white rounded-full px-3 py-1">Turismo</span>
-              <span class="text-xs bg-teal-400 text-white rounded-full px-3 py-1">Exploración</span>
-              <span class="text-xs bg-yellow-400 text-white rounded-full px-3 py-1">Viajes</span>
-            </div>
-          </a>
-        </li>
-      </ul>
+    <!-- Contact Section -->
+    <section class="py-20 bg-white" id="contact">
+      <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
+        <h2 class="text-3xl font-bold mb-6 text-center">Contact</h2>
+        <p class="text-center text-lg text-gray-700">Feel free to reach out via <a href="mailto:your.email@example.com" class="text-blue-500 hover:underline">email</a> or find me on <a href="https://github.com/jairobarrientos" class="text-blue-500 hover:underline">GitHub</a>.</p>
+      </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="text-center" data-aos="fade-up">
-      <h2 class="text-4xl font-bold mb-4 text-primary">Contacto</h2>
-      <p class="mb-2">
-        Email: <a href="mailto:barrientosjairolemuel@gmail.com" class="text-primary">barrientosjairolemuel@gmail.com</a>
-      </p>
-      <p>
-        Teléfono: <a href="tel:+543437457636" class="text-primary">+54 34 37 45 76 36</a>
-      </p>
-    </section>
-  </main>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-6">
+      <p>&copy; 2025 Jairo Lemuel Barrientos. All rights reserved.</p>
+    </footer>
 
-  <footer class="bg-deep p-6 text-center text-soft">
-    <p>&copy; 2025 Jairo Lemuel Barrientos. Todos los derechos reservados.</p>
-  </footer>
+    <!-- AOS Animation Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init();
+    </script>
 
-  <!-- Welcome Animation Script -->
-  <script>
-    setTimeout(() => {
-      const welcome = document.getElementById('welcome-screen');
-      if (welcome) {
-        welcome.style.opacity = '0';
-        setTimeout(() => welcome.remove(), 1000);
-      }
-    }, 2500);
-  </script>
-
-  <!-- AOS Animation Library JS -->
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
-  </script>
-
-  <!-- Archivo JavaScript externo para proyectos -->
-  <script src="js/projects.js"></script>
-</body>
-</html>
-
-    <!-- Contact -->
-    <section id="contact" class="text-center" data-aos="fade-up">
-      <h2 class="text-4xl font-bold mb-4 text-primary">Contact</h2>
-      <p class="mb-2">
-        Email: <a href="mailto:barrientosjairolemuel@gmail.com" class="text-primary">barrientosjairolemuel@gmail.com</a>
-      </p>
-      <p>
-        Phone: <a href="tel:+543437457636" class="text-primary">+54 34 37 45 76 36</a>
-      </p>
-    </section>
-  </main>
-
-  <footer class="bg-deep p-6 text-center text-soft">
-    <p>&copy; 2025 Jairo Lemuel Barrientos. All rights reserved.</p>
-  </footer>
-
-  <!-- Welcome Animation Script -->
-  <script>
-    setTimeout(() => {
-      const welcome = document.getElementById('welcome-screen');
-      if (welcome) {
-        welcome.style.opacity = '0';
-        setTimeout(() => welcome.remove(), 1000);
-      }
-    }, 2500);
-  </script>
-
-  <!-- AOS Animation Library JS -->
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
-  </script>
-
-  <!-- Archivo JavaScript externo para proyectos -->
-  <script src="js/projects.js"></script>
-</body>
+    <!-- JavaScript to Load Projects Dynamically (Optional for later) -->
+    <!--
+    <script src="projects.js"></script>
+    -->
+  </body>
 </html>
