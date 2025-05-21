@@ -7,8 +7,8 @@ setTimeout(() => {
   }
 }, 2500);
 
-// Inicializar AOS (Animate On Scroll)
+// Inicializar AOS
 AOS.init({
   duration: 1000,
-  once: true,
+  once: true
 });
