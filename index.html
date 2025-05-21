@@ -1,49 +1,90 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HolaSoyJairo</title>
-
-  <!-- Fuente Audiowide -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HolaSoyJairo | Personal Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Google Font Audiowide -->
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
-
-  <!-- Hoja de estilos -->
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Audiowide', sans-serif;
+      background-color: #1a202c; /* Tailwind's gray-900 */
+      color: #e2e8f0; /* Tailwind's gray-300 */
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #4fd1c5; /* Tailwind's teal-400 */
+    }
+    .project-card:hover {
+      box-shadow: 0 0 15px #4fd1c5;
+    }
+  </style>
 </head>
 <body>
-  <header class="hero">
-    <h1>HolaSoyJairo Lemuel Barrientos</h1>
-    <p>Desarrollador web y creativo digital</p>
+  <header class="bg-gray-800 p-6 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl text-teal-400">Hello, I'm Jairo Lemuel Barrientos</h1>
+    </div>
   </header>
 
-  <section class="projects">
-    <h2>Proyectos</h2>
+  <main class="container mx-auto flex-grow p-8">
+    <!-- About Me -->
+    <section class="mb-12 text-center">
+      <h2 class="text-4xl font-bold mb-4 text-teal-400">About Me</h2>
+      <p class="mb-6">Web Developer passionate about building modern, responsive, and interactive web experiences.</p>
+      <ul class="inline-block text-left space-y-2 text-gray-300 text-lg">
+        <li>• HTML5</li>
+        <li>• CSS3 / Tailwind CSS</li>
+        <li>• JavaScript (ES6+)</li>
+        <li>• React.js</li>
+        <li>• Node.js & Express</li>
+        <li>• Git & GitHub</li>
+      </ul>
+    </section>
 
-    <div class="project">
-      <h3>Proyecto 1</h3>
-      <p>Descripción del primer proyecto, mostrando habilidades técnicas.</p>
-    </div>
+    <!-- Projects -->
+    <section class="mb-12">
+      <h2 class="text-4xl font-bold mb-4 text-teal-400 text-center">Projects</h2>
+      <p class="text-gray-400 text-center mb-8">Explore some of my highlighted projects below.</p>
+      <ul class="grid md:grid-cols-3 gap-8 text-lg">
+        <li class="project-card bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-teal-400 transition duration-300">
+          <a href="projects/project1.html" class="block text-teal-400 text-xl font-semibold mb-2">Smart Home Dashboard</a>
+          <p class="text-gray-400">A dashboard app for IoT smart home devices.</p>
+        </li>
+        <li class="project-card bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-teal-400 transition duration-300">
+          <a href="projects/project2.html" class="block text-teal-400 text-xl font-semibold mb-2">E-Commerce Website</a>
+          <p class="text-gray-400">A modern e-commerce platform with payment integration.</p>
+        </li>
+        <li class="project-card bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-teal-400 transition duration-300">
+          <a href="projects/project3.html" class="block text-teal-400 text-xl font-semibold mb-2">Portfolio Website</a>
+          <p class="text-gray-400">My personal portfolio website built with React.</p>
+        </li>
+      </ul>
+    </section>
 
-    <div class="project">
-      <h3>Proyecto 2</h3>
-      <p>Descripción del segundo proyecto, diseño UI/UX y lógica funcional.</p>
-    </div>
+    <!-- Contact -->
+    <section id="contact" class="text-center">
+      <h2 class="text-4xl font-bold mb-4 text-teal-400">Contact</h2>
+      <p class="mb-2">
+        Email: <a href="mailto:barrientosjairolemuel@gmail.com" class="text-teal-400">barrientosjairolemuel@gmail.com</a>
+      </p>
+      <p>
+        Phone: <a href="tel:+543437457636" class="text-teal-400">+54 34 37 45 76 36</a>
+      </p>
+    </section>
+  </main>
 
-    <div class="project">
-      <h3>Proyecto 3</h3>
-      <p>Descripción del tercer proyecto, integración de tecnologías modernas.</p>
-    </div>
-  </section>
-
-  <section class="contact">
-    <h2>Contacto</h2>
-    <p>Email: <a href="mailto:barrientohairolemuel.com">barrientohairolemuel.com</a></p>
-    <p>Teléfono: <a href="tel:+543474576636">+54 3474 576636</a></p>
-  </section>
-
-  <footer class="footer">
-    <p>© 2025 Jairo Lemuel Barrientos. Todos los derechos reservados.</p>
+  <footer class="bg-gray-800 p-6 text-center text-gray-400">
+    <p>&copy; 2025 Jairo Lemuel Barrientos. All rights reserved.</p>
   </footer>
 </body>
 </html>
