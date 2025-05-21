@@ -1,80 +1,185 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jairo Lemuel Barrientos | Portafolio</title>
-    <link rel="stylesheet" href="styles/main.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  </head>
-  <body class="bg-dark text-white font-[Inter]">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HolaSoyJairo | Personal Portfolio</title>
 
-    <!-- Header -->
-    <header class="py-10 text-center bg-primary text-dark">
-      <h1 class="text-5xl font-bold">Jairo Lemuel Barrientos</h1>
-      <p class="text-lg mt-2">Desarrollador Front-End | Enfoque en Finanzas & Negocios</p>
-    </header>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
-    <!-- Proyectos -->
-    <main class="container mx-auto px-4 py-12">
-      <section class="mb-12" data-aos="fade-up">
-        <h2 class="text-4xl font-bold mb-6 text-primary text-center">Proyectos</h2>
-        <p class="text-soft text-center mb-8">Estos son algunos ejemplos representativos de mis habilidades en distintos rubros.</p>
+  <!-- Google Font Audiowide -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
 
-        <ul class="grid md:grid-cols-3 gap-8 text-lg">
-          <!-- Proyecto 1 -->
-          <li class="bg-deep p-6 rounded-lg shadow-md hover:shadow-primary transition duration-300" data-aos="flip-left">
-            <a href="projects/financial-calculator/index.html" class="block text-primary text-xl font-semibold mb-2">
-              Calculadora Financiera
-            </a>
-            <p class="text-soft">
-              Simulador de interés compuesto con resultados interactivos y visualización del crecimiento del capital.
-            </p>
-          </li>
+  <!-- AOS Animation Library CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-          <!-- Proyecto 2 -->
-          <li class="bg-deep p-6 rounded-lg shadow-md hover:shadow-primary transition duration-300" data-aos="flip-left">
-            <a href="#" class="block text-primary text-xl font-semibold mb-2">Proyecto de Belleza & Cuidado</a>
-            <p class="text-soft">
-              Página tipo landing de producto con diseño atractivo y CTA efectiva. Pronto disponible.
-            </p>
-          </li>
+  <style>
+    body {
+      font-family: 'Audiowide', sans-serif;
+      background-color: #0f172a;
+      color: #cbd5e1;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #22d3ee;
+    }
+    .project-card:hover {
+      box-shadow: 0 0 15px #22d3ee;
+    }
+    .text-primary {
+      color: #38bdf8;
+    }
+    .text-secondary {
+      color: #818cf8;
+    }
+    .bg-deep {
+      background-color: #1e293b;
+    }
+    .bg-base {
+      background-color: #0f172a;
+    }
+    .text-soft {
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Welcome Animation -->
+  <div id="welcome-screen" class="fixed inset-0 bg-base flex items-center justify-center z-50 transition-opacity duration-1000">
+    <h1 class="text-5xl text-primary animate-pulse">Welcome to My Portfolio</h1>
+  </div>
 
-          <!-- Proyecto 3 -->
-          <li class="bg-deep p-6 rounded-lg shadow-md hover:shadow-primary transition duration-300" data-aos="flip-left">
-            <a href="#" class="block text-primary text-xl font-semibold mb-2">Sitio de Turismo</a>
-            <p class="text-soft">
-              Explora una experiencia digital que invita al viaje. Diseño responsivo y visualmente envolvente.
-            </p>
-          </li>
-        </ul>
-      </section>
+  <header class="bg-deep p-6 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl text-primary">Hello, I'm Jairo Lemuel Barrientos</h1>
+    </div>
+  </header>
 
-      <!-- Contacto -->
-      <section class="mt-20" data-aos="fade-up">
-        <h2 class="text-3xl font-bold text-center text-primary mb-6">Contacto</h2>
-        <div class="text-center space-y-2">
-          <p><strong>Email:</strong> jairolemuelb@gmail.com</p>
-          <p>
-            <strong>LinkedIn:</strong>
-            <a href="https://linkedin.com/in/jairolemuel" class="text-blue-400 hover:underline" target="_blank">linkedin.com/in/jairolemuel</a>
-          </p>
-          <p>
-            <strong>GitHub:</strong>
-            <a href="https://github.com/jairolemuel" class="text-blue-400 hover:underline" target="_blank">github.com/jairolemuel</a>
-          </p>
+  <main class="container mx-auto flex-grow p-8">
+    <!-- About Me -->
+    <section class="mb-12 text-center" data-aos="fade-up">
+      <h2 class="text-4xl font-bold mb-6 text-primary">My Skills & Languages</h2>
+      <p class="mb-8 max-w-xl mx-auto text-soft">
+        I specialize in full-stack web development, combining design, frontend, and backend technologies to create dynamic and modern websites.
+      </p>
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
+        <div data-aos="zoom-in">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Frontend</h3>
+          <ul class="list-disc list-inside text-soft">
+            <li>HTML5 & Semantic Markup</li>
+            <li>CSS3 / Tailwind CSS</li>
+            <li>JavaScript (ES6+)</li>
+            <li>React.js & Component-Based Design</li>
+          </ul>
         </div>
-      </section>
-    </main>
+        <div data-aos="zoom-in" data-aos-delay="100">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Backend & Databases</h3>
+          <ul class="list-disc list-inside text-soft">
+            <li>Node.js & Express.js</li>
+            <li>RESTful API Development</li>
+            <li>MongoDB & SQL Databases</li>
+          </ul>
+        </div>
+        <div data-aos="zoom-in" data-aos-delay="200">
+          <h3 class="text-xl font-semibold text-secondary mb-2">Other Skills</h3>
+          <ul class="list-disc list-inside text-soft">
+            <li>Cross-browser Compatibility</li>
+            <li>UI/UX Principles</li>
+            <li>Single Page Applications (SPA)</li>
+            <li>Basic Testing with Jest</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="text-center py-6 border-t border-soft text-soft mt-12">
-      © 2025 Jairo Lemuel Barrientos | Todos los derechos reservados
-    </footer>
+    <!-- Projects -->
+    <section class="mb-12" data-aos="fade-up">
+      <h2 class="text-4xl font-bold mb-4 text-primary text-center">Projects</h2>
+      <p class="text-soft text-center mb-8">Explore some of my highlighted projects below.</p>
 
-    <!-- AOS Animaciones -->
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>AOS.init();</script>
-  </body>
+      <ul class="grid md:grid-cols-3 gap-8 text-lg">
+        <li class="project-card p-6 rounded-lg bg-deep shadow-lg cursor-pointer hover:shadow-2xl transition-shadow duration-300">
+          <a href="calculadora.html" class="block text-soft no-underline hover:text-primary">
+            <h3 class="text-2xl font-semibold mb-2">Calculadora Financiera</h3>
+            <p class="mb-4">Calcula montos acumulados con tasas de interés y gráficos de crecimiento. Herramienta financiera profesional.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Finanzas</span>
+              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">JavaScript</span>
+              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Interactividad</span>
+            </div>
+          </a>
+        </li>
+
+        <li class="project-card p-6 rounded-lg bg-deep shadow-lg cursor-pointer hover:shadow-2xl transition-shadow duration-300">
+          <a href="#" class="block text-soft no-underline hover:text-primary">
+            <h3 class="text-2xl font-semibold mb-2">Belleza y Cuidado de la Piel</h3>
+            <p class="mb-4">Landing page para un producto de cuidado de la piel, con diseño moderno y atractivo para campañas publicitarias.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Diseño</span>
+              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Marketing</span>
+              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">CSS</span>
+            </div>
+          </a>
+        </li>
+
+        <li class="project-card p-6 rounded-lg bg-deep shadow-lg cursor-pointer hover:shadow-2xl transition-shadow duration-300">
+          <a href="#" class="block text-soft no-underline hover:text-primary">
+            <h3 class="text-2xl font-semibold mb-2">Turismo y Viajes</h3>
+            <p class="mb-4">Página web para agencia de turismo, con itinerarios y destinos destacados para fomentar reservas y exploración.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Turismo</span>
+              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">UI/UX</span>
+              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Responsive</span>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="text-center" data-aos="fade-up">
+      <h2 class="text-4xl font-bold mb-4 text-primary">Contact</h2>
+      <p class="mb-2">
+        Email: <a href="mailto:barrientosjairolemuel@gmail.com" class="text-primary">barrientosjairolemuel@gmail.com</a>
+      </p>
+      <p>
+        Phone: <a href="tel:+543437457636" class="text-primary">+54 34 37 45 76 36</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="bg-deep p-6 text-center text-soft">
+    <p>&copy; 2025 Jairo Lemuel Barrientos. All rights reserved.</p>
+  </footer>
+
+  <!-- Welcome Animation Script -->
+  <script>
+    setTimeout(() => {
+      const welcome = document.getElementById('welcome-screen');
+      if (welcome) {
+        welcome.style.opacity = '0';
+        setTimeout(() => welcome.remove(), 1000);
+      }
+    }, 2500);
+  </script>
+
+  <!-- AOS Animation Library JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+  </script>
+
+  <!-- Archivo JavaScript externo para proyectos -->
+  <script src="js/projects.js"></script>
+</body>
 </html>
