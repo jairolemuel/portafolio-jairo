@@ -1,4 +1,4 @@
-/* Importar la tipografía Orbitra desde Google Fonts */
+/* Importar la tipografía Orbitron desde Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 /* Reset básico */
@@ -10,8 +10,8 @@
 
 body {
   font-family: 'Orbitron', sans-serif;
-  background-color: #0c0f1a; /* fondo oscuro elegante */
-  color: #ffffff;
+  background-color: #0b0b0b;
+  color: #f0f0f0;
   line-height: 1.6;
   scroll-behavior: smooth;
 }
@@ -21,15 +21,15 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #121626;
+  background-color: #111;
   padding: 20px 40px;
-  box-shadow: 0 0 10px #00ffe1;
+  box-shadow: 0 0 10px #ff6b00;
 }
 
 .logo {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #00ffe1;
+  color: #ff6b00;
 }
 
 .nav-links {
@@ -46,100 +46,53 @@ body {
 }
 
 .nav-links a:hover {
-  color: #00ffe1;
-  text-shadow: 0 0 10px #00ffe1;
+  color: #ff6b00;
+  text-shadow: 0 0 10px #ff6b00;
 }
 
 /* HERO / Encabezado principal */
 .hero {
-  background: linear-gradient(to bottom, #0c0f1a, #121626);
+  background: linear-gradient(to bottom, #0b0b0b, #1c1c1c);
   text-align: center;
   padding: 100px 20px;
+  position: relative;
+  overflow: hidden;
 }
 
 .hero h1 {
   font-size: 3rem;
-  color: #00ffe1;
+  color: #ff6b00;
   margin-bottom: 20px;
-  text-shadow: 0 0 10px #00ffe1;
+  text-shadow: 0 0 10px #ff6b00;
+  animation: fadeInZoom 1.2s ease-in-out;
 }
 
 .hero p {
   font-size: 1.2rem;
   color: #c4c4c4;
+  animation: fadeIn 1.6s ease-in-out;
 }
 
-/* SECCIONES */
-section {
-  padding: 60px 20px;
-  max-width: 1000px;
-  margin: auto;
+@keyframes fadeInZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
 }
 
-/* TITULOS DE SECCIÓN */
-.about h2,
-.projects h2,
-.contact h2 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #ff6ec7;
-  text-shadow: 0 0 8px #ff6ec7;
-  text-align: center;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* PROYECTOS */
-.project {
-  background-color: #1a1e2e;
-  padding: 30px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  box-shadow: 0 0 15px rgba(0, 255, 225, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 20px #00ffe1;
-}
-
-.project h3 {
-  color: #00ffe1;
-  margin-bottom: 10px;
-}
-
-.project p,
-.project ul {
-  color: #d1d5db;
-}
-
-.project ul {
-  padding-left: 20px;
-  list-style-type: square;
-}
-
-/* CONTACTO */
-.contact a {
-  color: #ff6ec7;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.3s, text-shadow 0.3s;
-}
-
-.contact a:hover {
-  color: #ffffff;
-  text-shadow: 0 0 10px #ff6ec7;
-}
-
-/* FOOTER */
-.footer {
-  text-align: center;
-  background-color: #121626;
-  padding: 20px;
-  color: #6b7280;
-  border-top: 1px solid #2e2e3a;
-}
-
-/* EFECTO GENERAL */
-a, .project, .nav-links a {
-  transition: all 0.3s ease-in-out;
-}
+/* SECCIONES
