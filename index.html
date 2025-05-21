@@ -109,5 +109,117 @@
   <footer class="bg-gray-800 p-6 text-center text-gray-400">
     <p>&copy; 2025 Jairo Lemuel Barrientos. All rights reserved.</p>
   </footer>
+</body><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HolaSoyJairo | Personal Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Google Font Audiowide -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Audiowide', sans-serif;
+      background-color: #1a202c; /* Tailwind's gray-900 */
+      color: #e2e8f0; /* Tailwind's gray-300 */
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #4fd1c5; /* Tailwind's teal-400 */
+    }
+    .project-card:hover {
+      box-shadow: 0 0 15px #4fd1c5;
+    }
+  </style>
+</head>
+<body>
+  <header class="bg-gray-800 p-6 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-3xl text-teal-400">Hello, I'm Jairo Lemuel Barrientos</h1>
+    </div>
+  </header>
+
+  <main class="container mx-auto flex-grow p-8">
+    <!-- About Me -->
+    <section class="mb-12 text-center">
+  <h2 class="text-4xl font-bold mb-6 text-teal-400">My Skills & Languages</h2>
+  <p class="mb-8 max-w-xl mx-auto text-gray-300">
+    I specialize in web development with expertise across multiple technologies and programming languages. Below is an overview of my main technical skills.
+  </p>
+  <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
+    <div>
+      <h3 class="text-xl font-semibold text-teal-400 mb-2">Frontend</h3>
+      <ul class="list-disc list-inside text-gray-300">
+        <li>HTML5 & Semantic Markup</li>
+        <li>CSS3 / Tailwind CSS</li>
+        <li>JavaScript (ES6+)</li>
+        <li>React.js & Component-Based Design</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-xl font-semibold text-teal-400 mb-2">Backend & Databases</h3>
+      <ul class="list-disc list-inside text-gray-300">
+        <li>Node.js & Express.js</li>
+        <li>RESTful API Development</li>
+        <li>MongoDB & SQL Databases</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-xl font-semibold text-teal-400 mb-2">Tools & Practices</h3>
+      <ul class="list-disc list-inside text-gray-300">
+        <li>Git & GitHub Version Control</li>
+        <li>VSCode & Debugging Techniques</li>
+        <li>Responsive Web Design</li>
+        <li>Basic SEO & Performance Optimization</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Projects -->
+    <section class="mb-12">
+      <h2 class="text-4xl font-bold mb-4 text-teal-400 text-center">Projects</h2>
+      <p class="text-gray-400 text-center mb-8">Explore some of my highlighted projects below.</p>
+      <ul class="grid md:grid-cols-3 gap-8 text-lg">
+        <li class="project-card bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-teal-400 transition duration-300">
+          <a href="projects/project1.html" class="block text-teal-400 text-xl font-semibold mb-2">Smart Home Dashboard</a>
+          <p class="text-gray-400">A dashboard app for IoT smart home devices.</p>
+        </li>
+        <li class="project-card bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-teal-400 transition duration-300">
+          <a href="projects/project2.html" class="block text-teal-400 text-xl font-semibold mb-2">E-Commerce Website</a>
+          <p class="text-gray-400">A modern e-commerce platform with payment integration.</p>
+        </li>
+        <li class="project-card bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-teal-400 transition duration-300">
+          <a href="projects/project3.html" class="block text-teal-400 text-xl font-semibold mb-2">Portfolio Website</a>
+          <p class="text-gray-400">My personal portfolio website built with React.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="text-center">
+      <h2 class="text-4xl font-bold mb-4 text-teal-400">Contact</h2>
+      <p class="mb-2">
+        Email: <a href="mailto:barrientosjairolemuel@gmail.com" class="text-teal-400">barrientosjairolemuel@gmail.com</a>
+      </p>
+      <p>
+        Phone: <a href="tel:+543437457636" class="text-teal-400">+54 34 37 45 76 36</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="bg-gray-800 p-6 text-center text-gray-400">
+    <p>&copy; 2025 Jairo Lemuel Barrientos. All rights reserved.</p>
+  </footer>
 </body>
+</html>
 </html>
