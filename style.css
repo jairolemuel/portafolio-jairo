@@ -1,65 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HolaSoyJairo | Personal Portfolio</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
-  <!-- Google Font Orbitron -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+/* General Body Styling */
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #0f0f1a;
+  color: #ffffff;
+  margin: 0;
+  padding: 2rem;
+}
 
-  <style>
-    :root {
-      --primary-color: #FF6B00;    /* naranja intenso */
-      --secondary-color: #FFB347;  /* naranja claro */
-      --accent-color: #FFD580;     /* durazno suave */
-      --bg-color: #121212;         /* fondo oscuro */
-      --text-color: #f4f4f4;       /* texto claro */
-    }
+/* Project Card - Base Style */
+.project-card {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin: 2rem 0;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  color: #ffffff;
+  line-height: 1.6;
+}
 
-    body {
-      font-family: 'Orbitron', sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      min-height: 100vh;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-    }
+/* Tags (Common for All) */
+.tags {
+  margin-top: 1rem;
+}
+.tags span {
+  display: inline-block;
+  padding: 0.4em 0.8em;
+  margin: 0.3em 0.3em 0 0;
+  border-radius: 0.4em;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
 
-    a {
-      color: var(--secondary-color);
-      transition: color 0.3s ease;
-    }
+/* === Unique Styles for Each Project === */
 
-    a:hover {
-      color: var(--primary-color);
-    }
+/* 1. Financial Calculator – Blue & Professional */
+.project-finance {
+  background-color: #1a1a2e;
+  box-shadow: 0 0 10px rgba(0, 140, 255, 0.3);
+}
+.project-finance:hover {
+  box-shadow: 0 0 25px #008cff;
+  transform: translateY(-5px);
+}
+.project-finance .tags span {
+  background-color: #008cff;
+  color: #ffffff;
+}
 
-    .project-card:hover {
-      box-shadow: 0 0 15px var(--accent-color);
-    }
+/* 2. Skin Care Product – Pink & Elegant */
+.project-skincare {
+  background-color: #2d1f2f;
+  box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
+}
+.project-skincare:hover {
+  box-shadow: 0 0 25px #ff69b4;
+  transform: translateY(-5px);
+}
+.project-skincare .tags span {
+  background-color: #ff69b4;
+  color: #2d1f2f;
+}
 
-    .text-primary {
-      color: var(--primary-color);
-    }
+/* 3. Tourism & Travel – Warm Orange & Energetic */
+.project-tourism {
+  background-color: #2f1e1a;
+  box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
+}
+.project-tourism:hover {
+  box-shadow: 0 0 25px #ffa500;
+  transform: translateY(-5px);
+}
+.project-tourism .tags span {
+  background-color: #ffa500;
+  color: #2f1e1a;
+}
 
-    .bg-primary {
-      background-color: var(--primary-color);
-    }
-
-    .bg-secondary {
-      background-color: var(--secondary-color);
-    }
-
-    .bg-accent {
-      background-color: var(--accent-color);
-    }
-  </style>
-</head>
-<body>
-  <!-- Welcome Animation -->
-  <div id="welcome-screen" class="fixed inset-0 bg-black flex items-center justify-center z-50
+/* Optional: Extra Styling for Headings and Lists */
+.project-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+.project-card p {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+.project-card ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0.5rem;
+}
+.project-card ul li {
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+}
