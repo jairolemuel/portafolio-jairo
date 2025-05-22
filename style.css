@@ -1,0 +1,154 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #0e1a2b;
+  color: #e0e6ed;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* Floating intro */
+.floating-intro {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #1a2a40;
+  color: #88c0ff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(136, 192, 255, 0.3);
+}
+
+/* Intro section */
+.intro {
+  text-align: center;
+  padding: 100px 20px 60px;
+  background: linear-gradient(to bottom, #0e1a2b, #13273e);
+}
+
+.intro-title {
+  font-size: 2.5rem;
+  color: #88c0ff;
+  margin-bottom: 20px;
+}
+
+.intro-subtitle {
+  font-size: 1.2rem;
+  color: #ccd6f6;
+}
+
+.intro-description {
+  max-width: 600px;
+  margin: 20px auto;
+  color: #a3b8d0;
+}
+
+/* Projects section */
+.projects-section {
+  padding: 80px 20px;
+  background-color: #101c30;
+}
+
+.projects-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: #88c0ff;
+  margin-bottom: 40px;
+}
+
+.projects-grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.project-card {
+  background: #1a2a40;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #233b5e;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 20px rgba(136, 192, 255, 0.5);
+}
+
+.project-card h3 {
+  color: #88c0ff;
+  margin-bottom: 10px;
+}
+
+.project-card p {
+  color: #a3b8d0;
+  margin-bottom: 10px;
+}
+
+.project-card ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.project-card li {
+  color: #cbd6e2;
+  font-size: 0.95rem;
+}
+
+.tags {
+  margin-top: 12px;
+}
+
+.tags span {
+  display: inline-block;
+  background-color: #2d4363;
+  color: #cce6ff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  margin-right: 6px;
+}
+
+/* Contact section */
+.contact-section {
+  padding: 60px 20px;
+  text-align: center;
+  background-color: #0e1a2b;
+  color: #e0e6ed;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  color: #88c0ff;
+  margin-bottom: 20px;
+}
+
+.contact-section a {
+  color: #88c0ff;
+  text-decoration: none;
+}
+
+.contact-section a:hover {
+  text-decoration: underline;
+}
+
+/* Reveal animation extra class */
+.project-card.show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.project-card {
+  opacity: 0;
+  transform: translateY(20px);
+  }
