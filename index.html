@@ -6,7 +6,6 @@
     <title>Jairo Lemuel Barrientos | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Neon+Tubes&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <style>
       body {
         margin: 0;
@@ -14,18 +13,28 @@
         background-color: #0a0a0a;
         color: #ffffff;
       }
+      .floating-intro {
+        position: fixed;
+        top: 10px;
+        left: 20px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #00ffe1;
+        z-index: 1000;
+        font-family: 'Orbitron', sans-serif;
+      }
       header {
         text-align: center;
-        padding: 4rem 2rem;
+        padding: 6rem 2rem 4rem;
         background: linear-gradient(to bottom, #111, #222);
       }
       header h1 {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 3rem;
+        font-size: 3.5rem;
         margin-bottom: 1rem;
+        font-family: 'Orbitron', sans-serif;
       }
       header p {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         max-width: 700px;
         margin: 0 auto;
       }
@@ -77,8 +86,10 @@
   </head>
 
   <body>
+    <div class="floating-intro">Hi, I'm Jairo Lemuel Barrientos</div>
+
     <header data-aos="fade-down">
-      <h1>👋 Hello, I'm Jairo</h1>
+      <h1>Welcome to my portfolio</h1>
       <p>
         Full-stack developer specialized in scalable architectures and robust backend solutions for modern web applications. I apply advanced AI techniques to enhance innovation and technological efficiency. Versatile, creative, and focused on design and user experience.
       </p>
@@ -136,6 +147,7 @@
       <strong>Phone:</strong> +54 3745 7636
     </section>
 
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init({ duration: 1000 });
     </script>
