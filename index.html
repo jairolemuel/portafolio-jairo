@@ -1,187 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Jairo Lemuel Barrientos Portfolio</title>
-  <!-- Google Fonts: Orbitron for headings and Neotech style -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
-  <!-- Your original font for project titles (assumed to be 'Poppins' or similar, ajusta si es otra) -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet" />
-  <style>
-    /* Reset y base */
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #121212;
-      color: #eee;
-      line-height: 1.6;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jairo Lemuel Barrientos | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Neon+Tubes&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #0a0a0a;
+        color: #ffffff;
+      }
+      header {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: linear-gradient(to bottom, #111, #222);
+      }
+      header h1 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      header p {
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+      .section {
+        padding: 4rem 2rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .section h2 {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      .skills ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      .skills li {
+        margin: 0.5rem 0;
+      }
+      .projects {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .project {
+        padding: 1.5rem;
+        border-radius: 8px;
+        color: #fff;
+        background-color: #1c1c1c;
+        transition: transform 0.3s;
+      }
+      .project:hover {
+        transform: scale(1.02);
+      }
+      .contact {
+        text-align: center;
+        margin-top: 3rem;
+        font-size: 1rem;
+      }
+      .contact strong {
+        display: block;
+        margin: 0.5rem 0;
+      }
+      .beauty { background-color: #f7d9e8; color: #2a0d1e; font-family: 'Neon Tubes', cursive; }
+      .finance { background-color: #d3f3fd; color: #083d56; font-family: 'Orbitron', sans-serif; }
+      .tourism { background-color: #fff4d6; color: #4d3000; font-family: 'Neon Tubes', cursive; }
+    </style>
+  </head>
 
-    /* Tipografía general: Orbitron con estilo Neotech */
-    h1, h2, h3, h4 {
-      font-family: 'Orbitron', sans-serif;
-      letter-spacing: 0.1em;
-      color: #00fff7;
-      margin: 0.5em 0;
-    }
-
-    /* Títulos de proyectos con la fuente original (Poppins) */
-    .project-title {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.3em;
-      color: inherit; /* hereda el color del proyecto */
-    }
-
-    /* Contenedor principal */
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    /* Sección bienvenida */
-    header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-
-    /* Texto descriptivo general */
-    p.description {
-      font-size: 1.15rem;
-      max-width: 600px;
-      margin: 1rem auto 2rem;
-      color: #a0f0f4;
-    }
-
-    /* Sección habilidades */
-    section.skills {
-      margin-bottom: 4rem;
-    }
-
-    /* Listas */
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    ul li {
-      margin-bottom: 0.5rem;
-    }
-
-    /* Sección proyectos */
-    section.projects {
-      margin-bottom: 4rem;
-    }
-
-    .project {
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-bottom: 2rem;
-      color: #121212;
-    }
-
-    /* Estilos únicos por proyecto */
-    .project.beauty {
-      background-color: #f9d5e5;
-      color: #5a2140;
-    }
-
-    .project.finance {
-      background-color: #263238;
-      color: #a0d8ef;
-    }
-
-    .project.tourism {
-      background-color: #f9f1a5;
-      color: #5b5a14;
-    }
-
-    /* Datos contacto al final */
-    footer {
-      border-top: 1px solid #00fff7;
-      padding: 1rem 0;
-      text-align: center;
-      color: #00fff7;
-      font-family: 'Orbitron', sans-serif;
-      letter-spacing: 0.1em;
-    }
-
-    /* Enlaces */
-    a {
-      color: #00fff7;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-
-    <header>
-      <h1>Welcome to My Portfolio</h1>
-      <p class="description">
-        Full-stack developer specialized in scalable architectures and robust backend solutions, optimized for modern web applications. Applying advanced AI techniques to boost innovation and technological efficiency. Versatile, creative, with a strong focus on design and user experience.
+  <body>
+    <header data-aos="fade-down">
+      <h1>👋 Hello, I'm Jairo</h1>
+      <p>
+        Full-stack developer specialized in scalable architectures and robust backend solutions for modern web applications. I apply advanced AI techniques to enhance innovation and technological efficiency. Versatile, creative, and focused on design and user experience.
       </p>
-      <p><strong>Jairo Lemuel Barrientos</strong></p>
-      <p>Email: <a href="mailto:jairo.lemuel@example.com">jairo.lemuel@example.com</a></p>
-      <p>Phone: +54 123 456 7890</p>
-      <p>Location: Argentina</p>
     </header>
 
-    <section class="skills">
+    <section class="section skills" data-aos="fade-up">
       <h2>Skills & Languages</h2>
-      <p>I specialize in full-stack web development, combining design, frontend, and backend technologies to build dynamic, modern websites.</p>
+      <p>I specialize in full-stack web development, combining frontend, backend, and design technologies to create modern, dynamic websites.</p>
       <h3>Frontend</h3>
       <ul>
-        <li>HTML5 and semantic markup</li>
+        <li>HTML5 & Semantic Markup</li>
         <li>CSS3 / Tailwind CSS</li>
         <li>JavaScript (ES6+)</li>
-        <li>React.js and component-based design</li>
+        <li>React.js & Component-Based Design</li>
       </ul>
       <h3>Backend & Databases</h3>
       <ul>
-        <li>Node.js and Express.js</li>
-        <li>RESTful API development</li>
-        <li>MongoDB and SQL databases</li>
+        <li>Node.js & Express.js</li>
+        <li>RESTful API Development</li>
+        <li>MongoDB & SQL</li>
       </ul>
       <h3>Other Skills</h3>
       <ul>
         <li>UI/UX Design</li>
-        <li>Responsive Design</li>
         <li>Single Page Applications (SPA)</li>
-        <li>Basic Testing</li>
+        <li>AI-powered integrations</li>
       </ul>
     </section>
 
-    <section class="projects">
+    <section class="section projects" data-aos="fade-up">
       <h2>Projects</h2>
 
-      <div class="project beauty">
-        <h3 class="project-title">Beauty Project</h3>
-        <p>Elegant and feminine design with a pink color palette, focused on cosmetics and wellness.</p>
-        <!-- Puedes agregar más detalles o links específicos aquí -->
+      <div class="project beauty" data-aos="zoom-in">
+        <h3>✨ BeautyCare Pro</h3>
+        <p><strong>Sector:</strong> Beauty</p>
+        <p>A soft, elegant interface for beauty services and appointment booking. Combines gentle animations and a feminine color palette.</p>
       </div>
 
-      <div class="project finance">
-        <h3 class="project-title">Finance Project</h3>
-        <p>Professional and sober design with data visualization and financial statistics integration.</p>
+      <div class="project finance" data-aos="zoom-in">
+        <h3>📊 SmartFinanceCalc</h3>
+        <p><strong>Sector:</strong> Finance</p>
+        <p>Clean and professional financial calculator with charts, JS logic, and clear UX structure for secure client data input.</p>
       </div>
 
-      <div class="project tourism">
-        <h3 class="project-title">Tourism Project</h3>
-        <p>Cheerful and colorful aesthetics with typography suitable for travel and leisure content.</p>
+      <div class="project tourism" data-aos="zoom-in">
+        <h3>🏝️ TravelTime Explorer</h3>
+        <p><strong>Sector:</strong> Tourism</p>
+        <p>Colorful and joyful website promoting dream destinations, integrating smooth scroll and lively visuals for an immersive user journey.</p>
       </div>
     </section>
 
-    <footer>
-      <p>© 2025 Jairo Lemuel Barrientos | <a href="mailto:jairo.lemuel@example.com">jairo.lemuel@example.com</a> | +54 123 456 7890</p>
-    </footer>
-  </div>
-</body>
+    <section class="section contact" data-aos="fade-up">
+      <h2>Contact</h2>
+      <strong>Email:</strong> <a href="mailto:barrientosjairolemuel@gmail.com">barrientosjairolemuel@gmail.com</a>
+      <strong>Phone:</strong> +54 3745 7636
+    </section>
+
+    <script>
+      AOS.init({ duration: 1000 });
+    </script>
+  </body>
 </html>
