@@ -8,10 +8,10 @@
   <!-- Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
 
-  <!-- Google Font Audiowide -->
-  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Quicksand:wght@400;600&family=Montserrat:wght@500&display=swap" rel="stylesheet" />
 
-  <!-- AOS Animation Library CSS -->
+  <!-- AOS Animation -->
   <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
   <style>
@@ -24,33 +24,23 @@
       display: flex;
       flex-direction: column;
     }
-    a {
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: #22d3ee;
-    }
-    .project-card:hover {
-      box-shadow: 0 0 15px #22d3ee;
-    }
-    .text-primary {
-      color: #38bdf8;
-    }
-    .text-secondary {
-      color: #818cf8;
-    }
-    .bg-deep {
-      background-color: #1e293b;
-    }
-    .bg-base {
-      background-color: #0f172a;
-    }
-    .text-soft {
-      color: #cbd5e1;
-    }
+    .text-primary { color: #38bdf8; }
+    .text-secondary { color: #818cf8; }
+    .bg-deep { background-color: #1e293b; }
+    .bg-base { background-color: #0f172a; }
+    .text-soft { color: #cbd5e1; }
+
+    .project-finance { background-color: #0e1a2b; font-family: 'Montserrat', sans-serif; }
+    .project-beauty  { background-color: #fff0f5; color: #7b2141; font-family: 'Quicksand', sans-serif; }
+    .project-tourism { background-image: linear-gradient(to bottom right, #e0f7fa, #ffe082); color: #004d40; font-family: 'Quicksand', sans-serif; }
+
+    a { transition: color 0.3s ease; }
+    a:hover { color: #22d3ee; }
+    .project-card:hover { box-shadow: 0 0 15px #22d3ee; }
   </style>
 </head>
 <body>
+
   <!-- Welcome Animation -->
   <div id="welcome-screen" class="fixed inset-0 bg-base flex items-center justify-center z-50 transition-opacity duration-1000">
     <h1 class="text-5xl text-primary animate-pulse">Welcome to My Portfolio</h1>
@@ -63,11 +53,12 @@
   </header>
 
   <main class="container mx-auto flex-grow p-8">
-    <!-- About Me -->
+
+    <!-- Skills -->
     <section class="mb-12 text-center" data-aos="fade-up">
-      <h2 class="text-4xl font-bold mb-6 text-primary">My Skills & Technologies</h2>
+      <h2 class="text-4xl font-bold mb-6 text-primary">My Skills & Languages</h2>
       <p class="mb-8 max-w-xl mx-auto text-soft">
-        I specialize in full-stack web development, combining UI/UX design, modern frontend frameworks, and backend technologies to build high-performance applications.
+        I specialize in full-stack web development, combining design, frontend, and backend technologies to create dynamic and modern websites.
       </p>
       <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
         <div data-aos="zoom-in">
@@ -76,22 +67,22 @@
             <li>HTML5 & Semantic Markup</li>
             <li>CSS3 / Tailwind CSS</li>
             <li>JavaScript (ES6+)</li>
-            <li>React.js</li>
+            <li>React.js & Component-Based Design</li>
           </ul>
         </div>
         <div data-aos="zoom-in" data-aos-delay="100">
           <h3 class="text-xl font-semibold text-secondary mb-2">Backend & Databases</h3>
           <ul class="list-disc list-inside text-soft">
             <li>Node.js & Express.js</li>
-            <li>RESTful APIs</li>
-            <li>MongoDB & SQL</li>
+            <li>RESTful API Development</li>
+            <li>MongoDB & SQL Databases</li>
           </ul>
         </div>
         <div data-aos="zoom-in" data-aos-delay="200">
           <h3 class="text-xl font-semibold text-secondary mb-2">Other Skills</h3>
           <ul class="list-disc list-inside text-soft">
-            <li>Responsive Design</li>
-            <li>UI/UX Principles</li>
+            <li>UI/UX Design</li>
+            <li>Responsive Layouts</li>
             <li>Single Page Applications</li>
             <li>Basic Testing</li>
           </ul>
@@ -102,41 +93,45 @@
     <!-- Projects -->
     <section class="mb-12" data-aos="fade-up">
       <h2 class="text-4xl font-bold mb-4 text-primary text-center">Projects</h2>
-      <p class="text-soft text-center mb-8">Explore some of my featured projects.</p>
+      <p class="text-soft text-center mb-8">Explore some of my highlighted projects below.</p>
 
       <ul class="grid md:grid-cols-3 gap-8 text-lg">
-        <li class="project-card p-6 rounded-lg bg-deep shadow-lg cursor-pointer hover:shadow-2xl transition-shadow duration-300">
-          <a href="calculadora.html" class="block text-soft no-underline hover:text-primary">
-            <h3 class="text-2xl font-semibold mb-2">Financial Calculator</h3>
-            <p class="mb-4">Calculate compound interest and visualize growth over time. Professional tool for financial planning.</p>
+
+        <!-- Finanzas -->
+        <li class="project-card project-finance p-6 rounded-lg shadow-lg transition-shadow duration-300 border-l-4 border-cyan-400">
+          <a href="calculadora.html" class="block no-underline hover:text-cyan-300">
+            <h3 class="text-2xl font-semibold mb-2 text-cyan-300">Financial Calculator</h3>
+            <p class="mb-4 text-gray-300">Calculate compound interest and visualize financial growth through dynamic charts.</p>
             <div class="flex flex-wrap gap-2">
-              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Finance</span>
-              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">JavaScript</span>
-              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Interactive</span>
+              <span class="text-xs bg-cyan-600 text-white rounded-full px-3 py-1">Finance</span>
+              <span class="text-xs bg-cyan-600 text-white rounded-full px-3 py-1">JavaScript</span>
+              <span class="text-xs bg-cyan-600 text-white rounded-full px-3 py-1">Data</span>
             </div>
           </a>
         </li>
 
-        <li class="project-card p-6 rounded-lg bg-deep shadow-lg cursor-pointer hover:shadow-2xl transition-shadow duration-300">
-          <a href="#" class="block text-soft no-underline hover:text-primary">
-            <h3 class="text-2xl font-semibold mb-2">Skincare Landing Page</h3>
-            <p class="mb-4">Modern and clean promotional page for a skincare product, optimized for conversions and aesthetic appeal.</p>
+        <!-- Belleza -->
+        <li class="project-card project-beauty p-6 rounded-lg shadow-lg transition-shadow duration-300 border-l-4 border-pink-400">
+          <a href="#" class="block no-underline hover:text-pink-600">
+            <h3 class="text-2xl font-semibold mb-2 text-pink-700">Beauty & Skincare</h3>
+            <p class="mb-4">Delicate landing page for skincare products, designed with elegance and soft tones.</p>
             <div class="flex flex-wrap gap-2">
-              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Design</span>
-              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Marketing</span>
-              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">CSS</span>
+              <span class="text-xs bg-pink-400 text-white rounded-full px-3 py-1">Design</span>
+              <span class="text-xs bg-pink-400 text-white rounded-full px-3 py-1">Marketing</span>
+              <span class="text-xs bg-pink-400 text-white rounded-full px-3 py-1">Skincare</span>
             </div>
           </a>
         </li>
 
-        <li class="project-card p-6 rounded-lg bg-deep shadow-lg cursor-pointer hover:shadow-2xl transition-shadow duration-300">
-          <a href="#" class="block text-soft no-underline hover:text-primary">
-            <h3 class="text-2xl font-semibold mb-2">Travel & Tourism Website</h3>
-            <p class="mb-4">Dynamic website for a travel agency featuring tours, destinations, and booking highlights.</p>
+        <!-- Turismo -->
+        <li class="project-card project-tourism p-6 rounded-lg shadow-lg transition-shadow duration-300 border-l-4 border-yellow-400">
+          <a href="#" class="block no-underline hover:text-teal-800">
+            <h3 class="text-2xl font-semibold mb-2">Travel & Adventure</h3>
+            <p class="mb-4">Bright and colorful site for travel agencies featuring destinations and itineraries.</p>
             <div class="flex flex-wrap gap-2">
-              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Tourism</span>
-              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">UI/UX</span>
-              <span class="text-xs bg-primary text-base rounded-full px-3 py-1">Responsive</span>
+              <span class="text-xs bg-blue-400 text-white rounded-full px-3 py-1">Tourism</span>
+              <span class="text-xs bg-yellow-500 text-white rounded-full px-3 py-1">Experience</span>
+              <span class="text-xs bg-teal-500 text-white rounded-full px-3 py-1">Destinations</span>
             </div>
           </a>
         </li>
@@ -159,7 +154,7 @@
     <p>&copy; 2025 Jairo Lemuel Barrientos. All rights reserved.</p>
   </footer>
 
-  <!-- Welcome Animation Script -->
+  <!-- Welcome Script -->
   <script>
     setTimeout(() => {
       const welcome = document.getElementById('welcome-screen');
@@ -170,7 +165,7 @@
     }, 2500);
   </script>
 
-  <!-- AOS Animation Library JS -->
+  <!-- AOS Init -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({
@@ -178,5 +173,6 @@
       once: true
     });
   </script>
+
 </body>
 </html>
