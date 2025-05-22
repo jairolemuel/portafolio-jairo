@@ -1,97 +1,162 @@
-/* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* General Body Styling */
 body {
   font-family: 'Orbitron', sans-serif;
-  background-color: #0f0f1a;
-  color: #ffffff;
-  margin: 0;
-  padding: 2rem;
-}
-
-/* Project Card - Base Style */
-.project-card {
-  padding: 1.5rem;
-  border-radius: 1rem;
-  margin: 2rem 0;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  color: #ffffff;
+  background-color: #0a192f;
+  color: #ccd6f6;
   line-height: 1.6;
+  scroll-behavior: smooth;
 }
 
-/* Tags (Common for All) */
-.tags {
-  margin-top: 1rem;
-}
-.tags span {
-  display: inline-block;
-  padding: 0.4em 0.8em;
-  margin: 0.3em 0.3em 0 0;
-  border-radius: 0.4em;
-  font-size: 0.85rem;
+/* Intro flotante */
+.floating-intro {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #112240;
+  padding: 10px 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(100, 255, 218, 0.4);
+  color: #64ffda;
+  z-index: 999;
   font-weight: bold;
 }
 
-/* === Unique Styles for Each Project === */
+/* Sección Intro */
+.intro {
+  text-align: center;
+  padding: 100px 20px 60px;
+}
 
-/* 1. Financial Calculator – Blue & Professional */
-.project-finance {
-  background-color: #1a1a2e;
-  box-shadow: 0 0 10px rgba(0, 140, 255, 0.3);
+.intro-title {
+  font-size: 3.2rem;
+  color: #ffffff;
+  margin-bottom: 20px;
 }
-.project-finance:hover {
-  box-shadow: 0 0 25px #008cff;
-  transform: translateY(-5px);
+
+.intro-subtitle {
+  font-size: 1.2rem;
+  color: #8892b0;
 }
-.project-finance .tags span {
-  background-color: #008cff;
+
+.intro-description {
+  margin-top: 20px;
+  font-size: 1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #ccd6f6;
+}
+
+/* Proyectos */
+.projects-section {
+  padding: 80px 20px;
+  background-color: #0a192f;
+}
+
+.projects-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
   color: #ffffff;
 }
 
-/* 2. Skin Care Product – Pink & Elegant */
-.project-skincare {
-  background-color: #2d1f2f;
-  box-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
-}
-.project-skincare:hover {
-  box-shadow: 0 0 25px #ff69b4;
-  transform: translateY(-5px);
-}
-.project-skincare .tags span {
-  background-color: #ff69b4;
-  color: #2d1f2f;
+.projects-grid {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-/* 3. Tourism & Travel – Warm Orange & Energetic */
-.project-tourism {
-  background-color: #2f1e1a;
-  box-shadow: 0 0 10px rgba(255, 165, 0, 0.3);
-}
-.project-tourism:hover {
-  box-shadow: 0 0 25px #ffa500;
-  transform: translateY(-5px);
-}
-.project-tourism .tags span {
-  background-color: #ffa500;
-  color: #2f1e1a;
+.project-card {
+  background-color: #112240;
+  padding: 25px;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  border: 1px solid transparent;
 }
 
-/* Optional: Extra Styling for Headings and Lists */
+.project-card:hover {
+  transform: translateY(-10px);
+  border: 1px solid #64ffda;
+  box-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+}
+
 .project-card h3 {
-  font-size: 1.6rem;
-  margin-bottom: 0.8rem;
+  color: #ffffff;
+  margin-bottom: 10px;
 }
+
 .project-card p {
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
+  color: #8892b0;
+  margin-bottom: 15px;
 }
+
 .project-card ul {
-  list-style: none;
-  padding-left: 0;
-  margin-top: 0.5rem;
+  padding-left: 20px;
+  margin-bottom: 15px;
 }
-.project-card ul li {
-  margin-bottom: 0.4rem;
-  font-size: 0.95rem;
+
+.project-card li {
+  color: #ccd6f6;
+  margin-bottom: 5px;
 }
+
+.tags span {
+  display: inline-block;
+  background-color: #64ffda;
+  color: #0a192f;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  margin-right: 8px;
+  margin-bottom: 5px;
+}
+
+/* Contacto */
+.contact-section {
+  background-color: #112240;
+  padding: 60px 20px;
+  text-align: center;
+  border-radius: 16px;
+  margin: 60px 20px 0;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.contact-section p {
+  color: #ccd6f6;
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+.contact-section a {
+  color: #64ffda;
+  text-decoration: none;
+}
+
+.contact-section a:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px #64ffda;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .intro-title {
+    font-size: 2.5rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  }
