@@ -164,6 +164,25 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init({ duration: 1000 });
-    </script>
+    </script><script>
+  const revealElements = document.querySelectorAll('.project-card');
+
+  const revealOnScroll = () => {
+    const triggerBottom = window.innerHeight * 0.85;
+
+    revealElements.forEach(el => {
+      const top = el.getBoundingClientRect().top;
+
+      if (top < triggerBottom) {
+        el.classList.add('show');
+      } else {
+        el.classList.remove('show');
+      }
+    });
+  };
+
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll);
+</script>
   </body>
 </html>
