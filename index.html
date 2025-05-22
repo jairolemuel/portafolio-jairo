@@ -97,35 +97,39 @@
 
   
 
-<!-- En el <head> de tu HTML, agregá esta línea para importar la fuente -->
+<!-- En el <head> de tu HTML (si aún no lo hiciste) -->
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
 
 <!-- Sección de Proyectos -->
 <section id="projects" class="py-16 px-6 bg-gray-100">
   <h2 class="text-4xl font-bold text-center mb-12" style="font-family: 'Merriweather', serif;">My Projects</h2>
 
-  <!-- Proyecto 1: Beauty Glow App -->
-  <div class="mb-10 bg-pink-100 p-6 rounded-lg shadow-md aos-init" data-aos="fade-up">
-    <h3 class="text-2xl font-bold mb-2 text-pink-800" style="font-family: 'Merriweather', serif;">
-      💄 Beauty Glow App
-    </h3>
-    <p class="text-gray-700">An elegant beauty and skincare planner designed for salons and personal use. Built with HTML, CSS, and JavaScript, featuring a soft pink palette and responsive layout.</p>
-  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-  <!-- Proyecto 2: World Explorer -->
-  <div class="mb-10 bg-yellow-100 p-6 rounded-lg shadow-md aos-init" data-aos="fade-up">
-    <h3 class="text-2xl font-bold mb-2 text-yellow-800" style="font-family: 'Merriweather', serif;">
-      🌍 World Explorer
-    </h3>
-    <p class="text-gray-700">A colorful tourism site to discover dream destinations. Includes interactive maps, photo galleries, and tips. Built with React and Tailwind CSS, emphasizing joyful travel experiences.</p>
-  </div>
+    <!-- Beauty Glow App -->
+    <div class="bg-pink-50 border-2 border-pink-200 rounded-xl shadow-lg p-6 aos-init" data-aos="fade-up">
+      <h3 class="text-xl font-bold text-pink-700 mb-2" style="font-family: 'Merriweather', serif;">
+        💄 Beauty Glow App
+      </h3>
+      <p class="text-gray-700">An elegant beauty and skincare planner designed for salons and personal use. Built with HTML, CSS, and JavaScript. Soft pink palette and responsive layout for a soothing user experience.</p>
+    </div>
 
-  <!-- Proyecto 3: SmartFinance Tool -->
-  <div class="mb-10 bg-blue-100 p-6 rounded-lg shadow-md aos-init" data-aos="fade-up">
-    <h3 class="text-2xl font-bold mb-2 text-blue-800" style="font-family: 'Merriweather', serif;">
-      📊 SmartFinance Tool
-    </h3>
-    <p class="text-gray-700">A financial calculator and dashboard for budget tracking and data visualization. Features secure architecture and chart integration using Chart.js and Node.js.</p>
+    <!-- World Explorer -->
+    <div class="bg-yellow-50 border-2 border-yellow-200 rounded-xl shadow-lg p-6 aos-init" data-aos="fade-up">
+      <h3 class="text-xl font-bold text-yellow-700 mb-2" style="font-family: 'Merriweather', serif;">
+        🌍 World Explorer
+      </h3>
+      <p class="text-gray-700">A joyful and interactive tourism site with dynamic maps, destinations, and tips. Designed in React and Tailwind CSS, bringing colorful design and discovery together.</p>
+    </div>
+
+    <!-- SmartFinance Tool -->
+    <div class="bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg p-6 aos-init" data-aos="fade-up">
+      <h3 class="text-xl font-bold text-blue-700 mb-2" style="font-family: 'Merriweather', serif;">
+        📊 SmartFinance Tool
+      </h3>
+      <p class="text-gray-700">A professional finance calculator with real-time data visualization. Built using Node.js, Express, and Chart.js. Features secure logic and a reliable user interface.</p>
+    </div>
+
   </div>
 </section>
 
