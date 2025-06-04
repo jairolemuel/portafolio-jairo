@@ -3,1381 +3,371 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Portafolio Biología Futurista</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+<title>Aprender Biología - Juego Interactivo</title>
+
+<!-- Fuente futurista -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+
 <style>
-  :root {
-    --color-dark-bg: #0f2027;
-    --color-dark-bg2: #203a43;
-    --color-dark-bg3: #2c5364;
-    --color-light-bg: #f0f0f0;
-    --color-light-text: #111;
-    --color-accent-green: #00ff9f;
-    --color-accent-teal: #008080;
+  /* Reset básico */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(180deg, #e0f7fa 0%, #ffffff 100%);
+    color: #00303f;
+    min-height: 100vh;
+    transition: background 0.8s ease, color 0.8s ease;
+    overflow-x: hidden;
   }
 
-  /* Body y transición para modo claro/oscuro */
-  body {
-    margin: 0;
-    font-family: 'Orbitron', sans-serif;
-    background: linear-gradient(to bottom, var(--color-dark-bg), var(--color-dark-bg2), var(--color-dark-bg3));
-    color: var(--color-accent-green);
-    transition: background 0.5s ease, color 0.5s ease;
-    overflow-x: hidden;
-    min-height: 100vh;
+  body.night {
+    background: linear-gradient(180deg, #0b3d91 0%, #001a33 100%);
+    color: #a3c4f3;
+  }
+
+  header {
+    padding: 2rem;
+    text-align: center;
     position: relative;
   }
 
-  body.light-mode {
-    background: var(--color-light-bg);
-    color: var(--color-light-text);
+  h1 {
+    font-size: 3rem;
+    text-shadow: 0 0 8px rgba(0, 48, 63, 0.6);
   }
 
-  /* Botón modo oscuro/claro con animación SVG */
-
-  #toggle-theme {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: none;
+  /* Botón modo día/noche */
+  .mode-toggle {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: transparent;
     border: none;
     cursor: pointer;
-    width: 60px;
-    height: 60px;
-    z-index: 1001;
+    width: 64px;
+    height: 64px;
     outline: none;
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.3));
+    transition: filter 0.3s ease;
+  }
+  .mode-toggle:hover {
+    filter: drop-shadow(0 0 6px #ffeb3b);
   }
 
-  /* Animación del sol y luna dentro del botón */
-  #toggle-theme svg {
+  /* Animación SVG para sol/luna */
+  svg {
+    width: 64px;
+    height: 64px;
+  }
+
+  /* Contenedor juego */
+  main {
+    max-width: 700px;
+    margin: 2rem auto;
+    background: rgba(255 255 255 / 0.85);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,48,63,0.15);
+    transition: background 0.8s ease;
+  }
+
+  body.night main {
+    background: rgba(0 0 0 / 0.5);
+    box-shadow: 0 0 30px #0b3d91;
+  }
+
+  /* Texto explicativo */
+  #info {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Pregunta */
+  #question {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Botones respuestas */
+  .answer-btn {
+    display: block;
     width: 100%;
-    height: 100%;
-    transition: all 0.6s ease;
+    background: #00acc1;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    margin: 0.6rem 0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  .answer-btn:hover {
+    background: #00838f;
   }
 
-  /* Estilos para el sol */
-  .sun {
-    fill: #FFD93B;
-    stroke: #FFC107;
-    stroke-width: 2;
-    transform-origin: 50% 50%;
-    animation: spin 10s linear infinite;
+  /* Feedback */
+  #feedback {
+    font-weight: 700;
+    margin-top: 1rem;
+    min-height: 24px;
+    font-size: 1.2rem;
+  }
+  #feedback.correct {
+    color: #4caf50;
+  }
+  #feedback.wrong {
+    color: #f44336;
   }
 
-  /* Estilos para la luna */
-  .moon {
-    fill: #f0f0f0;
-    stroke: #ccc;
-    stroke-width: 2;
-    transform-origin: 50% 50%;
-    transition: transform 0.6s ease;
+  /* Puntaje */
+  #score {
+    margin-top: 1.5rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-align: center;
   }
 
-  /* Animación rotación del sol */
-  @keyframes spin {
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg);}
+  /* Animación células estilo SVG dentro de main (fondo animado) */
+  #animation-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 0;
   }
 
 </style>
 </head>
 <body>
 
-<button id="toggle-theme" aria-label="Cambiar modo claro/oscuro" title="Cambiar modo claro/oscuro">
-  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-    <!-- Sol: circulo con rayos -->
-    <circle class="sun" cx="32" cy="32" r="12" />
-    <g class="sun-rays">
-      <line class="sun" x1="32" y1="4" x2="32" y2="14" />
-      <line class="sun" x1="32" y1="50" x2="32" y2="60" />
-      <line class="sun" x1="4" y1="32" x2="14" y2="32" />
-      <line class="sun" x1="50" y1="32" x2="60" y2="32" />
-      <line class="sun" x1="12" y1="12" x2="20" y2="20" />
-      <line class="sun" x1="44" y1="44" x2="52" y2="52" />
-      <line class="sun" x1="12" y1="52" x2="20" y2="44" />
-      <line class="sun" x1="44" y1="20" x2="52" y2="12" />
-    </g>
-    <!-- Luna: círculo recortado -->
-    <mask id="moon-mask">
-      <rect x="0" y="0" width="64" height="64" fill="white" />
-      <circle cx="42" cy="32" r="12" fill="black" />
-    </mask>
-    <circle class="moon" cx="32" cy="32" r="12" mask="url(#moon-mask)" />
-  </svg>
-</button>
+<header>
+  <h1>Aprender Biología - ¿Qué tipo de célula es?</h1>
+  <button class="mode-toggle" aria-label="Cambiar modo día/noche" title="Cambiar modo día/noche">
+    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" id="icon-sun-moon">
+      <!-- Sol por defecto -->
+      <circle cx="32" cy="32" r="14" fill="#FFD93B" />
+      <g stroke="#FFD93B" stroke-width="3" stroke-linecap="round">
+        <line x1="32" y1="6" x2="32" y2="16"/>
+        <line x1="32" y1="48" x2="32" y2="58"/>
+        <line x1="6" y1="32" x2="16" y2="32"/>
+        <line x1="48" y1="32" x2="58" y2="32"/>
+        <line x1="14" y1="14" x2="21" y2="21"/>
+        <line x1="43" y1="43" x2="50" y2="50"/>
+        <line x1="14" y1="50" x2="21" y2="43"/>
+        <line x1="43" y1="21" x2="50" y2="14"/>
+      </g>
+    </svg>
+  </button>
+</header>
 
-<!-- Aquí irá el resto del contenido -->
-<div id="content" style="padding: 80px 20px 20px 20px; max-width: 900px; margin: auto;">
-  <h1>Bienvenido a mi Portafolio Biología Futurista</h1>
-  <p>Explora proyectos, habilidades y animaciones inspiradas en la ciencia y biología.</p>
-</div>
+<!-- Contenedor animación SVG (células) -->
+<div id="animation-container" aria-hidden="true"></div>
+
+<main>
+  <div id="info">
+    Pon a prueba tus conocimientos sobre biología celular con este juego interactivo. 
+    Identifica el tipo de célula basado en la descripción y gana puntos.
+  </div>
+
+  <div id="question">¿Qué tipo de célula tiene una prolongación larga llamada axón para transmitir impulsos nerviosos?</div>
+
+  <button class="answer-btn" data-answer="Célula nerviosa">Célula nerviosa</button>
+  <button class="answer-btn" data-answer="Célula muscular">Célula muscular</button>
+  <button class="answer-btn" data-answer="Célula ósea">Célula ósea</button>
+  <button class="answer-btn" data-answer="Célula epitelial">Célula epitelial</button>
+
+  <div id="feedback" role="alert" aria-live="assertive"></div>
+
+  <div id="score">Puntaje: 0</div>
+</main>
+
+<!-- Sonidos correctos e incorrectos -->
+<audio id="sound-correct" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
+<audio id="sound-wrong" src="https://actions.google.com/sounds/v1/cartoon/boing.ogg" preload="auto"></audio>
 
 <script>
-  // JavaScript para togglear modo oscuro/claro
-  const toggleButton = document.getElementById('toggle-theme');
+  // Modo día/noche con animación y cambio de icono
   const body = document.body;
+  const modeToggle = document.querySelector('.mode-toggle');
+  const icon = document.getElementById('icon-sun-moon');
+  
+  // Estado inicial (por defecto día)
+  let isNight = false;
 
-  // Función para cambiar modo y guardar en localStorage
-  function toggleTheme() {
-    body.classList.toggle('light-mode');
-    if(body.classList.contains('light-mode')){
-      localStorage.setItem('theme', 'light');
+  function setMode(night) {
+    isNight = night;
+    if(night) {
+      body.classList.add('night');
+      // Cambiar icono a luna
+      icon.innerHTML = `
+        <path fill="#A3C4F3" d="M32 10a14 14 0 0 0 0 28c7.732 0 14-6.268 14-14S39.732 10 32 10z"/>
+        <circle cx="32" cy="32" r="10" fill="#001a33" />
+      `;
     } else {
-      localStorage.setItem('theme', 'dark');
+      body.classList.remove('night');
+      // Cambiar icono a sol
+      icon.innerHTML = `
+        <circle cx="32" cy="32" r="14" fill="#FFD93B" />
+        <g stroke="#FFD93B" stroke-width="3" stroke-linecap="round">
+          <line x1="32" y1="6" x2="32" y2="16"/>
+          <line x1="32" y1="48" x2="32" y2="58"/>
+          <line x1="6" y1="32" x2="16" y2="32"/>
+          <line x1="48" y1="32" x2="58" y2="32"/>
+          <line x1="14" y1="14" x2="21" y2="21"/>
+          <line x1="43" y1="43" x2="50" y2="50"/>
+          <line x1="14" y1="50" x2="21" y2="43"/>
+          <line x1="43" y1="21" x2="50" y2="14"/>
+        </g>
+      `;
     }
   }
 
-  // Evento click en botón
-  toggleButton.addEventListener('click', toggleTheme);
-
-  // Cargar modo guardado en localStorage
-  window.addEventListener('load', () => {
-    const savedTheme = localStorage.getItem('theme');
-    if(savedTheme === 'light'){
-      body.classList.add('light-mode');
-    }
+  modeToggle.addEventListener('click', () => {
+    setMode(!isNight);
   });
-</script>
-  <!-- Botón de cambio de modo claro/oscuro con animación SVG -->
-<div id="themeToggle" onclick="toggleTheme()" class="theme-toggle" title="Cambiar modo">
-  <svg viewBox="0 0 100 100" width="60" height="60">
-    <defs>
-      <radialGradient id="sunGradient" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#fff176"/>
-        <stop offset="100%" stop-color="#fbc02d"/>
-      </radialGradient>
-      <radialGradient id="moonGradient" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#90caf9"/>
-        <stop offset="100%" stop-color="#0d47a1"/>
-      </radialGradient>
-    </defs>
-    <circle id="celestialBody" cx="50" cy="50" r="30" fill="url(#sunGradient)" />
-  </svg>
-</div>
 
-</body>
-</html>
-<!-- Agregar justo antes de cerrar body -->
+  // Inicializar modo día
+  setMode(false);
 
-<canvas id="bioCanvas"></canvas>
+  // Juego interactivo
+  const questionEl = document.getElementById('question');
+  const answerButtons = document.querySelectorAll('.answer-btn');
+  const feedbackEl = document.getElementById('feedback');
+  const scoreEl = document.getElementById('score');
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  const soundCorrect = document.getElementById('sound-correct');
+  const soundWrong = document.getElementById('sound-wrong');
 
-<script>
-  const canvas = document.getElementById('bioCanvas');
+  let score = 0;
+  let answered = false;
+
+  const correctAnswer = "Célula nerviosa";
+
+  answerButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      if (answered) return;
+      answered = true;
+      const userAnswer = button.getAttribute('data-answer');
+
+      if(userAnswer === correctAnswer) {
+        feedbackEl.textContent = "¡Correcto! Muy bien.";
+        feedbackEl.className = "correct";
+        score++;
+        scoreEl.textContent = `Puntaje: ${score}`;
+        soundCorrect.currentTime = 0;
+        soundCorrect.play();
+      } else {
+        feedbackEl.textContent = "Incorrecto. Intenta de nuevo.";
+        feedbackEl.className = "wrong";
+        soundWrong.currentTime = 0;
+        soundWrong.play();
+      }
+      // Resaltar botón seleccionado
+      button.style.backgroundColor = userAnswer === correctAnswer ? '#4caf50' : '#f44336';
+    });
+  });
+
+  // Animación SVG células/bacterias usando Canvas y JS para fondo
+
+  const animationContainer = document.getElementById('animation-container');
+  const canvas = document.createElement('canvas');
+  animationContainer.appendChild(canvas);
   const ctx = canvas.getContext('2d');
   let width, height;
 
-  function resize() {
+  // Células/bacterias estilo
+  class Cell {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.radius = 15 + Math.random() * 15;
+      this.speedX = (Math.random() - 0.5) * 0.6;
+      this.speedY = (Math.random() - 0.5) * 0.6;
+      this.angle = Math.random() * Math.PI * 2;
+      this.angleSpeed = 0.01 + Math.random() * 0.02;
+      this.color = `rgba(255,255,255,${0.2 + Math.random() * 0.3})`;
+    }
+
+    draw(ctx) {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.angle);
+
+      // Cuerpo tipo célula con núcleo
+      const grad = ctx.createRadialGradient(0, 0, this.radius * 0.2, 0, 0, this.radius);
+      grad.addColorStop(0, 'rgba(255,255,255,0.8)');
+      grad.addColorStop(1, this.color);
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, this.radius * 1.2, this.radius * 0.7, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Núcleo
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, this.radius * 0.5, this.radius * 0.35, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.angle += this.angleSpeed;
+
+      if(this.x < -this.radius) this.x = width + this.radius;
+      else if(this.x > width + this.radius) this.x = -this.radius;
+
+      if(this.y < -this.radius) this.y = height + this.radius;
+      else if(this.y > height + this.radius) this.y = -this.radius;
+    }
+  }
+
+  let cells = [];
+
+  function setupCanvas() {
     width = window.innerWidth;
     height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
   }
-  resize();
-  window.addEventListener('resize', resize);
 
-  // Partículas ADN/mitocondrias
-  class Particle {
-    constructor(x, y, radius, speed, angle, type) {
-      this.x = x;
-      this.y = y;
-      this.radius = radius;
-      this.speed = speed;
-      this.angle = angle;
-      this.type = type; // "dna" o "mito"
-      this.opacity = Math.random() * 0.5 + 0.5;
-      this.length = radius * 4;
-    }
-
-    update() {
-      // Movimiento suave y ordenado, tipo onda sinusoidal horizontal
-      this.x += Math.cos(this.angle) * this.speed;
-      this.y += Math.sin(this.angle) * this.speed * 0.3;
-
-      // Mantener dentro del canvas (rebota o vuelve a empezar)
-      if(this.x > width + this.length) this.x = -this.length;
-      if(this.x < -this.length) this.x = width + this.length;
-      if(this.y > height) this.y = height / 2 + Math.sin(this.x * 0.01) * 50;
-      if(this.y < 0) this.y = height / 2 + Math.sin(this.x * 0.01) * 50;
-    }
-
-    draw() {
-      ctx.save();
-      ctx.globalAlpha = this.opacity;
-      if(this.type === "dna"){
-        this.drawDNA();
-      } else if(this.type === "mito"){
-        this.drawMito();
-      }
-      ctx.restore();
-    }
-
-    drawDNA() {
-      // Dibujar hélice simple
-      ctx.strokeStyle = 'rgba(0,255,159,0.7)';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      for(let i = 0; i < this.length; i += 4) {
-        let x1 = this.x + i;
-        let y1 = this.y + Math.sin((i + this.x) * 0.3) * 8;
-        let x2 = x1;
-        let y2 = y1 + 20;
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-      }
-      ctx.stroke();
-
-      // Conexiones
-      ctx.strokeStyle = 'rgba(0,255,159,0.4)';
-      ctx.lineWidth = 1;
-      for(let i = 0; i < this.length; i += 8) {
-        let x1 = this.x + i;
-        let y1 = this.y + Math.sin((i + this.x) * 0.3) * 8;
-        let x2 = x1;
-        let y2 = y1 + 20;
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
-      }
-    }
-
-    drawMito() {
-      // Dibujar una mitocondria simple como óvalo naranja con interior 'filamentos'
-      let grad = ctx.createRadialGradient(this.x, this.y, this.radius/3, this.x, this.y, this.radius);
-      grad.addColorStop(0, 'rgba(255,165,0,0.8)');
-      grad.addColorStop(1, 'rgba(255,140,0,0.2)');
-      ctx.fillStyle = grad;
-      ctx.beginPath();
-      ctx.ellipse(this.x, this.y, this.radius * 1.5, this.radius, 0, 0, 2 * Math.PI);
-      ctx.fill();
-
-      // Filamentos internos (líneas curvas)
-      ctx.strokeStyle = 'rgba(255,140,0,0.7)';
-      ctx.lineWidth = 1.5;
-      for(let i = -this.radius; i <= this.radius; i += 5){
-        ctx.beginPath();
-        ctx.moveTo(this.x + i/2, this.y - this.radius);
-        ctx.bezierCurveTo(
-          this.x + i, this.y,
-          this.x + i, this.y,
-          this.x + i/2, this.y + this.radius
-        );
-        ctx.stroke();
-      }
-    }
-  }
-
-  // Crear partículas aleatorias
-  const particles = [];
-  const particleCount = 30;
-
-  for(let i = 0; i < particleCount; i++) {
-    let x = Math.random() * window.innerWidth;
-    let y = window.innerHeight / 2 + Math.sin(x * 0.01) * 50;
-    let radius = 10 + Math.random() * 10;
-    let speed = 0.5 + Math.random() * 0.5;
-    let angle = Math.random() * Math.PI * 2;
-    let type = (i % 2 === 0) ? "dna" : "mito";
-    particles.push(new Particle(x, y, radius, speed, angle, type));
-  }
-
-  // Animar con requestAnimationFrame y GSAP para suavizar
   function animate() {
     ctx.clearRect(0, 0, width, height);
-    particles.forEach(p => {
-      p.update();
-      p.draw();
-    });
+
+    for(let cell of cells) {
+      cell.update();
+      cell.draw(ctx);
+    }
+
     requestAnimationFrame(animate);
   }
-  animate();
+
+  function init() {
+    setupCanvas();
+    cells = [];
+    for(let i=0; i<25; i++) {
+      cells.push(new Cell());
+    }
+    animate();
+  }
+
+  window.addEventListener('resize', () => {
+    setupCanvas();
+  });
+
+  init();
 
 </script>
-<style>
-  /* Contenedor principal mejorado */
-  .container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 25px 30px;
-    background: rgba(10, 40, 30, 0.8);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow:
-      0 0 15px 3px rgba(0, 255, 159, 0.4),
-      inset 0 0 15px 3px rgba(0, 128, 80, 0.7);
-    border: 2px solid rgba(0, 255, 159, 0.5);
-  }
 
-  /* Encabezado con borde más complejo y glitch mejorado */
-  header {
-    font-size: 2.4em;
-    background: linear-gradient(90deg, #00ffcc, #005f40, #00ffcc);
-    background-size: 250% auto;
-    color: #b8ffdf;
-    padding: 22px 0;
-    border-radius: 25px;
-    box-shadow:
-      0 0 15px #00ffcc,
-      0 0 30px #00ffcc inset;
-    animation: shimmer 6s linear infinite, glitch 1.5s infinite alternate;
-    user-select: none;
-    border: 3px double #008050;
-  }
-
-  /* Mejor glitch */
-  @keyframes glitch {
-    0%, 100% {
-      text-shadow:
-        2px 2px #ff00c8,
-        -2px -2px #00ffe0,
-        4px 0 #00ff99,
-        -4px 0 #00ff99;
-    }
-    50% {
-      text-shadow:
-        -2px 2px #00ffe0,
-        2px -2px #ff00c8,
-        0 4px #00ff99,
-        0 -4px #00ff99;
-    }
-  }
-
-  /* Botón toggle modo */
-  .toggle-switch {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 60px;
-    height: 30px;
-    background: rgba(0, 255, 159, 0.15);
-    border-radius: 30px;
-    border: 2px solid #00ff99;
-    cursor: pointer;
-    box-shadow: 0 0 8px #00ff99;
-    display: flex;
-    align-items: center;
-    padding: 3px;
-    user-select: none;
-    transition: background 0.3s ease;
-    z-index: 10;
-  }
-
-  .toggle-switch:hover {
-    background: rgba(0, 255, 159, 0.3);
-  }
-
-  .toggle-circle {
-    width: 24px;
-    height: 24px;
-    background: #00ff99;
-    border-radius: 50%;
-    box-shadow: 0 0 6px #00ff99;
-    position: relative;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* Sol y luna SVG dentro del círculo toggle */
-  .icon-sun,
-  .icon-moon {
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    fill: #003300;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
-  }
-
-  .icon-sun {
-    opacity: 1;
-  }
-
-  .icon-moon {
-    opacity: 0;
-  }
-
-  /* Estado claro */
-  body.light .toggle-circle {
-    transform: translateX(30px);
-    background: #ffd700;
-    box-shadow: 0 0 8px #ffd700;
-  }
-
-  body.light .icon-sun {
-    opacity: 0;
-  }
-
-  body.light .icon-moon {
-    opacity: 1;
-    fill: #333333;
-  }
-
-  /* Opciones */
-  .options {
-    margin-top: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .option {
-    background: rgba(0, 128, 60, 0.6);
-    border: 2px solid #00ff99;
-    box-shadow: 0 0 12px #00ff99 inset;
-    color: #b8ffdf;
-    font-weight: 600;
-    font-size: 1.1em;
-    padding: 14px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-  }
-
-  .option:hover {
-    background: #00ff99;
-    color: #003300;
-    box-shadow:
-      0 0 15px #00ff99,
-      0 0 10px #00ff99 inset;
-  }
-
-  .option:active::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border-radius: 15px;
-    box-shadow: 0 0 20px #00ff99;
-    animation: pulse 0.4s ease;
-  }
-
-  @keyframes pulse {
-    0% { opacity: 1; transform: scale(1); }
-    100% { opacity: 0; transform: scale(1.3); }
-  }
-</style>
-
-<!-- Toggle switch HTML -->
-
-<div class="toggle-switch" id="toggleSwitch" aria-label="Toggle light/dark mode" role="button" tabindex="0">
-  <div class="toggle-circle">
-    <svg class="icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="12" cy="12" r="5" fill="yellow"/>
-      <g stroke="yellow" stroke-width="2">
-        <line x1="12" y1="1" x2="12" y2="5"/>
-        <line x1="12" y1="19" x2="12" y2="23"/>
-        <line x1="4.22" y1="4.22" x2="7.07" y2="7.07"/>
-        <line x1="16.93" y1="16.93" x2="19.78" y2="19.78"/>
-        <line x1="1" y1="12" x2="5" y2="12"/>
-        <line x1="19" y1="12" x2="23" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="7.07" y2="16.93"/>
-        <line x1="16.93" y1="7.07" x2="19.78" y2="4.22"/>
-      </g>
-    </svg>
-    <svg class="icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path fill="silver" d="M21 12.79A9 9 0 0112.21 3 7 7 0 1018 18.79 9 9 0 0121 12.79z"/>
-    </svg>
-  </div>
-</div>
-
-<script>
-  const toggleSwitch = document.getElementById('toggleSwitch');
-  toggleSwitch.addEventListener('click', () => {
-    document.body.classList.toggle('light');
-  });
-
-  // También toggle con teclado (Enter, Espacio)
-  toggleSwitch.addEventListener('keydown', (e) => {
-    if(e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleSwitch.click();
-    }
-  });
-</script>
-
-    .feedback {
-      margin-top: 15px;
-      font-size: 1.2em;
-      text-align: center;
-    }
-
-    .score, .level {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    button.next, button.toggle-mode {
-      margin-top: 20px;
-      padding: 10px 15px;
-      font-size: 1em;
-      background: #005959;
-      border: none;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 0 10px var(--neon);
-      margin-right: 10px;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      color: #88fff0;
-    }
-
-    @media (max-width: 600px) {
-      .container {
-        margin: 20px;
-      }
-    }
-  </style>
-</head>
-<body>
-<canvas id="bacteriaCanvas"></canvas>
-<header>🧬 Adiviná la Célula</header>
-
-<div class="container">
-  <div class="level">Nivel: <span id="level">1</span></div>
-  <div class="score">Puntaje: <span id="score">0</span></div>
-  <img id="cellImage" src="" alt="Imagen de célula" />
-  <div class="options" id="optionsContainer"></div>
-  <div class="feedback" id="feedback"></div>
-  <button class="next" id="nextBtn">Siguiente ➜</button>
-  <button class="toggle-mode" id="toggleMode">🌗 Modo Claro/Oscuro</button>
-</div>
-
-<footer>Hecho por Lemuel con 💡</footer>
-
-<audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2021/09/08/audio_7307fb88b4.mp3?filename=correct-2-46134.mp3"></audio>
-<audio id="incorrectSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6f89ae97e7.mp3?filename=error-126627.mp3"></audio>
-<script>
-const questions = [
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/7/77/Animal_cell_structure_en.svg",
-    answer: "Célula Animal",
-    options: ["Célula Vegetal", "Célula Procariota", "Célula Animal", "Célula Madre"]
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Plant_cell_structure.svg",
-    answer: "Célula Vegetal",
-    options: ["Célula Vegetal", "Célula Animal", "Célula Procariota", "Célula del sistema inmune"]
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Prokaryote_cell_structure-es.svg",
-    answer: "Célula Procariota",
-    options: ["Célula Animal", "Célula Madre", "Célula Vegetal", "Célula Procariota"]
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Stem_cells_diagram_es.svg",
-    answer: "Célula Madre",
-    options: ["Célula del sistema inmune", "Célula Madre", "Célula Procariota", "Célula Animal"]
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/7/71/Immune_cells_es.svg",
-    answer: "Célula del sistema inmune",
-    options: ["Célula del sistema inmune", "Célula Vegetal", "Célula Animal", "Célula Madre"]
-  }
-];
-
-let current = 0;
-let score = 0;
-let level = 1;
-
-const img = document.getElementById('cellImage');
-const optionsContainer = document.getElementById('optionsContainer');
-const feedback = document.getElementById('feedback');
-const scoreDisplay = document.getElementById('score');
-const levelDisplay = document.getElementById('level');
-const correctSound = document.getElementById('correctSound');
-const incorrectSound = document.getElementById('incorrectSound');
-
-function loadQuestion() {
-  const q = questions[current];
-  img.src = q.img;
-  feedback.textContent = "";
-  optionsContainer.innerHTML = "";
-  q.options.sort(() => Math.random() - 0.5);
-  q.options.forEach(opt => {
-    const btn = document.createElement('div');
-    btn.className = 'option';
-    btn.textContent = opt;
-    btn.onclick = () => checkAnswer(opt, q.answer);
-    optionsContainer.appendChild(btn);
-  });
-}
-
-function checkAnswer(selected, correct) {
-  if (selected === correct) {
-    feedback.textContent = "✅ ¡Correcto!";
-    score += 10;
-    correctSound.play();
-  } else {
-    feedback.textContent = "❌ Incorrecto. Era: " + correct;
-    incorrectSound.play();
-  }
-  scoreDisplay.textContent = score;
-  setTimeout(nextQuestion, 1500);
-}
-
-function nextQuestion() {
-  current++;
-  if (current >= questions.length) {
-    current = 0;
-    level++;
-  }
-  levelDisplay.textContent = level;
-  loadQuestion();
-}
-
-document.getElementById('nextBtn').onclick = nextQuestion;
-
-document.getElementById('toggleMode').onclick = () => {
-  document.body.classList.toggle('light');
-};
-
-// Animación de bacterias flotando
-const canvas = document.getElementById("bacteriaCanvas");
-const ctx = canvas.getContext("2d");
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
-window.onresize = () => {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-};
-
-const bacteria = Array.from({ length: 60 }, () => ({
-  x: Math.random() * w,
-  y: Math.random() * h,
-  r: 5 + Math.random() * 15,
-  dx: -0.5 + Math.random(),
-  dy: -0.5 + Math.random(),
-  color: `rgba(0,255,180,${Math.random()})`
-}));
-
-function animate() {
-  ctx.clearRect(0, 0, w, h);
-  bacteria.forEach(b => {
-    ctx.beginPath();
-    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-    ctx.fillStyle = b.color;
-    ctx.fill();
-    b.x += b.dx;
-    b.y += b.dy;
-    if (b.x < 0 || b.x > w) b.dx *= -1;
-    if (b.y < 0 || b.y > h) b.dy *= -1;
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-
-loadQuestion();
-</script>
 </body>
 </html>
-<!-- Nuevas preguntas para más niveles -->
-<script>
-questions.push(
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Neuron.svg",
-    answer: "Célula Neuronal",
-    options: ["Célula Muscular", "Célula Sanguínea", "Célula Neuronal", "Célula Vegetal"]
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/4/41/Red_blood_cells_simple.svg",
-    answer: "Célula Sanguínea",
-    options: ["Célula Sanguínea", "Célula Madre", "Célula Procariota", "Célula Animal"]
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/3/30/Skeletal_muscle_cell_es.svg",
-    answer: "Célula Muscular",
-    options: ["Célula Vegetal", "Célula Muscular", "Célula Neuronal", "Célula Procariota"]
-  }
-);
-
-// Efecto de glitch (clase para aplicar en textos clave)
-const style = document.createElement('style');
-style.innerHTML = `
-.glitch {
-  position: relative;
-  color: #0ff;
-  animation: flicker 1s infinite alternate;
-}
-@keyframes flicker {
-  0% {text-shadow: 1px 0 red, -1px 0 blue;}
-  50% {text-shadow: -2px 0 red, 2px 0 blue;}
-  100% {text-shadow: 1px 0 red, -1px 0 blue;}
-}
-.level-up {
-  animation: levelFlash 0.5s ease-out;
-}
-@keyframes levelFlash {
-  from { background-color: #0ff; opacity: 0.5; }
-  to { background-color: transparent; opacity: 1; }
-}
-`;
-document.head.appendChild(style);
-
-// Sonido para pasar de nivel
-const levelUpSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_06a71b29e6.mp3");
-
-// Detectar paso de nivel y dar efecto visual
-function nextQuestion() {
-  current++;
-  if (current >= questions.length) {
-    current = 0;
-    level++;
-    levelUpSound.play();
-    document.body.classList.add("level-up");
-    setTimeout(() => document.body.classList.remove("level-up"), 300);
-  }
-  levelDisplay.textContent = level;
-  loadQuestion();
-}
-</script>
-<style>
-  /* Glitch animado para el título */
-  #title.glitch {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.8rem;
-    color: #00fff7;
-    position: relative;
-    animation: glitchAnim 2s infinite;
-    user-select: none;
-  }
-  @keyframes glitchAnim {
-    0% {
-      text-shadow: 2px 0 #0ff, -2px 0 #0ff, 0 0 #00fff7;
-    }
-    25% {
-      text-shadow: -2px 2px red, 2px -2px blue, 0 0 cyan;
-    }
-    50% {
-      text-shadow: 3px 1px #00fff7, -3px -1px #00fff7;
-    }
-    75% {
-      text-shadow: -1px -1px red, 1px 1px blue;
-    }
-    100% {
-      text-shadow: 2px 0 #0ff, -2px 0 #0ff, 0 0 #00fff7;
-    }
-  }
-
-  /* Animaciones fade y zoom para imágenes y botones */
-  .fade-zoom {
-    animation: fadeZoomIn 0.8s ease forwards;
-    opacity: 0;
-  }
-  @keyframes fadeZoomIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.6);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  /* Brillitos animados al hacer click en botón */
-  .sparkle {
-    position: absolute;
-    pointer-events: none;
-    border-radius: 50%;
-    background: radial-gradient(circle, #00fff7 0%, transparent 70%);
-    animation: sparkleAnim 0.6s ease-out forwards;
-  }
-  @keyframes sparkleAnim {
-    0% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(2);
-    }
-  }
-
-  /* Fondo con bacterias y partículas */
-  #backgroundCanvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    background: #0b0f1a;
-  }
-</style>
-
-<!-- Canvas para animación fondo -->
-<canvas id="backgroundCanvas"></canvas>
-
-<script>
-  // Efecto glitch constante en título
-  const title = document.getElementById('title');
-  title.classList.add('glitch');
-
-  // Aplicar fade-zoom a imagen y botones en load y cuando cargan preguntas
-  function animateElements() {
-    const img = document.getElementById('cellImage');
-    const buttons = document.querySelectorAll('.answer-button');
-    img.classList.remove('fade-zoom');
-    void img.offsetWidth; // Reflow para reiniciar animación
-    img.classList.add('fade-zoom');
-
-    buttons.forEach(btn => {
-      btn.classList.remove('fade-zoom');
-      void btn.offsetWidth;
-      btn.classList.add('fade-zoom');
-    });
-  }
-
-  // Ejecutar animación al cargar pregunta
-  function loadQuestion() {
-    if (current >= questions.length) {
-      alert('¡Terminaste todos los niveles! 🎉');
-      current = 0;
-      score = 0;
-      level = 1;
-      levelDisplay.textContent = level;
-      scoreDisplay.textContent = score;
-    }
-    const q = questions[current];
-    const img = document.getElementById('cellImage');
-    const buttons = document.querySelectorAll('.answer-button');
-
-    img.src = q.img;
-    buttons.forEach((btn, i) => {
-      btn.textContent = q.options[i];
-    });
-
-    animateElements(); // Animar imagen y botones
-  }
-
-  // Crear partículas brillitos en botón clickeado
-  function createSparkles(x, y) {
-    const sparkleCount = 15;
-    for(let i = 0; i < sparkleCount; i++) {
-      const sparkle = document.createElement('div');
-      sparkle.classList.add('sparkle');
-      document.body.appendChild(sparkle);
-
-      // Posición inicial cerca del click
-      sparkle.style.left = x + (Math.random() * 20 - 10) + 'px';
-      sparkle.style.top = y + (Math.random() * 20 - 10) + 'px';
-
-      // Animar partículas con velocidad aleatoria y dirección
-      sparkle.style.animationDelay = (Math.random() * 0.3) + 's';
-
-      // Remover tras la animación
-      sparkle.addEventListener('animationend', () => sparkle.remove());
-    }
-  }
-
-  // Sonido clic para botones (ligero, futurista)
-  const clickSound = new Audio('https://cdn.pixabay.com/audio/2021/08/04/audio_0f7351d0ca.mp3');
-  clickSound.volume = 0.15;
-
-  // Handler para botones con efectos
-  function handleAnswerClick(e) {
-    const btn = e.target;
-    const rect = btn.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
-    createSparkles(x, y);
-    clickSound.play();
-
-    checkAnswer(btn.textContent);
-  }
-
-  // Asignar listener a botones (lo agregamos a todos)
-  document.querySelectorAll('.answer-button').forEach(btn => {
-    btn.addEventListener('click', handleAnswerClick);
-  });
-
-  // Fondo animado con bacterias y partículas (Canvas)
-  const canvas = document.getElementById('backgroundCanvas');
-  const ctx = canvas.getContext('2d');
-  let w, h;
-
-  // Ajustar tamaño al viewport
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  // Partículas bacterianas con movimiento orgánico
-  class Bacteria {
-    constructor() {
-      this.x = Math.random() * w;
-      this.y = Math.random() * h;
-      this.radius = 5 + Math.random() * 6;
-      this.speedX = (Math.random() - 0.5) * 0.5;
-      this.speedY = (Math.random() - 0.5) * 0.5;
-      this.angle = Math.random() * Math.PI * 2;
-      this.angularSpeed = (Math.random() - 0.5) * 0.02;
-    }
-    update() {
-      this.x += this.speedX + Math.sin(this.angle) * 0.3;
-      this.y += this.speedY + Math.cos(this.angle) * 0.3;
-      this.angle += this.angularSpeed;
-
-      if(this.x < -this.radius) this.x = w + this.radius;
-      else if(this.x > w + this.radius) this.x = -this.radius;
-      if(this.y < -this.radius) this.y = h + this.radius;
-      else if(this.y > h + this.radius) this.y = -this.radius;
-    }
-    draw() {
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.angle);
-      // Dibujar bacteria como óvalo con flagelos
-      ctx.fillStyle = 'rgba(0,255,255,0.4)';
-      ctx.beginPath();
-      ctx.ellipse(0, 0, this.radius * 1.5, this.radius, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.strokeStyle = 'rgba(0,255,255,0.7)';
-      ctx.lineWidth = 1;
-      for(let i = 0; i < 4; i++) {
-        const angle = (Math.PI / 2) * i + this.angle;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(Math.cos(angle) * this.radius * 2, Math.sin(angle) * this.radius * 2);
-        ctx.stroke();
-      }
-      ctx.restore();
-    }
-  }
-
-  // Crear bacteria con velocidad basada en nivel para dificultad/energía
-  let bacteriaCount = 30;
-  const bacteriaArray = [];
-  for(let i=0; i < bacteriaCount; i++) {
-    bacteriaArray.push(new Bacteria());
-  }
-
-  // Animación del fondo
-  function animateBackground() {
-    ctx.clearRect(0, 0, w, h);
-    bacteriaArray.forEach(b => {
-      b.update();
-      b.draw();
-    });
-    requestAnimationFrame(animateBackground);
-  }
-  animateBackground();
-
-  // Al cargar preguntas también animar fade-zoom (ya incluido en loadQuestion)
-  loadQuestion();
-</script>
-<style>
-  /* Estilos para la caja del tutor */
-  #tutorBox {
-    margin-top: 15px;
-    padding: 10px 15px;
-    border-radius: 12px;
-    background: #003344cc;
-    color: #00fff7;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1rem;
-    min-height: 40px;
-    text-align: center;
-    user-select: none;
-    transition: background-color 0.5s ease;
-  }
-</style>
-
-<!-- Caja para mensajes del tutor -->
-<div id="tutorBox">¡Bienvenido! Responde con confianza y aprende sobre las células.</div>
-
-<script>
-  // Variables para seguimiento de aciertos/errores
-  let correctStreak = 0; // para subir nivel más rápido si aciertas varias seguidas
-  let wrongStreak = 0;   // para bajar un poco o dar tip
-  let totalCorrect = 0;
-  let totalWrong = 0;
-
-  // Referencia al tutorBox
-  const tutorBox = document.getElementById('tutorBox');
-
-  // Mensajes motivadores y tips
-  const positiveMessages = [
-    "¡Genial! Vas dominando esto.",
-    "¡Excelente! Sigue así.",
-    "¡Impresionante! Sos un crack de la biología.",
-    "¡Muy bien! Cada vez mejor."
-  ];
-
-  const encouragementMessages = [
-    "No te preocupes, la práctica hace al maestro.",
-    "¡Vamos! Cada intento te acerca más al éxito.",
-    "No te rindas, estás aprendiendo algo nuevo.",
-    "La curiosidad es el mejor maestro."
-  ];
-
-  // Función para mostrar mensaje tutor (aleatorio)
-  function showTutorMessage(type) {
-    let msg = '';
-    if(type === 'positive') {
-      msg = positiveMessages[Math.floor(Math.random() * positiveMessages.length)];
-      tutorBox.style.backgroundColor = '#004455cc';
-    } else if(type === 'encourage') {
-      msg = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
-      tutorBox.style.backgroundColor = '#552222cc';
-    } else {
-      msg = "¡Aprendamos juntos!";
-      tutorBox.style.backgroundColor = '#003344cc';
-    }
-    tutorBox.textContent = msg;
-  }
-
-  // Modificamos la función checkAnswer para integrar esta inteligencia adaptativa
-  function checkAnswer(answer) {
-    const correctAnswer = questions[current].answer;
-    if(answer === correctAnswer) {
-      score += 10 * level; // puntaje ajustado por nivel
-      totalCorrect++;
-      correctStreak++;
-      wrongStreak = 0;
-      showTutorMessage('positive');
-      // Si aciertas 3 seguidas, sube nivel (max 5)
-      if(correctStreak >= 3 && level < 5) {
-        level++;
-        levelDisplay.textContent = level;
-        correctStreak = 0; // reset streak para subir niveles adicionales
-      }
-    } else {
-      totalWrong++;
-      wrongStreak++;
-      correctStreak = 0;
-      showTutorMessage('encourage');
-      // Si fallas 3 seguidas, baja nivel pero mínimo 1
-      if(wrongStreak >= 3 && level > 1) {
-        level--;
-        levelDisplay.textContent = level;
-        wrongStreak = 0;
-      }
-    }
-
-    scoreDisplay.textContent = score;
-    current++;
-    loadQuestion();
-  }
-
-  // Mostrar resumen al terminar todas preguntas
-  function showSummary() {
-    let accuracy = ((totalCorrect / (totalCorrect + totalWrong)) * 100).toFixed(1);
-    alert(`Juego terminado!\n\nCorrectas: ${totalCorrect}\nIncorrectas: ${totalWrong}\nPrecisión: ${accuracy}%\nNivel final: ${level}`);
-    // Reiniciar todo para volver a jugar
-    score = 0;
-    current = 0;
-    level = 1;
-    totalCorrect = 0;
-    totalWrong = 0;
-    correctStreak = 0;
-    wrongStreak = 0;
-    levelDisplay.textContent = level;
-    scoreDisplay.textContent = score;
-    tutorBox.textContent = "¡Bienvenido! Responde con confianza y aprende sobre las células.";
-    loadQuestion();
-  }
-
-  // Cambiamos loadQuestion para llamar showSummary si terminan preguntas
-  function loadQuestion() {
-    if(current >= questions.length) {
-      showSummary();
-      return;
-    }
-    const q = questions[current];
-    const img = document.getElementById('cellImage');
-    const buttons = document.querySelectorAll('.answer-button');
-
-    img.src = q.img;
-    buttons.forEach((btn, i) => {
-      btn.textContent = q.options[i];
-    });
-
-    animateElements(); // animar aparición
-  }
-
-  // Inicializamos todo
-  loadQuestion();
-</script>
-<style>
-  /* Estilos para la caja de explicaciones */
-  #explanationBox {
-    margin-top: 10px;
-    padding: 12px 15px;
-    border-radius: 12px;
-    background: #002b44cc;
-    color: #a0e9ff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.95rem;
-    min-height: 50px;
-    user-select: none;
-    transition: background-color 0.3s ease;
-  }
-  <head>
-  <title>Mi juego biológico</title>
-  <style>
-    /* tu CSS anterior acá */
-
-    /* pegá el nuevo CSS del chatbot debajo del anterior */
-    #chatbot-container {
-      /* estilos del chatbot... */
-    }
-
-    /* etc. */
-  </style>
-</head>
-
-  /* Estilos para la caja de medallas */
-  #medalBox {
-    margin-top: 15px;
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .medal {
-    width: 48px;
-    height: 48px;
-    filter: drop-shadow(0 0 4px #00fff7);
-    opacity: 0.4;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-  }
-
-  .medal.earned {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-
-  /* Estilos para el chat bot tutor */
-  #chatBot {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    width: 280px;
-    max-width: 90vw;
-    background: #003544dd;
-    border-radius: 12px;
-    box-shadow: 0 0 15px #00fff7;
-    color: #cceeff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.9rem;
-    overflow: hidden;
-    user-select: none;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #chatHeader {
-    background: #005577cc;
-    padding: 10px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
-  #chatMessages {
-    flex-grow: 1;
-    padding: 10px;
-    overflow-y: auto;
-    height: 140px;
-  }
-
-  #chatInputBox {
-    display: flex;
-    border-top: 1px solid #007799;
-  }
-
-  #chatInput {
-    flex-grow: 1;
-    padding: 8px;
-    background: #002233;
-    border: none;
-    color: #a0e9ff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1rem;
-  }
-
-  #chatSendBtn {
-    padding: 8px 12px;
-    background: #0077aa;
-    border: none;
-    color: #cceeff;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  #chatSendBtn:hover {
-    background: #00aaff;
-  }
-</style>
-
-<!-- Caja para explicaciones -->
-<div id="explanationBox">Responde para ver la explicación aquí...</div>
-
-<!-- Caja para medallas -->
-<div id="medalBox">
-  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Medalla 1" id="medal1" class="medal" title="Primera victoria - 10 puntos" />
-  <img src="https://cdn-icons-png.flaticon.com/512/616/616403.png" alt="Medalla 2" id="medal2" class="medal" title="Nivel 3 alcanzado" />
-  <img src="https://cdn-icons-png.flaticon.com/512/616/616414.png" alt="Medalla 3" id="medal3" class="medal" title="Nivel 5 alcanzado" />
-</div>
-
-<!-- ChatBot Tutor -->
-<div id="chatBot">
-  <div id="chatHeader">Tutor Chat 🤖</div>
-  <div id="chatMessages"></div>
-  <div id="chatInputBox">
-    <input type="text" id="chatInput" placeholder="Escribe algo..." autocomplete="off" />
-    <button id="chatSendBtn">Enviar</button>
-  </div>
-</div>
-<body>
-  <!-- todo tu contenido del juego acá -->
-
-  <!-- pegá esto ANTES del cierre del body -->
-  <div id="chatbot-container" class="chatbot-hidden">
-    <div id="chatbot-header" onclick="toggleChatbot()">
-      <div id="robot-avatar"></div>
-      <span class="glitch-title">Tutor Célula</span>
-      <span id="minimize-icon">—</span>
-    </div>
-    <div id="chatbot-body">
-      <div id="chat-messages"></div>
-      <input type="text" id="chat-input" placeholder="Preguntame sobre células..." onkeypress="handleKey(event)">
-    </div>
-  </div>
-</body>
-
-<script>
-  // Explicaciones por pregunta (agregar a tu array 'questions' objetos con .explanation)
-  // Ejemplo de cómo debería estar en questions:
-  // {question: "...", options: [...], answer: "...", img: "...", explanation: "La célula animal tiene ..."}
-
-  // Elementos
-  const explanationBox = document.getElementById('explanationBox');
-  const medal1 = document.getElementById('medal1');
-  const medal2 = document.getElementById('medal2');
-  const medal3 = document.getElementById('medal3');
-
-  // Función para mostrar explicación cuando responde
-  function showExplanation() {
-    const currentQuestion = questions[current - 1]; // pregunta respondida
-    if(currentQuestion && currentQuestion.explanation) {
-      explanationBox.textContent = currentQuestion.explanation;
-      explanationBox.style.backgroundColor = '#004466cc';
-    } else {
-      explanationBox.textContent = "¡Buen trabajo! Sigue aprendiendo.";
-      explanationBox.style.backgroundColor = '#002b44cc';
-    }
-  }
-
-  // Modificamos la función checkAnswer para mostrar explicación y guardar progreso
-  const originalCheckAnswer = checkAnswer; // guardamos original para llamar
-
-  checkAnswer = function(answer) {
-    originalCheckAnswer(answer);
-    showExplanation();
-    saveProgress();
-    updateMedals();
-    botSendRandomMessage();
-  }
-
-  // Guardado en localStorage
-  function saveProgress() {
-    const progress = {
-      current,
-      score,
-      level,
-      totalCorrect,
-      totalWrong,
-      correctStreak,
-      wrongStreak
-    };
-    localStorage.setItem('cellQuizProgress', JSON.stringify(progress));
-  }
-
-  // Cargar progreso si hay
-  function loadProgress() {
-    const data = localStorage.getItem('cellQuizProgress');
-    if(data) {
-      const progress = JSON.parse(data);
-      current = progress.current || 0;
-      score = progress.score || 0;
-      level = progress.level || 1;
-      totalCorrect = progress.totalCorrect || 0;
-      totalWrong = progress.totalWrong || 0;
-      correctStreak = progress.correctStreak || 0;
-      wrongStreak = progress.wrongStreak || 0;
-      scoreDisplay.textContent = score;
-      levelDisplay.textContent = level;
-      tutorBox.textContent = "¡Continuamos desde donde lo dejaste!";
-      loadQuestion();
-      showExplanation();
-      updateMedals();
-    }
-  }
-  loadProgress();
-
-  // Sistema de medallas basado en puntaje y nivel
-  function updateMedals() {
-    if(score >= 10) medal1.classList.add('earned');
-    else medal1.classList.remove('earned');
-
-    if(level >= 3) medal2.classList.add('earned');
-    else medal2.classList.remove('earned');
-
-    if(level >= 5) medal3.classList.add('earned');
-    else medal3.classList.remove('earned');
-  }
-
-  // ChatBot Tutor simple
-  const chatBot = document.getElementById('chatBot');
-  const chatHeader = document.getElementById('chatHeader');
-  const chatMessages = document.getElementById('chatMessages');
-  const chatInput = document.getElementById('chatInput');
-  const chatSendBtn = document.getElementById('chatSendBtn');
-
-  // Toggle chat open/close
-  chatHeader.addEventListener('click', () => {
-    if(chatMessages.style.display === 'none' || !chatMessages.style.display) {
-      chatMessages.style.display = 'block';
-      chatInput.parentElement.style.display = 'flex';
-    } else {
-      chatMessages.style.display = 'none';
-      chatInput.parentElement.style.display = 'none';
-    }
-  });
-
-  // Mensajes automáticos que el bot puede enviar
-  const botMessages = [
-    "¿Sabías que las células vegetales tienen una pared celular rígida?",
-    "La mitocondria es la central energética de la célula.",
-    "¡Sigue así! Aprender es divertido.",
-    "¿Quieres saber la diferencia entre célula procarionte y eucarionte?",
-    "Las bacterias pueden reproducirse muy rápido en condiciones adecuadas.",
-    "Recuerda hidratarte mientras estudias 😉",
-    "Estoy aquí para ayudarte, ¡pregúntame lo que quieras!"
-  ];
-
-  // Función para que el bot envíe mensajes aleatorios de motivación o tips
-  function botSendRandomMessage() {
-    if(Math.random() < 0.3) { // 30% chance
-      const msg = botMessages[Math.floor(Math.random() * botMessages.length)];
-      addChatMessage('bot', msg);
-    }
-  }
-
-  // Función para añadir mensaje al chat
-  function addChatMessage(sender, message) {
-    const div = document.createElement('div');
-    div.textContent = (sender === 'bot' ? "Tutor
