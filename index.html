@@ -846,6 +846,22 @@ function nextQuestion() {
     <button id="chatSendBtn">Enviar</button>
   </div>
 </div>
+<body>
+  <!-- todo tu contenido del juego acá -->
+
+  <!-- pegá esto ANTES del cierre del body -->
+  <div id="chatbot-container" class="chatbot-hidden">
+    <div id="chatbot-header" onclick="toggleChatbot()">
+      <div id="robot-avatar"></div>
+      <span class="glitch-title">Tutor Célula</span>
+      <span id="minimize-icon">—</span>
+    </div>
+    <div id="chatbot-body">
+      <div id="chat-messages"></div>
+      <input type="text" id="chat-input" placeholder="Preguntame sobre células..." onkeypress="handleKey(event)">
+    </div>
+  </div>
+</body>
 
 <script>
   // Explicaciones por pregunta (agregar a tu array 'questions' objetos con .explanation)
