@@ -1,122 +1,504 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adiviná la Célula</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #0f2027;
-      --bg-darker: #203a43;
-      --bg-darkest: #2c5364;
-      --bg-light: #f0f0f0;
-      --text-light: #111;
-      --neon: #00ffe0;
-      --glitch1: #ff00c8;
-      --glitch2: #00ffe0;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portafolio Biología Futurista</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --color-dark-bg: #0f2027;
+    --color-dark-bg2: #203a43;
+    --color-dark-bg3: #2c5364;
+    --color-light-bg: #f0f0f0;
+    --color-light-text: #111;
+    --color-accent-green: #00ff9f;
+    --color-accent-teal: #008080;
+  }
+
+  /* Body y transición para modo claro/oscuro */
+  body {
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(to bottom, var(--color-dark-bg), var(--color-dark-bg2), var(--color-dark-bg3));
+    color: var(--color-accent-green);
+    transition: background 0.5s ease, color 0.5s ease;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  body.light-mode {
+    background: var(--color-light-bg);
+    color: var(--color-light-text);
+  }
+
+  /* Botón modo oscuro/claro con animación SVG */
+
+  #toggle-theme {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    z-index: 1001;
+    outline: none;
+  }
+
+  /* Animación del sol y luna dentro del botón */
+  #toggle-theme svg {
+    width: 100%;
+    height: 100%;
+    transition: all 0.6s ease;
+  }
+
+  /* Estilos para el sol */
+  .sun {
+    fill: #FFD93B;
+    stroke: #FFC107;
+    stroke-width: 2;
+    transform-origin: 50% 50%;
+    animation: spin 10s linear infinite;
+  }
+
+  /* Estilos para la luna */
+  .moon {
+    fill: #f0f0f0;
+    stroke: #ccc;
+    stroke-width: 2;
+    transform-origin: 50% 50%;
+    transition: transform 0.6s ease;
+  }
+
+  /* Animación rotación del sol */
+  @keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+  }
+
+</style>
+</head>
+<body>
+
+<button id="toggle-theme" aria-label="Cambiar modo claro/oscuro" title="Cambiar modo claro/oscuro">
+  <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <!-- Sol: circulo con rayos -->
+    <circle class="sun" cx="32" cy="32" r="12" />
+    <g class="sun-rays">
+      <line class="sun" x1="32" y1="4" x2="32" y2="14" />
+      <line class="sun" x1="32" y1="50" x2="32" y2="60" />
+      <line class="sun" x1="4" y1="32" x2="14" y2="32" />
+      <line class="sun" x1="50" y1="32" x2="60" y2="32" />
+      <line class="sun" x1="12" y1="12" x2="20" y2="20" />
+      <line class="sun" x1="44" y1="44" x2="52" y2="52" />
+      <line class="sun" x1="12" y1="52" x2="20" y2="44" />
+      <line class="sun" x1="44" y1="20" x2="52" y2="12" />
+    </g>
+    <!-- Luna: círculo recortado -->
+    <mask id="moon-mask">
+      <rect x="0" y="0" width="64" height="64" fill="white" />
+      <circle cx="42" cy="32" r="12" fill="black" />
+    </mask>
+    <circle class="moon" cx="32" cy="32" r="12" mask="url(#moon-mask)" />
+  </svg>
+</button>
+
+<!-- Aquí irá el resto del contenido -->
+<div id="content" style="padding: 80px 20px 20px 20px; max-width: 900px; margin: auto;">
+  <h1>Bienvenido a mi Portafolio Biología Futurista</h1>
+  <p>Explora proyectos, habilidades y animaciones inspiradas en la ciencia y biología.</p>
+</div>
+
+<script>
+  // JavaScript para togglear modo oscuro/claro
+  const toggleButton = document.getElementById('toggle-theme');
+  const body = document.body;
+
+  // Función para cambiar modo y guardar en localStorage
+  function toggleTheme() {
+    body.classList.toggle('light-mode');
+    if(body.classList.contains('light-mode')){
+      localStorage.setItem('theme', 'light');
+    } else {
+      localStorage.setItem('theme', 'dark');
+    }
+  }
+
+  // Evento click en botón
+  toggleButton.addEventListener('click', toggleTheme);
+
+  // Cargar modo guardado en localStorage
+  window.addEventListener('load', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme === 'light'){
+      body.classList.add('light-mode');
+    }
+  });
+</script>
+  <!-- Botón de cambio de modo claro/oscuro con animación SVG -->
+<div id="themeToggle" onclick="toggleTheme()" class="theme-toggle" title="Cambiar modo">
+  <svg viewBox="0 0 100 100" width="60" height="60">
+    <defs>
+      <radialGradient id="sunGradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fff176"/>
+        <stop offset="100%" stop-color="#fbc02d"/>
+      </radialGradient>
+      <radialGradient id="moonGradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#90caf9"/>
+        <stop offset="100%" stop-color="#0d47a1"/>
+      </radialGradient>
+    </defs>
+    <circle id="celestialBody" cx="50" cy="50" r="30" fill="url(#sunGradient)" />
+  </svg>
+</div>
+
+</body>
+</html>
+<!-- Agregar justo antes de cerrar body -->
+
+<canvas id="bioCanvas"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<script>
+  const canvas = document.getElementById('bioCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Partículas ADN/mitocondrias
+  class Particle {
+    constructor(x, y, radius, speed, angle, type) {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+      this.speed = speed;
+      this.angle = angle;
+      this.type = type; // "dna" o "mito"
+      this.opacity = Math.random() * 0.5 + 0.5;
+      this.length = radius * 4;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    update() {
+      // Movimiento suave y ordenado, tipo onda sinusoidal horizontal
+      this.x += Math.cos(this.angle) * this.speed;
+      this.y += Math.sin(this.angle) * this.speed * 0.3;
+
+      // Mantener dentro del canvas (rebota o vuelve a empezar)
+      if(this.x > width + this.length) this.x = -this.length;
+      if(this.x < -this.length) this.x = width + this.length;
+      if(this.y > height) this.y = height / 2 + Math.sin(this.x * 0.01) * 50;
+      if(this.y < 0) this.y = height / 2 + Math.sin(this.x * 0.01) * 50;
     }
 
-    body {
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to bottom, var(--bg-dark), var(--bg-darker), var(--bg-darkest));
-      color: #caffd4;
-      transition: background 0.5s, color 0.5s;
-      overflow-x: hidden;
+    draw() {
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      if(this.type === "dna"){
+        this.drawDNA();
+      } else if(this.type === "mito"){
+        this.drawMito();
+      }
+      ctx.restore();
     }
 
-    body.light {
-      background: var(--bg-light);
-      color: var(--text-light);
+    drawDNA() {
+      // Dibujar hélice simple
+      ctx.strokeStyle = 'rgba(0,255,159,0.7)';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for(let i = 0; i < this.length; i += 4) {
+        let x1 = this.x + i;
+        let y1 = this.y + Math.sin((i + this.x) * 0.3) * 8;
+        let x2 = x1;
+        let y2 = y1 + 20;
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+      }
+      ctx.stroke();
+
+      // Conexiones
+      ctx.strokeStyle = 'rgba(0,255,159,0.4)';
+      ctx.lineWidth = 1;
+      for(let i = 0; i < this.length; i += 8) {
+        let x1 = this.x + i;
+        let y1 = this.y + Math.sin((i + this.x) * 0.3) * 8;
+        let x2 = x1;
+        let y2 = y1 + 20;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
     }
 
-    header {
-      text-align: center;
-      padding: 20px;
-      font-size: 2em;
-      background: linear-gradient(90deg, var(--neon), #008080, var(--neon));
-      background-size: 200% auto;
-      color: white;
-      animation: shimmer 5s linear infinite, glitch 1s infinite alternate;
-    }
+    drawMito() {
+      // Dibujar una mitocondria simple como óvalo naranja con interior 'filamentos'
+      let grad = ctx.createRadialGradient(this.x, this.y, this.radius/3, this.x, this.y, this.radius);
+      grad.addColorStop(0, 'rgba(255,165,0,0.8)');
+      grad.addColorStop(1, 'rgba(255,140,0,0.2)');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.ellipse(this.x, this.y, this.radius * 1.5, this.radius, 0, 0, 2 * Math.PI);
+      ctx.fill();
 
-    @keyframes shimmer {
-      0% { background-position: 0% center; }
-      100% { background-position: 200% center; }
+      // Filamentos internos (líneas curvas)
+      ctx.strokeStyle = 'rgba(255,140,0,0.7)';
+      ctx.lineWidth = 1.5;
+      for(let i = -this.radius; i <= this.radius; i += 5){
+        ctx.beginPath();
+        ctx.moveTo(this.x + i/2, this.y - this.radius);
+        ctx.bezierCurveTo(
+          this.x + i, this.y,
+          this.x + i, this.y,
+          this.x + i/2, this.y + this.radius
+        );
+        ctx.stroke();
+      }
     }
+  }
 
-    @keyframes glitch {
-      0% { text-shadow: 2px 2px var(--glitch1), -2px -2px var(--glitch2); }
-      100% { text-shadow: -2px 2px var(--glitch2), 2px -2px var(--glitch1); }
-    }
+  // Crear partículas aleatorias
+  const particles = [];
+  const particleCount = 30;
 
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-    }
+  for(let i = 0; i < particleCount; i++) {
+    let x = Math.random() * window.innerWidth;
+    let y = window.innerHeight / 2 + Math.sin(x * 0.01) * 50;
+    let radius = 10 + Math.random() * 10;
+    let speed = 0.5 + Math.random() * 0.5;
+    let angle = Math.random() * Math.PI * 2;
+    let type = (i % 2 === 0) ? "dna" : "mito";
+    particles.push(new Particle(x, y, radius, speed, angle, type));
+  }
 
-    .container {
-      max-width: 600px;
-      margin: 30px auto;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 0 20px rgba(0,255,255,0.15);
-    }
+  // Animar con requestAnimationFrame y GSAP para suavizar
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
 
-    img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 12px var(--neon);
-    }
+</script>
+<style>
+  /* Contenedor principal mejorado */
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px 30px;
+    background: rgba(10, 40, 30, 0.8);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow:
+      0 0 15px 3px rgba(0, 255, 159, 0.4),
+      inset 0 0 15px 3px rgba(0, 128, 80, 0.7);
+    border: 2px solid rgba(0, 255, 159, 0.5);
+  }
 
-    .options {
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+  /* Encabezado con borde más complejo y glitch mejorado */
+  header {
+    font-size: 2.4em;
+    background: linear-gradient(90deg, #00ffcc, #005f40, #00ffcc);
+    background-size: 250% auto;
+    color: #b8ffdf;
+    padding: 22px 0;
+    border-radius: 25px;
+    box-shadow:
+      0 0 15px #00ffcc,
+      0 0 30px #00ffcc inset;
+    animation: shimmer 6s linear infinite, glitch 1.5s infinite alternate;
+    user-select: none;
+    border: 3px double #008050;
+  }
 
-    .option {
-      padding: 12px;
-      font-size: 1em;
-      background: #012f2f;
-      color: #caffd4;
-      border: 2px solid var(--neon);
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
+  /* Mejor glitch */
+  @keyframes glitch {
+    0%, 100% {
+      text-shadow:
+        2px 2px #ff00c8,
+        -2px -2px #00ffe0,
+        4px 0 #00ff99,
+        -4px 0 #00ff99;
     }
+    50% {
+      text-shadow:
+        -2px 2px #00ffe0,
+        2px -2px #ff00c8,
+        0 4px #00ff99,
+        0 -4px #00ff99;
+    }
+  }
 
-    .option:hover {
-      background: #014040;
-      box-shadow: 0 0 8px var(--neon);
-    }
+  /* Botón toggle modo */
+  .toggle-switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 30px;
+    background: rgba(0, 255, 159, 0.15);
+    border-radius: 30px;
+    border: 2px solid #00ff99;
+    cursor: pointer;
+    box-shadow: 0 0 8px #00ff99;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    user-select: none;
+    transition: background 0.3s ease;
+    z-index: 10;
+  }
 
-    .option:active::after {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border-radius: 8px;
-      box-shadow: 0 0 15px var(--neon);
-      animation: pulse 0.4s ease;
-    }
+  .toggle-switch:hover {
+    background: rgba(0, 255, 159, 0.3);
+  }
 
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      100% { opacity: 0; transform: scale(1.3); }
+  .toggle-circle {
+    width: 24px;
+    height: 24px;
+    background: #00ff99;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #00ff99;
+    position: relative;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Sol y luna SVG dentro del círculo toggle */
+  .icon-sun,
+  .icon-moon {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    fill: #003300;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .icon-sun {
+    opacity: 1;
+  }
+
+  .icon-moon {
+    opacity: 0;
+  }
+
+  /* Estado claro */
+  body.light .toggle-circle {
+    transform: translateX(30px);
+    background: #ffd700;
+    box-shadow: 0 0 8px #ffd700;
+  }
+
+  body.light .icon-sun {
+    opacity: 0;
+  }
+
+  body.light .icon-moon {
+    opacity: 1;
+    fill: #333333;
+  }
+
+  /* Opciones */
+  .options {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .option {
+    background: rgba(0, 128, 60, 0.6);
+    border: 2px solid #00ff99;
+    box-shadow: 0 0 12px #00ff99 inset;
+    color: #b8ffdf;
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 14px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .option:hover {
+    background: #00ff99;
+    color: #003300;
+    box-shadow:
+      0 0 15px #00ff99,
+      0 0 10px #00ff99 inset;
+  }
+
+  .option:active::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 15px;
+    box-shadow: 0 0 20px #00ff99;
+    animation: pulse 0.4s ease;
+  }
+
+  @keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.3); }
+  }
+</style>
+
+<!-- Toggle switch HTML -->
+
+<div class="toggle-switch" id="toggleSwitch" aria-label="Toggle light/dark mode" role="button" tabindex="0">
+  <div class="toggle-circle">
+    <svg class="icon-sun" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="12" cy="12" r="5" fill="yellow"/>
+      <g stroke="yellow" stroke-width="2">
+        <line x1="12" y1="1" x2="12" y2="5"/>
+        <line x1="12" y1="19" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="7.07" y2="7.07"/>
+        <line x1="16.93" y1="16.93" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="5" y2="12"/>
+        <line x1="19" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="7.07" y2="16.93"/>
+        <line x1="16.93" y1="7.07" x2="19.78" y2="4.22"/>
+      </g>
+    </svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="silver" d="M21 12.79A9 9 0 0112.21 3 7 7 0 1018 18.79 9 9 0 0121 12.79z"/>
+    </svg>
+  </div>
+</div>
+
+<script>
+  const toggleSwitch = document.getElementById('toggleSwitch');
+  toggleSwitch.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+  });
+
+  // También toggle con teclado (Enter, Espacio)
+  toggleSwitch.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleSwitch.click();
     }
+  });
+</script>
 
     .feedback {
       margin-top: 15px;
