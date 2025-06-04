@@ -3,249 +3,970 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Adiviná la Célula | Biología Interactiva</title>
+  <title>Adiviná la Célula</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --bg-dark: #0f2027;
+      --bg-darker: #203a43;
+      --bg-darkest: #2c5364;
+      --bg-light: #f0f0f0;
+      --text-light: #111;
+      --neon: #00ffe0;
+      --glitch1: #ff00c8;
+      --glitch2: #00ffe0;
+    }
+
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      background: linear-gradient(to bottom, var(--bg-dark), var(--bg-darker), var(--bg-darkest));
       color: #caffd4;
-      overflow: hidden;
-      position: relative;
+      transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+    }
+
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
     }
 
     header {
-      background-color: #00b894;
-      color: white;
-      padding: 20px;
       text-align: center;
-      font-size: 2.2em;
-      box-shadow: 0 4px 20px rgba(0, 255, 150, 0.5);
-      z-index: 2;
-      position: relative;
+      padding: 20px;
+      font-size: 2em;
+      background: linear-gradient(90deg, var(--neon), #008080, var(--neon));
+      background-size: 200% auto;
+      color: white;
+      animation: shimmer 5s linear infinite, glitch 1s infinite alternate;
     }
 
-    .game-container {
-      max-width: 800px;
-      margin: 60px auto;
-      background: rgba(255,255,255,0.05);
-      padding: 30px;
+    @keyframes shimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 2px var(--glitch1), -2px -2px var(--glitch2); }
+      100% { text-shadow: -2px 2px var(--glitch2), 2px -2px var(--glitch1); }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 15px;
-      box-shadow: 0 10px 40px rgba(0,255,150,0.2);
-      backdrop-filter: blur(10px);
-      transition: all 0.4s ease;
-      position: relative;
-      z-index: 2;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 20px rgba(0,255,255,0.15);
     }
 
-    .cell-image {
+    img {
       width: 100%;
       border-radius: 10px;
-      border: 3px solid #00ffae;
-      box-shadow: 0 0 15px #00ffae88;
+      box-shadow: 0 0 12px var(--neon);
     }
 
     .options {
       margin-top: 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
     }
 
-    .option-btn {
-      padding: 14px;
-      font-size: 1.2em;
-      background-color: #003d33;
+    .option {
+      padding: 12px;
+      font-size: 1em;
+      background: #012f2f;
       color: #caffd4;
-      border: 2px solid #00ffae;
+      border: 2px solid var(--neon);
       border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .option-btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 12px #00ffae;
+    .option:hover {
+      background: #014040;
+      box-shadow: 0 0 8px var(--neon);
     }
 
-    .option-btn.correct {
-      animation: shine 0.6s ease forwards;
+    .option:active::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 8px;
+      box-shadow: 0 0 15px var(--neon);
+      animation: pulse 0.4s ease;
     }
 
-    .option-btn.incorrect {
-      background-color: #7f1d1d;
-      color: #ffecec;
-    }
-
-    @keyframes shine {
-      from { box-shadow: 0 0 10px #00ffae; }
-      to { box-shadow: 0 0 25px #00ffae; background-color: #004d40; }
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(1.3); }
     }
 
     .feedback {
-      margin-top: 20px;
-      font-weight: bold;
-      font-size: 1.3em;
+      margin-top: 15px;
+      font-size: 1.2em;
       text-align: center;
     }
 
-    .next-btn {
+    .score, .level {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    button.next, button.toggle-mode {
       margin-top: 20px;
-      display: none;
-      padding: 12px 25px;
-      background-color: #00796b;
-      color: white;
-      border: none;
-      border-radius: 10px;
+      padding: 10px 15px;
       font-size: 1em;
+      background: #005959;
+      border: none;
+      color: white;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 0 10px #00ffae;
+      box-shadow: 0 0 10px var(--neon);
+      margin-right: 10px;
     }
 
     footer {
       text-align: center;
-      margin: 60px auto 30px;
-      color: #95f5d6;
-      position: relative;
-      z-index: 2;
+      margin-top: 40px;
+      color: #88fff0;
     }
 
-    ::selection {
-      background: #00ffae;
-      color: black;
-    }
-
-    /* Animación de bacterias */
-    .bacteria {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background-image: url('https://i.ibb.co/0j1Y1Yv/bacteria.png');
-      background-size: cover;
-      opacity: 0.3;
-      animation: moveBacteria linear infinite;
-      z-index: 1;
-    }
-
-    @keyframes moveBacteria {
-      0% {
-        transform: translateY(0) translateX(0) rotate(0deg);
-        opacity: 0.3;
-      }
-      50% {
-        opacity: 0.6;
-      }
-      100% {
-        transform: translateY(100vh) translateX(100vw) rotate(360deg);
-        opacity: 0.3;
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
       }
     }
   </style>
 </head>
 <body>
-  <header>
-    🧬 Adiviná la Célula
-  </header>
+<canvas id="bacteriaCanvas"></canvas>
+<header>🧬 Adiviná la Célula</header>
 
-  <div class="game-container">
-    <img id="cellImage" class="cell-image" src="" alt="Imagen de célula" />
-    <div class="options" id="optionsContainer"></div>
-    <div class="feedback" id="feedback"></div>
-    <button class="next-btn" id="nextBtn">Siguiente célula</button>
-  </div>
+<div class="container">
+  <div class="level">Nivel: <span id="level">1</span></div>
+  <div class="score">Puntaje: <span id="score">0</span></div>
+  <img id="cellImage" src="" alt="Imagen de célula" />
+  <div class="options" id="optionsContainer"></div>
+  <div class="feedback" id="feedback"></div>
+  <button class="next" id="nextBtn">Siguiente ➜</button>
+  <button class="toggle-mode" id="toggleMode">🌗 Modo Claro/Oscuro</button>
+</div>
 
-  <footer>
-    Hecho por Lemuel para la clase de Biología 🧪
-  </footer>
+<footer>Hecho por Lemuel con 💡</footer>
 
-  <!-- Sonidos -->
-  <audio id="correctSound" src="https://www.soundjay.com/button/sounds/button-3.mp3" preload="auto"></audio>
-  <audio id="incorrectSound" src="https://www.soundjay.com/button/sounds/button-10.mp3" preload="auto"></audio>
+<audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2021/09/08/audio_7307fb88b4.mp3?filename=correct-2-46134.mp3"></audio>
+<audio id="incorrectSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6f89ae97e7.mp3?filename=error-126627.mp3"></audio>
+<script>
+const questions = [
+  {
+    img: "https://upload.wikimedia.org/wikipedia/commons/7/77/Animal_cell_structure_en.svg",
+    answer: "Célula Animal",
+    options: ["Célula Vegetal", "Célula Procariota", "Célula Animal", "Célula Madre"]
+  },
+  {
+    img: "https://upload.wikimedia.org/wikipedia/commons/b/bc/Plant_cell_structure.svg",
+    answer: "Célula Vegetal",
+    options: ["Célula Vegetal", "Célula Animal", "Célula Procariota", "Célula del sistema inmune"]
+  },
+  {
+    img: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Prokaryote_cell_structure-es.svg",
+    answer: "Célula Procariota",
+    options: ["Célula Animal", "Célula Madre", "Célula Vegetal", "Célula Procariota"]
+  },
+  {
+    img: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Stem_cells_diagram_es.svg",
+    answer: "Célula Madre",
+    options: ["Célula del sistema inmune", "Célula Madre", "Célula Procariota", "Célula Animal"]
+  },
+  {
+    img: "https://upload.wikimedia.org/wikipedia/commons/7/71/Immune_cells_es.svg",
+    answer: "Célula del sistema inmune",
+    options: ["Célula del sistema inmune", "Célula Vegetal", "Célula Animal", "Célula Madre"]
+  }
+];
 
-  <script>
-    const questions = [
-      {
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Biological_cell_structure-es.svg/600px-Biological_cell_structure-es.svg.png",
-        correct: "Animal",
-        options: ["Animal", "Vegetal", "Prokaryota"]
-      },
-      {
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/C%C3%A9lula_vegetal_tipo_es.svg/600px-C%C3%A9lula_vegetal_tipo_es.svg.png",
-        correct: "Vegetal",
-        options: ["Vegetal", "Animal", "Virus"]
-      },
-      {
-        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Esquema_bacteria.svg/600px-Esquema_bacteria.svg.png",
-        correct: "Prokaryota",
-        options: ["Prokaryota", "Arquea", "Animal"]
-      }
-    ];
+let current = 0;
+let score = 0;
+let level = 1;
 
-    let currentQuestion = 0;
+const img = document.getElementById('cellImage');
+const optionsContainer = document.getElementById('optionsContainer');
+const feedback = document.getElementById('feedback');
+const scoreDisplay = document.getElementById('score');
+const levelDisplay = document.getElementById('level');
+const correctSound = document.getElementById('correctSound');
+const incorrectSound = document.getElementById('incorrectSound');
 
-    const imgEl = document.getElementById("cellImage");
-    const optionsContainer = document.getElementById("optionsContainer");
-    const feedbackEl = document.getElementById("feedback");
-    const nextBtn = document.getElementById("nextBtn");
-    const correctSound = document.getElementById("correctSound");
-    const incorrectSound = document.getElementById("incorrectSound");
+function loadQuestion() {
+  const q = questions[current];
+  img.src = q.img;
+  feedback.textContent = "";
+  optionsContainer.innerHTML = "";
+  q.options.sort(() => Math.random() - 0.5);
+  q.options.forEach(opt => {
+    const btn = document.createElement('div');
+    btn.className = 'option';
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(opt, q.answer);
+    optionsContainer.appendChild(btn);
+  });
+}
 
-    function loadQuestion() {
-      feedbackEl.textContent = "";
-      nextBtn.style.display = "none";
-      const q = questions[currentQuestion];
-      imgEl.src = q.img;
+function checkAnswer(selected, correct) {
+  if (selected === correct) {
+    feedback.textContent = "✅ ¡Correcto!";
+    score += 10;
+    correctSound.play();
+  } else {
+    feedback.textContent = "❌ Incorrecto. Era: " + correct;
+    incorrectSound.play();
+  }
+  scoreDisplay.textContent = score;
+  setTimeout(nextQuestion, 1500);
+}
 
-      optionsContainer.innerHTML = "";
-      q.options.forEach(opt => {
-        const btn = document.createElement("button");
-        btn.classList.add("option-btn");
-        btn.textContent = opt;
-        btn.onclick = () => {
-          const isCorrect = opt === q.correct;
-          feedbackEl.textContent = isCorrect ? "✅ ¡Correcto!" : `❌ Incorrecto. Era: ${q.correct}`;
-          feedbackEl.style.color = isCorrect ? "#00ffae" : "#ff8a80";
+function nextQuestion() {
+  current++;
+  if (current >= questions.length) {
+    current = 0;
+    level++;
+  }
+  levelDisplay.textContent = level;
+  loadQuestion();
+}
 
-          btn.classList.add(isCorrect ? "correct" : "incorrect");
-          nextBtn.style.display = "inline-block";
+document.getElementById('nextBtn').onclick = nextQuestion;
 
-          if (isCorrect) {
-            correctSound.play();
-          } else {
-            incorrectSound.play();
-          }
+document.getElementById('toggleMode').onclick = () => {
+  document.body.classList.toggle('light');
+};
 
-          Array.from(document.getElementsByClassName("option-btn")).forEach(b => b.disabled = true);
-        };
-        optionsContainer.appendChild(btn);
-      });
-    }
+// Animación de bacterias flotando
+const canvas = document.getElementById("bacteriaCanvas");
+const ctx = canvas.getContext("2d");
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+window.onresize = () => {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+};
 
-    nextBtn.onclick = () => {
-      currentQuestion = (currentQuestion + 1) % questions.length;
-      loadQuestion();
-    };
+const bacteria = Array.from({ length: 60 }, () => ({
+  x: Math.random() * w,
+  y: Math.random() * h,
+  r: 5 + Math.random() * 15,
+  dx: -0.5 + Math.random(),
+  dy: -0.5 + Math.random(),
+  color: `rgba(0,255,180,${Math.random()})`
+}));
 
-    loadQuestion();
+function animate() {
+  ctx.clearRect(0, 0, w, h);
+  bacteria.forEach(b => {
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    ctx.fillStyle = b.color;
+    ctx.fill();
+    b.x += b.dx;
+    b.y += b.dy;
+    if (b.x < 0 || b.x > w) b.dx *= -1;
+    if (b.y < 0 || b.y > h) b.dy *= -1;
+  });
+  requestAnimationFrame(animate);
+}
+animate();
 
-    // Generar bacterias animadas
-    function createBacteria() {
-      const bacteria = document.createElement('div');
-      bacteria.classList.add('bacteria');
-      bacteria.style.top = Math.random() * window.innerHeight + 'px';
-      bacteria.style.left = Math.random() * window.innerWidth + 'px';
-      bacteria.style.animationDuration = (10 + Math.random() * 20) + 's';
-      document.body.appendChild(bacteria);
-
-      // Eliminar la bacteria después de la animación
-      setTimeout(() => {
-        bacteria.remove();
-      }, 30000);
-    }
-
-    // Crear bacterias cada cierto tiempo
-    setInterval(createBacteria, 1000);
-  </script>
+loadQuestion();
+</script>
 </body>
 </html>
+<!-- Nuevas preguntas para más niveles -->
+<script>
+questions.push(
+  {
+    img: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Neuron.svg",
+    answer: "Célula Neuronal",
+    options: ["Célula Muscular", "Célula Sanguínea", "Célula Neuronal", "Célula Vegetal"]
+  },
+  {
+    img: "https://upload.wikimedia.org/wikipedia/commons/4/41/Red_blood_cells_simple.svg",
+    answer: "Célula Sanguínea",
+    options: ["Célula Sanguínea", "Célula Madre", "Célula Procariota", "Célula Animal"]
+  },
+  {
+    img: "https://upload.wikimedia.org/wikipedia/commons/3/30/Skeletal_muscle_cell_es.svg",
+    answer: "Célula Muscular",
+    options: ["Célula Vegetal", "Célula Muscular", "Célula Neuronal", "Célula Procariota"]
+  }
+);
+
+// Efecto de glitch (clase para aplicar en textos clave)
+const style = document.createElement('style');
+style.innerHTML = `
+.glitch {
+  position: relative;
+  color: #0ff;
+  animation: flicker 1s infinite alternate;
+}
+@keyframes flicker {
+  0% {text-shadow: 1px 0 red, -1px 0 blue;}
+  50% {text-shadow: -2px 0 red, 2px 0 blue;}
+  100% {text-shadow: 1px 0 red, -1px 0 blue;}
+}
+.level-up {
+  animation: levelFlash 0.5s ease-out;
+}
+@keyframes levelFlash {
+  from { background-color: #0ff; opacity: 0.5; }
+  to { background-color: transparent; opacity: 1; }
+}
+`;
+document.head.appendChild(style);
+
+// Sonido para pasar de nivel
+const levelUpSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_06a71b29e6.mp3");
+
+// Detectar paso de nivel y dar efecto visual
+function nextQuestion() {
+  current++;
+  if (current >= questions.length) {
+    current = 0;
+    level++;
+    levelUpSound.play();
+    document.body.classList.add("level-up");
+    setTimeout(() => document.body.classList.remove("level-up"), 300);
+  }
+  levelDisplay.textContent = level;
+  loadQuestion();
+}
+</script>
+<style>
+  /* Glitch animado para el título */
+  #title.glitch {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2.8rem;
+    color: #00fff7;
+    position: relative;
+    animation: glitchAnim 2s infinite;
+    user-select: none;
+  }
+  @keyframes glitchAnim {
+    0% {
+      text-shadow: 2px 0 #0ff, -2px 0 #0ff, 0 0 #00fff7;
+    }
+    25% {
+      text-shadow: -2px 2px red, 2px -2px blue, 0 0 cyan;
+    }
+    50% {
+      text-shadow: 3px 1px #00fff7, -3px -1px #00fff7;
+    }
+    75% {
+      text-shadow: -1px -1px red, 1px 1px blue;
+    }
+    100% {
+      text-shadow: 2px 0 #0ff, -2px 0 #0ff, 0 0 #00fff7;
+    }
+  }
+
+  /* Animaciones fade y zoom para imágenes y botones */
+  .fade-zoom {
+    animation: fadeZoomIn 0.8s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fadeZoomIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Brillitos animados al hacer click en botón */
+  .sparkle {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(circle, #00fff7 0%, transparent 70%);
+    animation: sparkleAnim 0.6s ease-out forwards;
+  }
+  @keyframes sparkleAnim {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(2);
+    }
+  }
+
+  /* Fondo con bacterias y partículas */
+  #backgroundCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: #0b0f1a;
+  }
+</style>
+
+<!-- Canvas para animación fondo -->
+<canvas id="backgroundCanvas"></canvas>
+
+<script>
+  // Efecto glitch constante en título
+  const title = document.getElementById('title');
+  title.classList.add('glitch');
+
+  // Aplicar fade-zoom a imagen y botones en load y cuando cargan preguntas
+  function animateElements() {
+    const img = document.getElementById('cellImage');
+    const buttons = document.querySelectorAll('.answer-button');
+    img.classList.remove('fade-zoom');
+    void img.offsetWidth; // Reflow para reiniciar animación
+    img.classList.add('fade-zoom');
+
+    buttons.forEach(btn => {
+      btn.classList.remove('fade-zoom');
+      void btn.offsetWidth;
+      btn.classList.add('fade-zoom');
+    });
+  }
+
+  // Ejecutar animación al cargar pregunta
+  function loadQuestion() {
+    if (current >= questions.length) {
+      alert('¡Terminaste todos los niveles! 🎉');
+      current = 0;
+      score = 0;
+      level = 1;
+      levelDisplay.textContent = level;
+      scoreDisplay.textContent = score;
+    }
+    const q = questions[current];
+    const img = document.getElementById('cellImage');
+    const buttons = document.querySelectorAll('.answer-button');
+
+    img.src = q.img;
+    buttons.forEach((btn, i) => {
+      btn.textContent = q.options[i];
+    });
+
+    animateElements(); // Animar imagen y botones
+  }
+
+  // Crear partículas brillitos en botón clickeado
+  function createSparkles(x, y) {
+    const sparkleCount = 15;
+    for(let i = 0; i < sparkleCount; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      document.body.appendChild(sparkle);
+
+      // Posición inicial cerca del click
+      sparkle.style.left = x + (Math.random() * 20 - 10) + 'px';
+      sparkle.style.top = y + (Math.random() * 20 - 10) + 'px';
+
+      // Animar partículas con velocidad aleatoria y dirección
+      sparkle.style.animationDelay = (Math.random() * 0.3) + 's';
+
+      // Remover tras la animación
+      sparkle.addEventListener('animationend', () => sparkle.remove());
+    }
+  }
+
+  // Sonido clic para botones (ligero, futurista)
+  const clickSound = new Audio('https://cdn.pixabay.com/audio/2021/08/04/audio_0f7351d0ca.mp3');
+  clickSound.volume = 0.15;
+
+  // Handler para botones con efectos
+  function handleAnswerClick(e) {
+    const btn = e.target;
+    const rect = btn.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    createSparkles(x, y);
+    clickSound.play();
+
+    checkAnswer(btn.textContent);
+  }
+
+  // Asignar listener a botones (lo agregamos a todos)
+  document.querySelectorAll('.answer-button').forEach(btn => {
+    btn.addEventListener('click', handleAnswerClick);
+  });
+
+  // Fondo animado con bacterias y partículas (Canvas)
+  const canvas = document.getElementById('backgroundCanvas');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+
+  // Ajustar tamaño al viewport
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Partículas bacterianas con movimiento orgánico
+  class Bacteria {
+    constructor() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.radius = 5 + Math.random() * 6;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.speedY = (Math.random() - 0.5) * 0.5;
+      this.angle = Math.random() * Math.PI * 2;
+      this.angularSpeed = (Math.random() - 0.5) * 0.02;
+    }
+    update() {
+      this.x += this.speedX + Math.sin(this.angle) * 0.3;
+      this.y += this.speedY + Math.cos(this.angle) * 0.3;
+      this.angle += this.angularSpeed;
+
+      if(this.x < -this.radius) this.x = w + this.radius;
+      else if(this.x > w + this.radius) this.x = -this.radius;
+      if(this.y < -this.radius) this.y = h + this.radius;
+      else if(this.y > h + this.radius) this.y = -this.radius;
+    }
+    draw() {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.angle);
+      // Dibujar bacteria como óvalo con flagelos
+      ctx.fillStyle = 'rgba(0,255,255,0.4)';
+      ctx.beginPath();
+      ctx.ellipse(0, 0, this.radius * 1.5, this.radius, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(0,255,255,0.7)';
+      ctx.lineWidth = 1;
+      for(let i = 0; i < 4; i++) {
+        const angle = (Math.PI / 2) * i + this.angle;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(Math.cos(angle) * this.radius * 2, Math.sin(angle) * this.radius * 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
+
+  // Crear bacteria con velocidad basada en nivel para dificultad/energía
+  let bacteriaCount = 30;
+  const bacteriaArray = [];
+  for(let i=0; i < bacteriaCount; i++) {
+    bacteriaArray.push(new Bacteria());
+  }
+
+  // Animación del fondo
+  function animateBackground() {
+    ctx.clearRect(0, 0, w, h);
+    bacteriaArray.forEach(b => {
+      b.update();
+      b.draw();
+    });
+    requestAnimationFrame(animateBackground);
+  }
+  animateBackground();
+
+  // Al cargar preguntas también animar fade-zoom (ya incluido en loadQuestion)
+  loadQuestion();
+</script>
+<style>
+  /* Estilos para la caja del tutor */
+  #tutorBox {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border-radius: 12px;
+    background: #003344cc;
+    color: #00fff7;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    min-height: 40px;
+    text-align: center;
+    user-select: none;
+    transition: background-color 0.5s ease;
+  }
+</style>
+
+<!-- Caja para mensajes del tutor -->
+<div id="tutorBox">¡Bienvenido! Responde con confianza y aprende sobre las células.</div>
+
+<script>
+  // Variables para seguimiento de aciertos/errores
+  let correctStreak = 0; // para subir nivel más rápido si aciertas varias seguidas
+  let wrongStreak = 0;   // para bajar un poco o dar tip
+  let totalCorrect = 0;
+  let totalWrong = 0;
+
+  // Referencia al tutorBox
+  const tutorBox = document.getElementById('tutorBox');
+
+  // Mensajes motivadores y tips
+  const positiveMessages = [
+    "¡Genial! Vas dominando esto.",
+    "¡Excelente! Sigue así.",
+    "¡Impresionante! Sos un crack de la biología.",
+    "¡Muy bien! Cada vez mejor."
+  ];
+
+  const encouragementMessages = [
+    "No te preocupes, la práctica hace al maestro.",
+    "¡Vamos! Cada intento te acerca más al éxito.",
+    "No te rindas, estás aprendiendo algo nuevo.",
+    "La curiosidad es el mejor maestro."
+  ];
+
+  // Función para mostrar mensaje tutor (aleatorio)
+  function showTutorMessage(type) {
+    let msg = '';
+    if(type === 'positive') {
+      msg = positiveMessages[Math.floor(Math.random() * positiveMessages.length)];
+      tutorBox.style.backgroundColor = '#004455cc';
+    } else if(type === 'encourage') {
+      msg = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
+      tutorBox.style.backgroundColor = '#552222cc';
+    } else {
+      msg = "¡Aprendamos juntos!";
+      tutorBox.style.backgroundColor = '#003344cc';
+    }
+    tutorBox.textContent = msg;
+  }
+
+  // Modificamos la función checkAnswer para integrar esta inteligencia adaptativa
+  function checkAnswer(answer) {
+    const correctAnswer = questions[current].answer;
+    if(answer === correctAnswer) {
+      score += 10 * level; // puntaje ajustado por nivel
+      totalCorrect++;
+      correctStreak++;
+      wrongStreak = 0;
+      showTutorMessage('positive');
+      // Si aciertas 3 seguidas, sube nivel (max 5)
+      if(correctStreak >= 3 && level < 5) {
+        level++;
+        levelDisplay.textContent = level;
+        correctStreak = 0; // reset streak para subir niveles adicionales
+      }
+    } else {
+      totalWrong++;
+      wrongStreak++;
+      correctStreak = 0;
+      showTutorMessage('encourage');
+      // Si fallas 3 seguidas, baja nivel pero mínimo 1
+      if(wrongStreak >= 3 && level > 1) {
+        level--;
+        levelDisplay.textContent = level;
+        wrongStreak = 0;
+      }
+    }
+
+    scoreDisplay.textContent = score;
+    current++;
+    loadQuestion();
+  }
+
+  // Mostrar resumen al terminar todas preguntas
+  function showSummary() {
+    let accuracy = ((totalCorrect / (totalCorrect + totalWrong)) * 100).toFixed(1);
+    alert(`Juego terminado!\n\nCorrectas: ${totalCorrect}\nIncorrectas: ${totalWrong}\nPrecisión: ${accuracy}%\nNivel final: ${level}`);
+    // Reiniciar todo para volver a jugar
+    score = 0;
+    current = 0;
+    level = 1;
+    totalCorrect = 0;
+    totalWrong = 0;
+    correctStreak = 0;
+    wrongStreak = 0;
+    levelDisplay.textContent = level;
+    scoreDisplay.textContent = score;
+    tutorBox.textContent = "¡Bienvenido! Responde con confianza y aprende sobre las células.";
+    loadQuestion();
+  }
+
+  // Cambiamos loadQuestion para llamar showSummary si terminan preguntas
+  function loadQuestion() {
+    if(current >= questions.length) {
+      showSummary();
+      return;
+    }
+    const q = questions[current];
+    const img = document.getElementById('cellImage');
+    const buttons = document.querySelectorAll('.answer-button');
+
+    img.src = q.img;
+    buttons.forEach((btn, i) => {
+      btn.textContent = q.options[i];
+    });
+
+    animateElements(); // animar aparición
+  }
+
+  // Inicializamos todo
+  loadQuestion();
+</script>
+<style>
+  /* Estilos para la caja de explicaciones */
+  #explanationBox {
+    margin-top: 10px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    background: #002b44cc;
+    color: #a0e9ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.95rem;
+    min-height: 50px;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+
+  /* Estilos para la caja de medallas */
+  #medalBox {
+    margin-top: 15px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .medal {
+    width: 48px;
+    height: 48px;
+    filter: drop-shadow(0 0 4px #00fff7);
+    opacity: 0.4;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .medal.earned {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  /* Estilos para el chat bot tutor */
+  #chatBot {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 280px;
+    max-width: 90vw;
+    background: #003544dd;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #00fff7;
+    color: #cceeff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    overflow: hidden;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #chatHeader {
+    background: #005577cc;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #chatMessages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    height: 140px;
+  }
+
+  #chatInputBox {
+    display: flex;
+    border-top: 1px solid #007799;
+  }
+
+  #chatInput {
+    flex-grow: 1;
+    padding: 8px;
+    background: #002233;
+    border: none;
+    color: #a0e9ff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+  }
+
+  #chatSendBtn {
+    padding: 8px 12px;
+    background: #0077aa;
+    border: none;
+    color: #cceeff;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  #chatSendBtn:hover {
+    background: #00aaff;
+  }
+</style>
+
+<!-- Caja para explicaciones -->
+<div id="explanationBox">Responde para ver la explicación aquí...</div>
+
+<!-- Caja para medallas -->
+<div id="medalBox">
+  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Medalla 1" id="medal1" class="medal" title="Primera victoria - 10 puntos" />
+  <img src="https://cdn-icons-png.flaticon.com/512/616/616403.png" alt="Medalla 2" id="medal2" class="medal" title="Nivel 3 alcanzado" />
+  <img src="https://cdn-icons-png.flaticon.com/512/616/616414.png" alt="Medalla 3" id="medal3" class="medal" title="Nivel 5 alcanzado" />
+</div>
+
+<!-- ChatBot Tutor -->
+<div id="chatBot">
+  <div id="chatHeader">Tutor Chat 🤖</div>
+  <div id="chatMessages"></div>
+  <div id="chatInputBox">
+    <input type="text" id="chatInput" placeholder="Escribe algo..." autocomplete="off" />
+    <button id="chatSendBtn">Enviar</button>
+  </div>
+</div>
+
+<script>
+  // Explicaciones por pregunta (agregar a tu array 'questions' objetos con .explanation)
+  // Ejemplo de cómo debería estar en questions:
+  // {question: "...", options: [...], answer: "...", img: "...", explanation: "La célula animal tiene ..."}
+
+  // Elementos
+  const explanationBox = document.getElementById('explanationBox');
+  const medal1 = document.getElementById('medal1');
+  const medal2 = document.getElementById('medal2');
+  const medal3 = document.getElementById('medal3');
+
+  // Función para mostrar explicación cuando responde
+  function showExplanation() {
+    const currentQuestion = questions[current - 1]; // pregunta respondida
+    if(currentQuestion && currentQuestion.explanation) {
+      explanationBox.textContent = currentQuestion.explanation;
+      explanationBox.style.backgroundColor = '#004466cc';
+    } else {
+      explanationBox.textContent = "¡Buen trabajo! Sigue aprendiendo.";
+      explanationBox.style.backgroundColor = '#002b44cc';
+    }
+  }
+
+  // Modificamos la función checkAnswer para mostrar explicación y guardar progreso
+  const originalCheckAnswer = checkAnswer; // guardamos original para llamar
+
+  checkAnswer = function(answer) {
+    originalCheckAnswer(answer);
+    showExplanation();
+    saveProgress();
+    updateMedals();
+    botSendRandomMessage();
+  }
+
+  // Guardado en localStorage
+  function saveProgress() {
+    const progress = {
+      current,
+      score,
+      level,
+      totalCorrect,
+      totalWrong,
+      correctStreak,
+      wrongStreak
+    };
+    localStorage.setItem('cellQuizProgress', JSON.stringify(progress));
+  }
+
+  // Cargar progreso si hay
+  function loadProgress() {
+    const data = localStorage.getItem('cellQuizProgress');
+    if(data) {
+      const progress = JSON.parse(data);
+      current = progress.current || 0;
+      score = progress.score || 0;
+      level = progress.level || 1;
+      totalCorrect = progress.totalCorrect || 0;
+      totalWrong = progress.totalWrong || 0;
+      correctStreak = progress.correctStreak || 0;
+      wrongStreak = progress.wrongStreak || 0;
+      scoreDisplay.textContent = score;
+      levelDisplay.textContent = level;
+      tutorBox.textContent = "¡Continuamos desde donde lo dejaste!";
+      loadQuestion();
+      showExplanation();
+      updateMedals();
+    }
+  }
+  loadProgress();
+
+  // Sistema de medallas basado en puntaje y nivel
+  function updateMedals() {
+    if(score >= 10) medal1.classList.add('earned');
+    else medal1.classList.remove('earned');
+
+    if(level >= 3) medal2.classList.add('earned');
+    else medal2.classList.remove('earned');
+
+    if(level >= 5) medal3.classList.add('earned');
+    else medal3.classList.remove('earned');
+  }
+
+  // ChatBot Tutor simple
+  const chatBot = document.getElementById('chatBot');
+  const chatHeader = document.getElementById('chatHeader');
+  const chatMessages = document.getElementById('chatMessages');
+  const chatInput = document.getElementById('chatInput');
+  const chatSendBtn = document.getElementById('chatSendBtn');
+
+  // Toggle chat open/close
+  chatHeader.addEventListener('click', () => {
+    if(chatMessages.style.display === 'none' || !chatMessages.style.display) {
+      chatMessages.style.display = 'block';
+      chatInput.parentElement.style.display = 'flex';
+    } else {
+      chatMessages.style.display = 'none';
+      chatInput.parentElement.style.display = 'none';
+    }
+  });
+
+  // Mensajes automáticos que el bot puede enviar
+  const botMessages = [
+    "¿Sabías que las células vegetales tienen una pared celular rígida?",
+    "La mitocondria es la central energética de la célula.",
+    "¡Sigue así! Aprender es divertido.",
+    "¿Quieres saber la diferencia entre célula procarionte y eucarionte?",
+    "Las bacterias pueden reproducirse muy rápido en condiciones adecuadas.",
+    "Recuerda hidratarte mientras estudias 😉",
+    "Estoy aquí para ayudarte, ¡pregúntame lo que quieras!"
+  ];
+
+  // Función para que el bot envíe mensajes aleatorios de motivación o tips
+  function botSendRandomMessage() {
+    if(Math.random() < 0.3) { // 30% chance
+      const msg = botMessages[Math.floor(Math.random() * botMessages.length)];
+      addChatMessage('bot', msg);
+    }
+  }
+
+  // Función para añadir mensaje al chat
+  function addChatMessage(sender, message) {
+    const div = document.createElement('div');
+    div.textContent = (sender === 'bot' ? "Tutor
